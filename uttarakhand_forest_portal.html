@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Uttarakhand Forest Department Portal</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --forest-deep: #0a1f0d;
+    --forest-dark: #122a15;
+    --forest-mid: #1e4d25;
+    --forest-bright: #2d7a3a;
+    --forest-light: #4aad5a;
+    --canopy: #5ec96e;
+    --moss: #8bc88f;
+    --bark: #6b4c2a;
+    --earth: #a67c52;
+    --sky: #a8d5e2;
+    --mist: #dde8d0;
+    --gold: #c9a227;
+    --gold-light: #e8c84a;
+    --cream: #f5f0e8;
+    --white: #ffffff;
+    --text-primary: #0a1f0d;
+    --text-light: #f5f0e8;
+    --card-bg: rgba(255,255,255,0.07);
+    --card-border: rgba(90,200,110,0.2);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Outfit', sans-serif;
+    background: var(--forest-deep);
+    color: var(--text-light);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ===== ANIMATED BACKGROUND ===== */
+  .bg-layer {
+    position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none;
+  }
+  .bg-layer::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: 
+      radial-gradient(ellipse 80% 60% at 10% 20%, rgba(46,122,58,0.18) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 80% at 90% 80%, rgba(10,31,13,0.8) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 50% 50%, rgba(30,77,37,0.1) 0%, transparent 60%);
+  }
+  .tree-silhouette {
+    position: absolute; bottom: 0; width: 100%; height: 35%;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 200' preserveAspectRatio='none'%3E%3Cpath fill='%230a1a0c' d='M0,200 L0,120 L30,90 L50,110 L70,70 L95,100 L115,60 L135,85 L155,50 L175,80 L195,45 L215,75 L235,40 L255,70 L275,35 L300,65 L320,30 L345,60 L365,25 L385,55 L405,20 L430,50 L450,15 L475,45 L495,10 L520,40 L540,5 L565,35 L590,8 L615,38 L640,3 L665,33 L690,7 L715,37 L740,2 L765,32 L790,6 L815,36 L840,1 L865,31 L890,5 L915,35 L940,0 L970,30 L1000,4 L1030,34 L1060,8 L1090,38 L1115,12 L1140,42 L1165,16 L1190,46 L1215,20 L1240,50 L1265,24 L1290,54 L1315,28 L1340,58 L1365,32 L1390,62 L1415,40 L1440,70 L1440,200 Z'/%3E%3C/svg%3E") no-repeat bottom center / cover;
+  }
+
+  /* ===== TOP HEADER ===== */
+  .top-bar {
+    position: relative; z-index: 100;
+    background: rgba(10,25,12,0.95);
+    border-bottom: 1px solid rgba(90,200,110,0.15);
+    padding: 0 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 52px;
+    backdrop-filter: blur(12px);
+  }
+  .top-bar-left { display: flex; align-items: center; gap: 1rem; font-size: 0.72rem; color: var(--moss); }
+  .top-bar-left span { display: flex; align-items: center; gap: 0.3rem; }
+  .top-bar-right { display: flex; align-items: center; gap: 0.8rem; }
+  .top-bar-right a { font-size: 0.7rem; color: var(--moss); text-decoration: none; padding: 3px 10px; border: 1px solid rgba(90,200,110,0.3); border-radius: 2px; transition: all 0.2s; }
+  .top-bar-right a:hover { background: var(--forest-bright); color: white; border-color: var(--forest-bright); }
+
+  /* ===== MAIN HEADER ===== */
+  .main-header {
+    position: relative; z-index: 100;
+    background: linear-gradient(135deg, rgba(10,25,12,0.97) 0%, rgba(18,42,21,0.97) 100%);
+    border-bottom: 2px solid rgba(201,162,39,0.4);
+    padding: 1.2rem 2.5rem;
+    display: flex; align-items: center; gap: 2rem;
+    backdrop-filter: blur(20px);
+  }
+  .emblem-wrap {
+    width: 72px; height: 72px; flex-shrink: 0;
+    background: radial-gradient(circle, rgba(201,162,39,0.2), transparent 70%);
+    border: 2px solid rgba(201,162,39,0.5);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 2.5rem;
+    box-shadow: 0 0 24px rgba(201,162,39,0.2);
+  }
+  .header-text h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.75rem; font-weight: 600;
+    color: var(--cream);
+    line-height: 1.15;
+    letter-spacing: 0.03em;
+  }
+  .header-text h1 span { color: var(--gold); }
+  .header-text p { font-size: 0.78rem; color: var(--moss); margin-top: 3px; letter-spacing: 0.08em; text-transform: uppercase; }
+  .header-right {
+    margin-left: auto; text-align: right;
+  }
+  .header-right .tagline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.05rem; font-style: italic; color: var(--gold-light); opacity: 0.85;
+  }
+  .header-right .date-info { font-size: 0.72rem; color: var(--moss); margin-top: 4px; }
+
+  /* ===== NAV ===== */
+  nav {
+    position: sticky; top: 0; z-index: 200;
+    background: rgba(13,30,15,0.97);
+    border-bottom: 1px solid rgba(90,200,110,0.18);
+    backdrop-filter: blur(20px);
+    display: flex; align-items: center;
+    padding: 0 2rem;
+    overflow-x: auto;
+  }
+  .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 1rem; color: var(--gold); padding: 0 1rem 0 0; border-right: 1px solid rgba(90,200,110,0.2); margin-right: 0.5rem; white-space: nowrap; }
+  nav a {
+    font-size: 0.72rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--moss); text-decoration: none; padding: 1rem 0.9rem;
+    white-space: nowrap; border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+  }
+  nav a:hover, nav a.active { color: var(--canopy); border-bottom-color: var(--canopy); }
+  .nav-cta { margin-left: auto; background: var(--forest-bright); color: white !important; padding: 0.4rem 1.1rem !important; border-radius: 3px; border-bottom: none !important; font-size: 0.72rem !important; }
+  .nav-cta:hover { background: var(--forest-light) !important; }
+
+  /* ===== HERO ===== */
+  .hero {
+    position: relative; z-index: 10;
+    padding: 5rem 2.5rem 7rem;
+    text-align: center;
+    background: linear-gradient(to bottom, transparent, rgba(10,25,12,0.3), transparent);
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: rgba(201,162,39,0.12); border: 1px solid rgba(201,162,39,0.35);
+    padding: 0.35rem 1rem; border-radius: 50px;
+    font-size: 0.72rem; color: var(--gold-light); letter-spacing: 0.1em; text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+  .hero h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.2rem, 5vw, 4rem);
+    font-weight: 300; color: var(--cream);
+    line-height: 1.1; margin-bottom: 1.2rem;
+  }
+  .hero h2 strong { font-weight: 700; color: var(--canopy); }
+  .hero p {
+    max-width: 640px; margin: 0 auto 2.5rem;
+    font-size: 1.05rem; color: var(--moss); line-height: 1.7;
+  }
+  .hero-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--forest-bright), var(--forest-light));
+    color: white; padding: 0.85rem 2rem; border-radius: 4px;
+    text-decoration: none; font-weight: 600; font-size: 0.85rem;
+    box-shadow: 0 4px 20px rgba(45,122,58,0.4);
+    transition: all 0.3s;
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(45,122,58,0.5); }
+  .btn-outline {
+    border: 1.5px solid rgba(139,200,143,0.5); color: var(--moss);
+    padding: 0.85rem 2rem; border-radius: 4px; text-decoration: none;
+    font-size: 0.85rem; transition: all 0.3s;
+  }
+  .btn-outline:hover { border-color: var(--canopy); color: var(--canopy); background: rgba(94,201,110,0.06); }
+
+  /* ===== STATS ROW ===== */
+  .stats-row {
+    position: relative; z-index: 10;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 0; border-top: 1px solid rgba(90,200,110,0.15); border-bottom: 1px solid rgba(90,200,110,0.15);
+    background: rgba(10,25,12,0.7); backdrop-filter: blur(10px);
+  }
+  .stat-item {
+    padding: 1.8rem 1.5rem; text-align: center;
+    border-right: 1px solid rgba(90,200,110,0.12);
+    transition: background 0.3s;
+  }
+  .stat-item:last-child { border-right: none; }
+  .stat-item:hover { background: rgba(45,122,58,0.1); }
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem; font-weight: 700; color: var(--canopy);
+    line-height: 1;
+  }
+  .stat-label { font-size: 0.68rem; color: var(--moss); margin-top: 4px; letter-spacing: 0.06em; text-transform: uppercase; }
+
+  /* ===== SECTION ===== */
+  section { position: relative; z-index: 10; padding: 4rem 2.5rem; }
+  .section-header { text-align: center; margin-bottom: 3rem; }
+  .section-tag {
+    display: inline-block; font-size: 0.68rem; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--gold); margin-bottom: 0.8rem;
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif; font-size: 2.4rem; font-weight: 400;
+    color: var(--cream); line-height: 1.2;
+  }
+  .section-title span { color: var(--canopy); }
+  .section-line {
+    width: 60px; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 1rem auto 0;
+  }
+
+  /* ===== MODULE GRID ===== */
+  .modules-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5px;
+    background: rgba(90,200,110,0.08);
+    border: 1px solid rgba(90,200,110,0.12);
+    border-radius: 8px; overflow: hidden;
+  }
+  .module-card {
+    background: var(--forest-deep);
+    padding: 1.8rem 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    position: relative; overflow: hidden;
+    text-decoration: none; color: inherit;
+    display: block;
+  }
+  .module-card::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(45,122,58,0.0), rgba(45,122,58,0.08));
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .module-card:hover { background: rgba(15,40,18,1); transform: none; }
+  .module-card:hover::before { opacity: 1; }
+  .module-card::after {
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+    background: var(--forest-bright); transform: scaleY(0); transform-origin: bottom;
+    transition: transform 0.3s;
+  }
+  .module-card:hover::after { transform: scaleY(1); }
+  .module-icon {
+    font-size: 2rem; margin-bottom: 1rem;
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 52px; height: 52px;
+    background: rgba(45,122,58,0.15);
+    border: 1px solid rgba(90,200,110,0.2);
+    border-radius: 10px;
+    transition: all 0.3s;
+  }
+  .module-card:hover .module-icon { background: rgba(45,122,58,0.3); border-color: rgba(90,200,110,0.5); transform: scale(1.05); }
+  .module-num {
+    position: absolute; top: 1.2rem; right: 1.2rem;
+    font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; font-weight: 700;
+    color: rgba(90,200,110,0.06); line-height: 1;
+  }
+  .module-title { font-size: 0.9rem; font-weight: 600; color: var(--cream); margin-bottom: 0.5rem; line-height: 1.35; }
+  .module-desc { font-size: 0.75rem; color: var(--moss); line-height: 1.6; }
+  .module-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1rem; }
+  .module-tag {
+    font-size: 0.62rem; padding: 2px 8px; border-radius: 2px;
+    background: rgba(45,122,58,0.2); color: var(--moss); border: 1px solid rgba(90,200,110,0.15);
+  }
+  .module-arrow { 
+    position: absolute; bottom: 1.2rem; right: 1.2rem;
+    font-size: 0.8rem; color: var(--forest-bright);
+    opacity: 0; transform: translateX(-5px); transition: all 0.3s;
+  }
+  .module-card:hover .module-arrow { opacity: 1; transform: translateX(0); }
+
+  /* ===== FEATURED MODULE (DASHBOARD) ===== */
+  .module-card.featured {
+    grid-column: span 2;
+    background: linear-gradient(135deg, rgba(10,31,13,1), rgba(15,45,18,1));
+    border: 1px solid rgba(201,162,39,0.25);
+  }
+  .module-card.featured .module-icon { background: rgba(201,162,39,0.15); border-color: rgba(201,162,39,0.3); }
+  .module-card.featured::after { background: var(--gold); }
+  .module-card.featured .module-num { color: rgba(201,162,39,0.08); }
+  @media (max-width: 640px) { .module-card.featured { grid-column: span 1; } }
+
+  /* ===== QUICK ACCESS PANEL ===== */
+  .quick-access { background: rgba(12,28,14,0.8); border-radius: 8px; border: 1px solid rgba(90,200,110,0.12); overflow: hidden; }
+  .qa-header {
+    background: rgba(45,122,58,0.15); padding: 1.2rem 1.5rem;
+    border-bottom: 1px solid rgba(90,200,110,0.12);
+    font-size: 0.8rem; font-weight: 600; color: var(--canopy); letter-spacing: 0.06em; text-transform: uppercase;
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .qa-links { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+  .qa-link {
+    display: flex; align-items: center; gap: 0.8rem;
+    padding: 0.9rem 1.2rem; text-decoration: none; color: var(--moss);
+    font-size: 0.78rem; border-bottom: 1px solid rgba(90,200,110,0.07);
+    border-right: 1px solid rgba(90,200,110,0.07);
+    transition: all 0.2s;
+  }
+  .qa-link:hover { background: rgba(45,122,58,0.12); color: var(--canopy); }
+  .qa-link .qa-icon { font-size: 1rem; flex-shrink: 0; }
+
+  /* ===== NOTICES & ALERTS ===== */
+  .notices-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  @media (max-width: 768px) { .notices-grid { grid-template-columns: 1fr; } }
+
+  .notice-panel { background: rgba(12,28,14,0.8); border: 1px solid rgba(90,200,110,0.12); border-radius: 8px; overflow: hidden; }
+  .np-header {
+    padding: 1rem 1.5rem; border-bottom: 1px solid rgba(90,200,110,0.12);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .np-title { font-size: 0.82rem; font-weight: 600; color: var(--cream); display: flex; align-items: center; gap: 0.5rem; }
+  .np-all { font-size: 0.68rem; color: var(--forest-light); text-decoration: none; }
+  .notice-list { list-style: none; }
+  .notice-item {
+    padding: 0.9rem 1.5rem; border-bottom: 1px solid rgba(90,200,110,0.07);
+    display: flex; gap: 0.8rem; align-items: flex-start;
+    transition: background 0.2s; cursor: pointer;
+  }
+  .notice-item:hover { background: rgba(45,122,58,0.08); }
+  .notice-dot { width: 6px; height: 6px; border-radius: 50%; margin-top: 6px; flex-shrink: 0; }
+  .dot-green { background: var(--canopy); }
+  .dot-gold { background: var(--gold); }
+  .dot-red { background: #e05c5c; }
+  .dot-sky { background: var(--sky); }
+  .notice-text { font-size: 0.76rem; color: var(--moss); line-height: 1.5; }
+  .notice-date { font-size: 0.65rem; color: rgba(139,200,143,0.5); margin-top: 2px; }
+
+  /* ===== ALERT BANNER ===== */
+  .alert-banner {
+    position: relative; z-index: 50; padding: 0.7rem 2.5rem;
+    background: linear-gradient(90deg, rgba(180,60,60,0.15), rgba(180,60,60,0.05));
+    border-bottom: 1px solid rgba(224,92,92,0.3);
+    display: flex; align-items: center; gap: 1rem;
+    font-size: 0.75rem; color: #f0a0a0;
+  }
+  .alert-badge { background: #e05c5c; color: white; padding: 2px 8px; border-radius: 2px; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; flex-shrink: 0; }
+
+  /* ===== FOOTER ===== */
+  footer {
+    position: relative; z-index: 10;
+    background: rgba(5,15,6,0.95); border-top: 1px solid rgba(90,200,110,0.12);
+    padding: 3rem 2.5rem 1.5rem;
+  }
+  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 2.5rem; margin-bottom: 2.5rem; }
+  @media (max-width: 768px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
+  .footer-brand p { font-size: 0.78rem; color: rgba(139,200,143,0.6); line-height: 1.7; margin-top: 0.8rem; }
+  .footer-col h4 { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--canopy); margin-bottom: 1rem; }
+  .footer-col a { display: block; font-size: 0.75rem; color: rgba(139,200,143,0.6); text-decoration: none; margin-bottom: 0.5rem; transition: color 0.2s; }
+  .footer-col a:hover { color: var(--canopy); }
+  .footer-bottom { border-top: 1px solid rgba(90,200,110,0.1); padding-top: 1.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: gap; }
+  .footer-bottom p { font-size: 0.68rem; color: rgba(139,200,143,0.4); }
+
+  /* ===== SEARCH BAR ===== */
+  .search-wrap {
+    position: relative; z-index: 10;
+    background: rgba(10,25,12,0.7); backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(90,200,110,0.1);
+    padding: 1.2rem 2.5rem;
+    display: flex; align-items: center; gap: 1rem;
+  }
+  .search-input {
+    flex: 1; background: rgba(255,255,255,0.05); border: 1px solid rgba(90,200,110,0.2);
+    border-radius: 4px; padding: 0.65rem 1rem 0.65rem 2.5rem; color: var(--cream); font-size: 0.85rem; font-family: 'Outfit', sans-serif;
+    outline: none; transition: border-color 0.2s;
+    max-width: 600px;
+  }
+  .search-input::placeholder { color: rgba(139,200,143,0.4); }
+  .search-input:focus { border-color: rgba(90,200,110,0.5); }
+  .search-icon { position: absolute; left: 3.5rem; color: rgba(139,200,143,0.4); font-size: 0.9rem; pointer-events: none; }
+  .search-filters { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+  .filter-btn {
+    font-size: 0.68rem; padding: 4px 12px; border-radius: 50px;
+    border: 1px solid rgba(90,200,110,0.2); color: var(--moss); background: none; cursor: pointer;
+    font-family: 'Outfit', sans-serif; transition: all 0.2s;
+  }
+  .filter-btn:hover, .filter-btn.active { background: var(--forest-bright); border-color: var(--forest-bright); color: white; }
+
+  /* ===== SCROLL REVEAL ===== */
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ===== MODAL ===== */
+  .modal-overlay {
+    display: none; position: fixed; inset: 0; z-index: 1000;
+    background: rgba(0,0,0,0.7); backdrop-filter: blur(8px);
+    align-items: center; justify-content: center; padding: 1rem;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: var(--forest-dark); border: 1px solid rgba(90,200,110,0.25);
+    border-radius: 10px; max-width: 640px; width: 100%; max-height: 85vh; overflow-y: auto;
+    animation: slideUp 0.3s ease;
+  }
+  @keyframes slideUp { from { opacity:0; transform: translateY(30px); } to { opacity:1; transform: translateY(0); } }
+  .modal-header {
+    padding: 1.5rem 2rem; border-bottom: 1px solid rgba(90,200,110,0.15);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .modal-title { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; color: var(--cream); }
+  .modal-close { background: none; border: none; color: var(--moss); cursor: pointer; font-size: 1.3rem; transition: color 0.2s; }
+  .modal-close:hover { color: var(--cream); }
+  .modal-body { padding: 2rem; }
+  .modal-feature { display: flex; gap: 1rem; margin-bottom: 1.2rem; padding-bottom: 1.2rem; border-bottom: 1px solid rgba(90,200,110,0.08); }
+  .modal-feature:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .mf-icon { font-size: 1.5rem; flex-shrink: 0; width: 40px; }
+  .mf-title { font-size: 0.85rem; font-weight: 600; color: var(--canopy); margin-bottom: 0.3rem; }
+  .mf-desc { font-size: 0.78rem; color: var(--moss); line-height: 1.6; }
+  .modal-actions { padding: 1.2rem 2rem; border-top: 1px solid rgba(90,200,110,0.15); display: flex; gap: 1rem; }
+  .btn-sm { padding: 0.55rem 1.3rem; border-radius: 3px; font-size: 0.78rem; cursor: pointer; font-family: 'Outfit', sans-serif; transition: all 0.2s; }
+  .btn-sm-primary { background: var(--forest-bright); color: white; border: none; }
+  .btn-sm-primary:hover { background: var(--forest-light); }
+  .btn-sm-outline { background: none; border: 1px solid rgba(90,200,110,0.3); color: var(--moss); }
+  .btn-sm-outline:hover { border-color: var(--canopy); color: var(--canopy); }
+</style>
+</head>
+<body>
+
+<div class="bg-layer"><div class="tree-silhouette"></div></div>
+
+<!-- ALERT BANNER -->
+<div class="alert-banner">
+  <span class="alert-badge">🔥 ALERT</span>
+  <span>Forest Fire Risk: HIGH in Nainital, Almora, Pauri districts — All field units on standby. Last updated: Today, 09:45 AM</span>
+  <span style="margin-left:auto; opacity:0.6; cursor:pointer;">✕</span>
+</div>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+  <div class="top-bar-left">
+    <span>🌐 हिंदी</span>
+    <span>📞 Helpline: 1800-180-4141</span>
+    <span>🕐 <span id="live-time"></span></span>
+  </div>
+  <div class="top-bar-right">
+    <a href="#">RTI</a>
+    <a href="#">Tenders</a>
+    <a href="#">Careers</a>
+    <a href="#">Contact</a>
+    <a href="#" style="background:rgba(45,122,58,0.2);">🔐 Staff Login</a>
+  </div>
+</div>
+
+<!-- MAIN HEADER -->
+<header class="main-header">
+  <div class="emblem-wrap">🌲</div>
+  <div class="header-text">
+    <h1>Uttarakhand Forest Department<br><span>उत्तराखण्ड वन विभाग</span></h1>
+    <p>Government of Uttarakhand · Integrated Forest Management Portal</p>
+  </div>
+  <div class="header-right">
+    <div class="tagline">"Parvatam Sarvatam Vanam"</div>
+    <div class="date-info" id="date-info"></div>
+  </div>
+</header>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">UFD Portal</div>
+  <a href="#" class="active">Home</a>
+  <a href="#">Dashboard</a>
+  <a href="#">Schemes</a>
+  <a href="#">Forest Map</a>
+  <a href="#">NTFP Market</a>
+  <a href="#">Van Panchayats</a>
+  <a href="#">Eco-Tourism</a>
+  <a href="#">Reports</a>
+  <a href="#">Grievance</a>
+  <a href="#" class="nav-cta">+ File Application</a>
+</nav>
+
+<!-- SEARCH -->
+<div class="search-wrap">
+  <div style="position:relative; flex:1; max-width:600px; display:flex; align-items:center;">
+    <span class="search-icon">🔍</span>
+    <input class="search-input" type="text" placeholder="Search modules, schemes, regulations, officers…">
+  </div>
+  <div class="search-filters">
+    <button class="filter-btn active">All</button>
+    <button class="filter-btn">Schemes</button>
+    <button class="filter-btn">Maps</button>
+    <button class="filter-btn">Regulations</button>
+    <button class="filter-btn">Officers</button>
+    <button class="filter-btn">NTFP</button>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero reveal">
+  <div class="hero-badge">🌿 Integrated Digital Forest Governance Platform</div>
+  <h2>Managing <strong>71.05% Forest Cover</strong><br>of Uttarakhand, Digitally.</h2>
+  <p>A unified portal for forest management, conservation, community forestry, eco-tourism and real-time monitoring across all 13 districts of Uttarakhand.</p>
+  <div class="hero-actions">
+    <a href="#modules" class="btn-primary">Explore All Modules →</a>
+    <a href="#dashboard" class="btn-outline">View Forest Dashboard</a>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats-row reveal">
+  <div class="stat-item">
+    <div class="stat-num">38,000+</div>
+    <div class="stat-label">Sq. km Forest Area</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">12,089</div>
+    <div class="stat-label">Van Panchayats</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">₹892 Cr</div>
+    <div class="stat-label">CAMPA Fund Managed</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">4,512</div>
+    <div class="stat-label">Forest Personnel</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">847</div>
+    <div class="stat-label">Active Nurseries</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">214</div>
+    <div class="stat-label">Eco-Tourism Sites</div>
+  </div>
+</div>
+
+<!-- MODULES -->
+<section id="modules">
+  <div class="section-header reveal">
+    <div class="section-tag">🗂 Portal Modules</div>
+    <h2 class="section-title">Integrated Management <span>Systems</span></h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="modules-grid reveal">
+
+    <!-- 14. DASHBOARD (Featured) -->
+    <a class="module-card featured" href="#" onclick="openModal('dashboard'); return false;">
+      <div class="module-num">14</div>
+      <div class="module-icon">📊</div>
+      <div class="module-title">State Forest Dashboard</div>
+      <div class="module-desc">Real-time consolidated dashboard for forest cover monitoring, fire alerts, wildlife sightings, NTFP harvest data, plantation progress and key performance indicators across all divisions.</div>
+      <div class="module-tags">
+        <span class="module-tag">Live Data</span>
+        <span class="module-tag">GIS Maps</span>
+        <span class="module-tag">Analytics</span>
+        <span class="module-tag">Reports</span>
+      </div>
+      <span class="module-arrow">→</span>
+    </a>
+
+    <!-- 1. CAMPA -->
+    <a class="module-card" href="#" onclick="openModal('campa'); return false;">
+      <div class="module-num">01</div>
+      <div class="module-icon">🌱</div>
+      <div class="module-title">Compensatory Afforestation Fund (CAMPA)</div>
+      <div class="module-desc">Fund management, project approvals, afforestation monitoring and Annual Plan of Operations (APO) for compensatory plantations.</div>
+      <div class="module-tags"><span class="module-tag">Fund Mgmt</span><span class="module-tag">APO</span><span class="module-tag">Plantation</span></div>
+      <span class="module-arrow">→</span>
+    </a>
+
+    <!-- 2. SCHEMES -->
+    <a class="module-card" href="#" onclick="openModal('schemes'); return false;">
+      <div class="module-num">02</div>
+      <div class="module-icon">📋</div>
+      <div class="module-title">Forestry Schemes & Programmes</div>
+      <div class="module-desc">All State and Central Government forestry schemes, programme tracking, beneficiary management, fund utilization and progress monitoring.</div>
+      <div class="module-tags"><span class="module-tag">GoI Schemes</span><span class="module-tag">State Schemes</span><span class="module-tag">Beneficiaries</span></div>
+      <span class="module-arrow">→</span>
+    </a>
+
+    <!-- 3. HRD -->
+    <a class="module-card" href="#" onclick="openModal('hrd'); return false;">
+      <div class="module-num">03</div>
+      <div class="module-icon">👤</div>
+      <div class="module-title">Human Resource Development Management</div>
+      <div class="module-desc">Staff records, transfers, promotions, payroll, ACR management, training profiles, deputation and service book digitization for all forest personnel.</div>
+      <div class="module-tags"><span class="module-tag">Service Records</span><span class="module-tag">Training</span><span class="module-tag">ACR</span></div>
+      <span class="module-arrow">→</span>
+    </a>
+
+    <!-- 4. RESEARCH & TRAINING -->
+    <a class="module-card" href="#" onclick="openModal('research'); return false;">
+      <div class="module-num">04</div>
+      <div class="module-icon">🔬</div>
+      <div class="module-title">Research, Training & Working Plans</div>
+      <div class="module-desc">Forest Working Plans, management plans, research publications, training calendars at IGNFA/FRI, syllabus and exam management.</div>
+      <div class="module-tags"><span class="module-tag">Working Plans</span><span class="module-tag">R&D</span><span class="module-tag">IGNFA</span></div>
+      <span class="module-arrow">→</span>
+    </a>
+
+    <!-- 5. FOREST CONSERVATION -->
+    <a class="module-card" href="#" onclick="openModal('conservation'); return false;">
+      <div class="module-num">05</div>
+      <div class="module-icon">🛡️</div>
+      <div class="module-title">Forest Conservation & Land Transfer</div>
+      <div class="module-desc">FC Act proposals, diversion cases, Nodal Officer management, land survey records, boundary demarcation, encroachment tracking and compliance monitoring.</div>
+      <div class="module-tags"><span class="module-tag">FC Act</span><span class="module-tag">Survey</span><span class="module-tag">Diversion</span></div>
+      <span class="module-arrow">→</span>
+    </a>
+
+    <!-- 6. NTFP -->
+    <a class="module-card" href="#" onclick="openModal('ntfp'); return false;">
+      <div class="module-num">06</div>
+      <div class="module-icon">🌿</div>
+      <div class="module-title">Non-Timber Forest Produce & Livelihoods</div>
+      <div class="module-desc">NTFP harvest permits, market prices, SHG linkages, herb/resin/bamboo tracking, royalty management and livelihood programme monitoring.</div>
+      <div class="module-tags"><span class="module-tag">Market Prices</span><span class="module-tag">Permits</span><span class="module-tag">SHGs</span></div>
+      <span class="module-arrow">→</span>
+    </a>
+
+    <!-- 7. VAN PANCHAYATS -->
+    <a class="module-card" href="#" onclick="openModal('vanpanchayat'); return false;">
+      <div class="module-num">07</div>
+      <div class="module-icon">🌳</div>
+      <div class="module-title">Van Panchayats & Community Forestry</div>
+      <div class="module-desc">12,089 Van Panchayat profiles, niyampustikas, election records, income/expenditure, community forest management plans and grievance tracking.</div>
+      <div class="module-tags"><span class="module-tag">12,089 VPs</span><span class="module-tag">Niyampustika</span><span class="module-tag">Accounts</span></div>
+      <span class="module-arrow">→</span>
+    </a>
+
+    <!-- 8. VIGILANCE -->
+    <a class="module-card" href="#" onclick="openModal('vigilance'); return false;">
+      <div class="module-num">08</div>
+      <div class="module-icon">⚖️</div>
+      <div class="module-title">Vigilance & Legal Cell</div>
+      <div class="module-desc">Departmental enquiries, court cases, forest offence case tracking, FIR management, compounding records and legal compliance monitoring.</div>
+      <div class="module-tags"><span class="module-tag">Court Cases</span><span class="module-tag">Enquiries</span><span class="module-tag">Offences</span></div>
+      <span class="module-arrow">→</span>
+    </a>
+
+    <!-- 9. SCIENTIFIC FOREST MGMT -->
+    <a class="module-card" href="#" onclick="openModal('scientific'); return false;">
+      <div class="module-num">09</div>
+      <div class="module-icon">🔥</div>
+      <div class="module-title">Scientific Forest Management</div>
+      <div class="module-desc">Forest Fire Management System (FFMS), nursery & plantation tracking, forest infrastructure asset management and fire line maintenance records.</div>
+      <div class="module-tags"><span class="module-tag">Fire MGMT</span><span class="module-tag">Nurseries</span><span class="module-tag">Assets</span></div>
+      <span class="module-arrow">→</span>
+    </a>
+
+    <!-- 10. PATROLLING -->
+    <a class="module-card" href="#" onclick="openModal('patrolling'); return false;">
+      <div class="module-num">10</div>
+      <div class="module-icon">🚵</div>
+      <div class="module-title">Forest Patrolling & Incident Reporting</div>
+      <div class="module-desc">Daily patrolling logs, forest offence reports, beat inspection records, mobile patrolling app integration and real-time incident alert system.</div>
+      <div class="module-tags"><span class="module-tag">Beat Logs</span><span class="module-tag">Incidents</span><span class="module-tag">Mobile App</span></div>
+      <span class="module-arrow">→</span>
+    </a>
+
+    <!-- 11. HWC -->
+    <a class="module-card" href="#" onclick="openModal('hwc'); return false;">
+      <div class="module-num">11</div>
+      <div class="module-icon">🐘</div>
+      <div class="module-title">Human Wildlife Conflict Management</div>
+      <div class="module-desc">HWC incident reporting, compensation disbursement, conflict hotspot mapping, rapid response team tracking and preventive measure monitoring.</div>
+      <div class="module-tags"><span class="module-tag">Compensation</span><span class="module-tag">Hotspot Map</span><span class="module-tag">RRT</span></div>
+      <span class="module-arrow">→</span>
+    </a>
+
+    <!-- 12. ENVIRONMENT -->
+    <a class="module-card" href="#" onclick="openModal('environment'); return false;">
+      <div class="module-num">12</div>
+      <div class="module-icon">🌍</div>
+      <div class="module-title">Environment Management</div>
+      <div class="module-desc">Environmental impact assessments, pollution monitoring in forest areas, carbon sequestration data, biodiversity registers and climate change adaptation plans.</div>
+      <div class="module-tags"><span class="module-tag">EIA</span><span class="module-tag">Biodiversity</span><span class="module-tag">Carbon</span></div>
+      <span class="module-arrow">→</span>
+    </a>
+
+    <!-- 13. ECO-TOURISM -->
+    <a class="module-card" href="#" onclick="openModal('ecotourism'); return false;">
+      <div class="module-num">13</div>
+      <div class="module-icon">🏕️</div>
+      <div class="module-title">Eco-Tourism Management</div>
+      <div class="module-desc">Eco-tourism site management, online permit booking, guide licensing, camp registration, revenue tracking and visitor experience quality monitoring.</div>
+      <div class="module-tags"><span class="module-tag">Online Booking</span><span class="module-tag">Guide Mgmt</span><span class="module-tag">Revenue</span></div>
+      <span class="module-arrow">→</span>
+    </a>
+
+  </div>
+</section>
+
+<!-- QUICK ACCESS -->
+<section style="padding-top:0">
+  <div class="section-header reveal" style="margin-bottom:1.5rem">
+    <div class="section-tag">⚡ Quick Access</div>
+    <h2 class="section-title" style="font-size:1.8rem">Citizen & Staff <span>Services</span></h2>
+  </div>
+  <div class="quick-access reveal">
+    <div class="qa-header">🔗 Frequently Used Services</div>
+    <div class="qa-links">
+      <a class="qa-link" href="#"><span class="qa-icon">🌲</span> Tree Felling Permit</a>
+      <a class="qa-link" href="#"><span class="qa-icon">🏕️</span> Eco-Tourism Booking</a>
+      <a class="qa-link" href="#"><span class="qa-icon">🌿</span> NTFP Collection License</a>
+      <a class="qa-link" href="#"><span class="qa-icon">🐯</span> HWC Compensation Claim</a>
+      <a class="qa-link" href="#"><span class="qa-icon">📦</span> Forest Produce Depot</a>
+      <a class="qa-link" href="#"><span class="qa-icon">📍</span> Forest Land Records</a>
+      <a class="qa-link" href="#"><span class="qa-icon">📝</span> FC Act Application</a>
+      <a class="qa-link" href="#"><span class="qa-icon">🗺️</span> Forest Boundary Map</a>
+      <a class="qa-link" href="#"><span class="qa-icon">📊</span> Download Reports</a>
+      <a class="qa-link" href="#"><span class="qa-icon">👤</span> Staff Self-Service</a>
+      <a class="qa-link" href="#"><span class="qa-icon">🚨</span> Report Forest Fire</a>
+      <a class="qa-link" href="#"><span class="qa-icon">📞</span> Grievance Portal</a>
+    </div>
+  </div>
+</section>
+
+<!-- NOTICES -->
+<section style="padding-top:2rem">
+  <div class="notices-grid reveal">
+    <div class="notice-panel">
+      <div class="np-header">
+        <div class="np-title">📢 Latest Notifications</div>
+        <a class="np-all" href="#">View All →</a>
+      </div>
+      <ul class="notice-list">
+        <li class="notice-item"><span class="notice-dot dot-gold"></span><div><div class="notice-text">Annual Working Plan review meeting scheduled for all Divisional Forest Officers — Dehradun HQ</div><div class="notice-date">22 Mar 2026</div></div></li>
+        <li class="notice-item"><span class="notice-dot dot-green"></span><div><div class="notice-text">CAMPA APO 2026-27 submission portal is now open. Deadline: 31 March 2026</div><div class="notice-date">20 Mar 2026</div></div></li>
+        <li class="notice-item"><span class="notice-dot dot-red"></span><div><div class="notice-text">High Fire Risk Advisory issued for Kumaon & Garhwal ranges — ground teams deployed</div><div class="notice-date">19 Mar 2026</div></div></li>
+        <li class="notice-item"><span class="notice-dot dot-sky"></span><div><div class="notice-text">Van Panchayat election schedule notified for Chamoli district — 245 VPs</div><div class="notice-date">18 Mar 2026</div></div></li>
+        <li class="notice-item"><span class="notice-dot dot-green"></span><div><div class="notice-text">New Eco-Tourism sites declared in Binsar and Munsiyari — permit booking open</div><div class="notice-date">15 Mar 2026</div></div></li>
+      </ul>
+    </div>
+    <div class="notice-panel">
+      <div class="np-header">
+        <div class="np-title">📌 Tenders & Procurement</div>
+        <a class="np-all" href="#">View All →</a>
+      </div>
+      <ul class="notice-list">
+        <li class="notice-item"><span class="notice-dot dot-gold"></span><div><div class="notice-text">NIT for Plantation work in Haridwar, Rishikesh forest divisions — ₹3.2 Cr (CAMPA)</div><div class="notice-date">21 Mar 2026</div></div></li>
+        <li class="notice-item"><span class="notice-dot dot-green"></span><div><div class="notice-text">Procurement of solar fencing equipment for HWC mitigation — 8 districts</div><div class="notice-date">19 Mar 2026</div></div></li>
+        <li class="notice-item"><span class="notice-dot dot-sky"></span><div><div class="notice-text">Rate contract for medicinal plants nursery development — Pithoragarh & Bageshwar</div><div class="notice-date">17 Mar 2026</div></div></li>
+        <li class="notice-item"><span class="notice-dot dot-gold"></span><div><div class="notice-text">Tender for Forest Rest Houses renovation in Corbett buffer zone</div><div class="notice-date">15 Mar 2026</div></div></li>
+        <li class="notice-item"><span class="notice-dot dot-green"></span><div><div class="notice-text">Annual maintenance contract for forest fire detection tower network</div><div class="notice-date">12 Mar 2026</div></div></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div style="font-family:'Cormorant Garamond',serif; font-size:1.3rem; color:var(--cream);">🌲 Uttarakhand Forest Department</div>
+      <p>Aranya Bhawan, Subhash Road, Dehradun – 248001, Uttarakhand<br>📞 0135-2744021 | 📧 pccf-uk@gov.in<br>Emergency Helpline: 1800-180-4141 (Toll Free)</p>
+    </div>
+    <div class="footer-col">
+      <h4>Important Links</h4>
+      <a href="#">PCCF Office</a>
+      <a href="#">Forest Research</a>
+      <a href="#">CAMPA Portal</a>
+      <a href="#">Eco-Tourism UK</a>
+      <a href="#">Wildlife Institute</a>
+    </div>
+    <div class="footer-col">
+      <h4>Citizen Services</h4>
+      <a href="#">Apply for Permit</a>
+      <a href="#">Grievance Portal</a>
+      <a href="#">RTI Application</a>
+      <a href="#">Compensation Claim</a>
+      <a href="#">Feedback</a>
+    </div>
+    <div class="footer-col">
+      <h4>Resources</h4>
+      <a href="#">Forest Acts & Rules</a>
+      <a href="#">Annual Reports</a>
+      <a href="#">Forest Atlas</a>
+      <a href="#">Data Downloads</a>
+      <a href="#">Photo Gallery</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Uttarakhand Forest Department, Government of Uttarakhand. All Rights Reserved.</p>
+    <p>Designed & Developed by NIC Uttarakhand · Last Updated: March 2026</p>
+  </div>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
+  <div class="modal" id="modal-box">
+    <div class="modal-header">
+      <div class="modal-title" id="modal-title"></div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+    <div class="modal-actions">
+      <button class="btn-sm btn-sm-primary" onclick="closeModal()">Open Module →</button>
+      <button class="btn-sm btn-sm-outline" onclick="closeModal()">Close</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// Live time
+function updateTime() {
+  const now = new Date();
+  document.getElementById('live-time').textContent = now.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+  document.getElementById('date-info').textContent = now.toLocaleDateString('en-IN', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+}
+updateTime(); setInterval(updateTime, 1000);
+
+// Scroll reveal
+const revealEls = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => { if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), i * 80); } });
+}, { threshold: 0.1 });
+revealEls.forEach(el => observer.observe(el));
+
+// Filter buttons
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => { document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); });
+});
+
+// Alert dismiss
+document.querySelector('.alert-banner span:last-child').addEventListener('click', function() {
+  this.closest('.alert-banner').style.display = 'none';
+});
+
+// Modal data
+const moduleData = {
+  dashboard: {
+    title: '📊 State Forest Dashboard',
+    features: [
+      { icon: '🗺️', title: 'Real-time Forest Cover Map', desc: 'Live satellite-integrated GIS map showing forest cover, fire hotspots, encroachments and division boundaries across all 13 districts.' },
+      { icon: '🔥', title: 'Forest Fire Monitoring', desc: 'MODIS/Suomi-NPP fire alert integration, fire weather index, fire line status and resource deployment tracking.' },
+      { icon: '📈', title: 'KPI Analytics', desc: 'Plantation success rates, NTFP revenue, HWC incidents, CAMPA fund utilization and patrol coverage metrics.' },
+      { icon: '📋', title: 'Consolidated Reports', desc: 'Auto-generated monthly and annual reports for PCCF, CCF and Government submission with data export.' }
+    ]
+  },
+  campa: {
+    title: '🌱 CAMPA Fund Management',
+    features: [
+      { icon: '💰', title: 'Fund Tracking', desc: 'State CAMPA and ad-hoc CAMPA fund ledgers, interest accrual, project-wise allocation and utilization monitoring.' },
+      { icon: '📝', title: 'APO Management', desc: 'Annual Plan of Operations preparation, approval workflow, DFO-wise project submissions and convergence tracking.' },
+      { icon: '🌲', title: 'Plantation Monitoring', desc: 'GPS-tagged plantation sites, survival surveys, species-wise progress and third-party evaluation.' },
+      { icon: '📊', title: 'Compliance & Reporting', desc: 'MIS reports to CAMPA Authority, audit trails and diversion-compensated area reconciliation.' }
+    ]
+  },
+  schemes: {
+    title: '📋 Forestry Schemes & Programmes',
+    features: [
+      { icon: '🏛️', title: 'Central Government Schemes', desc: 'Green India Mission, National Afforestation Programme, Integrated Forest Protection Scheme and CSS monitoring.' },
+      { icon: '🏔️', title: 'State Schemes', desc: 'Uttarakhand-specific programmes including Harela plantation drive, Mera Jungle Mera Dhan and grassland development.' },
+      { icon: '👨‍👩‍👧', title: 'Beneficiary Management', desc: 'SHG/JFM beneficiary database, benefit distribution records and livelihood impact assessment.' },
+      { icon: '📊', title: 'Fund Utilization', desc: 'Scheme-wise fund flow, UC submission tracking, convergence with MGNREGS and expenditure statements.' }
+    ]
+  },
+  hrd: {
+    title: '👤 Human Resource Development',
+    features: [
+      { icon: '📁', title: 'Digital Service Books', desc: 'Complete digitized service records for IFS, State Forest Service and subordinate staff with ACR integration.' },
+      { icon: '🔄', title: 'Transfer & Posting', desc: 'Online transfer applications, rotation policy compliance, seniority list management and posting orders.' },
+      { icon: '🎓', title: 'Training Management', desc: 'Training needs assessment, IGNFA/FRI nominations, in-service training records and capacity building calendar.' },
+      { icon: '💼', title: 'Payroll & Benefits', desc: 'Salary processing, NPS/GPF management, leave records and retirement benefit calculations.' }
+    ]
+  },
+  research: {
+    title: '🔬 Research, Training & Working Plans',
+    features: [
+      { icon: '📗', title: 'Working Plan Management', desc: 'Digitized Working Plans for all divisions, prescription tracking, felling series and regeneration monitoring.' },
+      { icon: '🔭', title: 'Research Repository', desc: 'Publications, technical bulletins, species studies and ecosystem assessment reports library.' },
+      { icon: '🎓', title: 'Training Calendar', desc: 'IGNFA/FRI training schedules, state-level training, skill development modules and e-learning portal.' },
+      { icon: '📐', title: 'Management Plans', desc: 'Wildlife management plans, eco-restoration plans, watershed treatment plans and biodiversity conservation plans.' }
+    ]
+  },
+  conservation: {
+    title: '🛡️ Forest Conservation & Land Transfer',
+    features: [
+      { icon: '📄', title: 'FC Act Proposals', desc: 'Online submission of Forest Conservation Act proposals, stage I & II clearance tracking and compliance monitoring.' },
+      { icon: '🗺️', title: 'Land Survey & Records', desc: 'Khasra-linked forest boundary records, survey settlement data and inter-department boundary disputes.' },
+      { icon: '🚫', title: 'Encroachment Tracking', desc: 'GIS-integrated encroachment database, eviction drive progress and regularization case management.' },
+      { icon: '👮', title: 'Nodal Officer Portal', desc: 'Nodal Officer assignments, linear project compliance, compensatory afforestation condition monitoring.' }
+    ]
+  },
+  ntfp: {
+    title: '🌿 Non-Timber Forest Produce & Livelihoods',
+    features: [
+      { icon: '🌿', title: 'NTFP Inventory', desc: 'Species-wise availability mapping, sustainable harvest quotas and collection season calendar for herbs, resins, bamboo and grasses.' },
+      { icon: '💰', title: 'Market Price Dashboard', desc: 'Real-time MSP and market prices for NTFP species, mandi linkages and price trend analytics.' },
+      { icon: '📋', title: 'Permit Management', desc: 'Online NTFP collection permit application, royalty payment, transit pass and Depot management.' },
+      { icon: '🤝', title: 'Livelihood Linkage', desc: 'SHG registration, value addition unit tracking, FPO support and e-commerce market linkage for NTFP producers.' }
+    ]
+  },
+  vanpanchayat: {
+    title: '🌳 Van Panchayats & Community Forestry',
+    features: [
+      { icon: '🗂️', title: 'VP Profiles', desc: 'Complete digital profiles of all 12,089 Van Panchayats including niyampustika, VP area maps and member details.' },
+      { icon: '🗳️', title: 'Election Management', desc: 'Van Panchayat election schedule, result records, Sarpanch and member contact database.' },
+      { icon: '💵', title: 'Financial Accounts', desc: 'VP income-expenditure records, fund utilization from CAMPA/VP Fund, audit reports and financial compliance.' },
+      { icon: '📊', title: 'Community Forest Plans', desc: 'Micro-plans, JFM committee records, benefit sharing statements and community participation monitoring.' }
+    ]
+  },
+  vigilance: {
+    title: '⚖️ Vigilance & Legal Cell',
+    features: [
+      { icon: '📋', title: 'Case Management', desc: 'Forest offence case registry, challan management, court hearing schedules and case disposal tracking.' },
+      { icon: '🔍', title: 'Departmental Enquiries', desc: 'Disciplinary proceeding records, enquiry officer assignments, charge sheet management and penalty orders.' },
+      { icon: '🏛️', title: 'Court Cases', desc: 'High Court and lower court matter tracking, government counsel coordination and compliance with court directions.' },
+      { icon: '📊', title: 'Analytics & Compliance', desc: 'Hotspot division analysis, repeat offender tracking, compounding revenue and enforcement effectiveness metrics.' }
+    ]
+  },
+  scientific: {
+    title: '🔥 Scientific Forest Management',
+    features: [
+      { icon: '🔥', title: 'Forest Fire Management', desc: 'Integrated FFMS with MODIS alerts, fire weather index, pre-fire season preparedness checklist and post-fire assessment.' },
+      { icon: '🌱', title: 'Nursery Management', desc: 'GPS-mapped nurseries, seedling production targets, species availability calendar and quality certification.' },
+      { icon: '🌲', title: 'Plantation Tracking', desc: 'Block-wise plantation progress, geo-tagged planting records, survival rate surveys and canopy cover assessment.' },
+      { icon: '🏗️', title: 'Forest Infrastructure', desc: 'Forest roads, bridges, check dams, FRHs and watchtower asset register with maintenance schedules.' }
+    ]
+  },
+  patrolling: {
+    title: '🚵 Forest Patrolling & Incident Reporting',
+    features: [
+      { icon: '📍', title: 'Daily Patrol Logs', desc: 'Beat-wise digital patrolling records, GPS route tracking and coverage analysis for all Forest Guards and Rangers.' },
+      { icon: '🚨', title: 'Incident Reporting', desc: 'Real-time forest offence FIR filing, illegal felling, poaching and encroachment alert system with photographic evidence.' },
+      { icon: '🔍', title: 'Inspection Records', desc: 'Forest inspection schedules for DFO, ACF, RO level officers with compliance monitoring and action taken reports.' },
+      { icon: '📱', title: 'Mobile App Integration', desc: 'Field staff mobile application for offline-capable patrol logging, synchronisation and WhatsApp alert integration.' }
+    ]
+  },
+  hwc: {
+    title: '🐘 Human Wildlife Conflict Management',
+    features: [
+      { icon: '🚨', title: 'Incident Reporting', desc: 'Real-time HWC incident registration — crop damage, property loss, injury and casualty — with GPS location.' },
+      { icon: '💰', title: 'Compensation Management', desc: 'Online compensation claim submission, verification workflow, disbursement tracking and appeal management.' },
+      { icon: '🗺️', title: 'Conflict Hotspot Mapping', desc: 'GIS-based HWC hotspot identification, seasonal pattern analysis and predictive conflict zone mapping.' },
+      { icon: '🚁', title: 'Mitigation Measures', desc: 'Rapid response team deployment, solar fencing progress, elephant corridors and leopard/bear deterrent tracking.' }
+    ]
+  },
+  environment: {
+    title: '🌍 Environment Management',
+    features: [
+      { icon: '📋', title: 'EIA Management', desc: 'Environmental Impact Assessment case tracking, forest clearance conditions compliance and monitoring report submissions.' },
+      { icon: '🌿', title: 'Biodiversity Register', desc: 'District-wise biodiversity registers, invasive species tracking, threatened species monitoring and gene pool conservation.' },
+      { icon: '♻️', title: 'Carbon & Climate', desc: 'Carbon stock assessment, REDD+ readiness data, climate adaptation plans and green accounting records.' },
+      { icon: '🌊', title: 'Watershed Monitoring', desc: 'Catchment treatment plans, check dam and water harvesting structure database and ecological restoration progress.' }
+    ]
+  },
+  ecotourism: {
+    title: '🏕️ Eco-Tourism Management',
+    features: [
+      { icon: '🌐', title: 'Online Booking Portal', desc: 'Integrated booking system for eco-camps, nature trails, forest rest houses and safari permits across 214+ sites.' },
+      { icon: '🎓', title: 'Guide Licensing', desc: 'Eco-tourism guide registration, training certification, renewal management and tourist feedback system.' },
+      { icon: '🏕️', title: 'Camp & Site Management', desc: 'Eco-camp registration, capacity monitoring, safety compliance and waste management compliance tracking.' },
+      { icon: '📊', title: 'Revenue & Analytics', desc: 'Eco-tourism revenue dashboard, visitor footfall analytics, seasonal trend reports and economic impact assessment.' }
+    ]
+  }
+};
+
+function openModal(key) {
+  const d = moduleData[key];
+  if (!d) return;
+  document.getElementById('modal-title').textContent = d.title;
+  document.getElementById('modal-body').innerHTML = d.features.map(f => `
+    <div class="modal-feature">
+      <div class="mf-icon">${f.icon}</div>
+      <div><div class="mf-title">${f.title}</div><div class="mf-desc">${f.desc}</div></div>
+    </div>`).join('');
+  document.getElementById('modal-overlay').classList.add('open');
+}
+
+function closeModal(e) {
+  if (!e || e.target === document.getElementById('modal-overlay') || e.currentTarget?.classList?.contains('modal-close')) {
+    document.getElementById('modal-overlay').classList.remove('open');
+  }
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal({}); });
+</script>
+</body>
+</html>
