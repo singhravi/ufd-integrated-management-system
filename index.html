@@ -1330,7 +1330,660 @@ select.form-input option{background:var(--fd3);color:var(--cr);}
 <!-- ══ STUB PAGES for remaining modules ══ -->
 <div class="page" id="page-schemes"><div class="topbar"><div class="topbar-brand" onclick="showPage('home')">🌲 UFD Portal</div><div class="topbar-nav"><button class="tnav" onclick="showPage('home')">← Home</button><button class="tnav act">📋 Schemes</button></div><div class="topbar-right"><button class="lang-btn" onclick="toggleLang()">🌐 हिंदी / EN</button></div></div><div style="padding:2rem;"><div class="mod-page-title">📋 Forestry Schemes & Programmes</div><div class="mod-page-sub" style="margin-bottom:1.5rem;">State & Central Government Schemes FY 2025-26</div><div class="kpi-row"><div class="kpi green"><div class="kpi-val">24</div><div class="kpi-label">Active Schemes</div></div><div class="kpi gold"><div class="kpi-val">₹482Cr</div><div class="kpi-label">Total Outlay</div></div><div class="kpi blue"><div class="kpi-val">67%</div><div class="kpi-label">Fund Utilized</div></div><div class="kpi amber"><div class="kpi-val">1.8L</div><div class="kpi-label">Beneficiaries</div></div></div><table class="data-table"><thead><tr><th>Scheme Name</th><th>Type</th><th>Outlay (₹ Cr)</th><th>Utilized</th><th>Beneficiaries</th><th>Status</th></tr></thead><tbody><tr><td>Green India Mission</td><td>Central</td><td>84.2</td><td>62%</td><td>24,800</td><td><span class="status-pill sp-green">Active</span></td></tr><tr><td>National Afforestation Programme</td><td>Central</td><td>42.8</td><td>78%</td><td>12,400</td><td><span class="status-pill sp-green">Active</span></td></tr><tr><td>Harela Mahotsav Plantation</td><td>State</td><td>18.4</td><td>95%</td><td>80,000</td><td><span class="status-pill sp-blue">Completed</span></td></tr><tr><td>Mera Jungle Mera Dhan</td><td>State</td><td>12.0</td><td>45%</td><td>8,200</td><td><span class="status-pill sp-amber">In Progress</span></td></tr><tr><td>CAMPA Plantation Works</td><td>CAMPA</td><td>124.0</td><td>14%</td><td>48,000</td><td><span class="status-pill sp-green">Active</span></td></tr></tbody></table></div></div>
 
-<div class="page" id="page-hrd"><div class="topbar"><div class="topbar-brand" onclick="showPage('home')">🌲 UFD Portal</div><div class="topbar-nav"><button class="tnav" onclick="showPage('home')">← Home</button><button class="tnav act">👤 HRD</button></div><div class="topbar-right"><button class="lang-btn" onclick="toggleLang()">🌐 हिंदी / EN</button></div></div><div style="padding:2rem;"><div class="mod-page-title">👤 Human Resource Development</div><div class="mod-page-sub" style="margin-bottom:1.5rem;">Staff Management, Training & Payroll</div><div class="kpi-row"><div class="kpi green"><div class="kpi-val">4,512</div><div class="kpi-label">Total Staff</div></div><div class="kpi gold"><div class="kpi-val">124</div><div class="kpi-label">IFS Officers</div></div><div class="kpi blue"><div class="kpi-val">892</div><div class="kpi-label">SFS Officers</div></div><div class="kpi amber"><div class="kpi-val">3,496</div><div class="kpi-label">Subordinate Staff</div></div></div><div class="notice-grid" style="margin-top:1rem;"><div class="info-card"><div class="ic-title">📋 Recent Transfers & Postings</div><div class="ic-row"><span class="ic-key">Sh. A. Sharma</span><span class="ic-val">Posted: Haridwar DFO</span></div><div class="ic-row"><span class="ic-key">Ms. P. Joshi</span><span class="ic-val">Posted: Nainital DFO</span></div><div class="ic-row"><span class="ic-key">Sh. V. Bisht</span><span class="ic-val">Posted: Almora CCF</span></div><button class="btn btn-outline btn-sm" style="margin-top:.8rem;" onclick="showToast('Full transfer list loading...')">View All Transfers</button></div><div class="info-card"><div class="ic-title">🎓 Upcoming Training</div><div class="ic-row"><span class="ic-key">Fire Management Course</span><span class="ic-val">1-5 Apr 2026</span></div><div class="ic-row"><span class="ic-key">NTFP Valuation Workshop</span><span class="ic-val">10 Apr 2026</span></div><div class="ic-row"><span class="ic-key">GIS Training – IGNFA</span><span class="ic-val">15-20 Apr 2026</span></div><button class="btn btn-outline btn-sm" style="margin-top:.8rem;" onclick="showToast('Training calendar loading...')">Full Calendar</button></div></div></div></div>
+<div class="page" id="page-hrd">
+<div class="topbar">
+  <div class="topbar-brand" onclick="showPage('home')">🌲 UFD Portal</div>
+  <div class="topbar-nav">
+    <button class="tnav" onclick="showPage('home')">← Home</button>
+    <button class="tnav act">👤 HRDMS</button>
+    <button class="tnav" onclick="hrdTab('attendance',this)">📍 Attendance</button>
+    <button class="tnav" onclick="hrdTab('employees',this)">🗂 Employee DB</button>
+    <button class="tnav" onclick="hrdTab('lifecycle',this)">🔄 Lifecycle</button>
+    <button class="tnav" onclick="hrdTab('analytics',this)">📊 Analytics</button>
+    <button class="tnav" onclick="hrdTab('reports',this)">📄 Reports</button>
+  </div>
+  <div class="topbar-right">
+    <button class="lang-btn" onclick="toggleLang()">🌐 हिंदी / EN</button>
+    <button class="login-btn" onclick="openModal('loginModal')">🔐 Login</button>
+  </div>
+</div>
+
+<div class="mod-page-layout">
+  <!-- SIDEBAR -->
+  <div class="mod-sidebar">
+    <div class="ds-title">HRDMS MODULE</div>
+    <div class="ds-title" style="margin-top:.5rem;color:rgba(168,213,226,.5);">📍 ATTENDANCE</div>
+    <button class="ds-lnk act" id="hrd-sb-attendance" onclick="hrdTab('attendance',this)">📊 Attendance Dashboard</button>
+    <button class="ds-lnk" id="hrd-sb-checkin" onclick="hrdTab('checkin',this)">📱 Mobile Check-In</button>
+    <button class="ds-lnk" id="hrd-sb-monitor" onclick="hrdTab('monitor',this)">🖥 Live Monitoring</button>
+    <button class="ds-lnk" id="hrd-sb-leave" onclick="hrdTab('leave',this)">🗓 Leave Management</button>
+    <div class="ds-sep"></div>
+    <div class="ds-title" style="color:rgba(168,213,226,.5);">🗂 EMPLOYEE DB</div>
+    <button class="ds-lnk" id="hrd-sb-employees" onclick="hrdTab('employees',this)">👥 Employee Directory</button>
+    <button class="ds-lnk" id="hrd-sb-profile" onclick="hrdTab('profile',this)">📋 Employee Profile</button>
+    <button class="ds-lnk" id="hrd-sb-onboard" onclick="hrdTab('onboard',this)">➕ New Onboarding</button>
+    <div class="ds-sep"></div>
+    <div class="ds-title" style="color:rgba(168,213,226,.5);">🔄 LIFECYCLE</div>
+    <button class="ds-lnk" id="hrd-sb-lifecycle" onclick="hrdTab('lifecycle',this)">🔄 Transfers & Postings</button>
+    <button class="ds-lnk" id="hrd-sb-promotion" onclick="hrdTab('promotion',this)">⬆ Promotions</button>
+    <button class="ds-lnk" id="hrd-sb-retirement" onclick="hrdTab('retirement',this)">🏅 Retirement Forecast</button>
+    <button class="ds-lnk" id="hrd-sb-disciplinary" onclick="hrdTab('disciplinary',this)">⚖️ Disciplinary</button>
+    <div class="ds-sep"></div>
+    <div class="ds-title" style="color:rgba(168,213,226,.5);">📊 ANALYTICS</div>
+    <button class="ds-lnk" id="hrd-sb-analytics" onclick="hrdTab('analytics',this)">📈 Workforce Analytics</button>
+    <button class="ds-lnk" id="hrd-sb-reports" onclick="hrdTab('reports',this)">📄 Reports & Export</button>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="mod-main" style="background:rgba(6,18,9,.4);">
+    <div class="breadcrumb"><span onclick="showPage('home')" style="cursor:pointer;">Home</span> <span>›</span> Human Resource Development Management System</div>
+    <div class="mod-page-title">👤 HRDMS — Human Resource Development Management</div>
+    <div class="mod-page-sub">Attendance · Employee Database · Lifecycle · Analytics · GIS-Enabled · Uttarakhand Forest Department</div>
+
+    <!-- ══ TAB: ATTENDANCE DASHBOARD ══ -->
+    <div id="hrd-attendance" class="hrd-tab">
+      <div class="kpi-row">
+        <div class="kpi green"><div class="kpi-ico">✅</div><div class="kpi-val">3,847</div><div class="kpi-label">Present Today</div><div class="kpi-trend trend-up">85.3% attendance rate</div></div>
+        <div class="kpi red"><div class="kpi-ico">❌</div><div class="kpi-val">412</div><div class="kpi-label">Absent Today</div><div class="kpi-trend trend-dn">↑ 18 vs yesterday</div></div>
+        <div class="kpi amber"><div class="kpi-ico">⏰</div><div class="kpi-val">187</div><div class="kpi-label">Late Arrivals</div><div class="kpi-trend" style="color:var(--am);">After 09:30 AM</div></div>
+        <div class="kpi blue"><div class="kpi-ico">🏖</div><div class="kpi-val">253</div><div class="kpi-label">On Leave</div><div class="kpi-trend" style="color:var(--sk);">Approved leaves</div></div>
+        <div class="kpi gold"><div class="kpi-ico">🌐</div><div class="kpi-val">4,512</div><div class="kpi-label">Total Staff</div><div class="kpi-trend">Perm + Contractual</div></div>
+        <div class="kpi green"><div class="kpi-ico">📍</div><div class="kpi-val">98.2%</div><div class="kpi-label">GPS Verified</div><div class="kpi-trend trend-up">Geo-fence compliant</div></div>
+      </div>
+
+      <div class="charts-grid">
+        <div class="chart-card">
+          <div class="cc-hd"><div class="cc-title">📅 Monthly Attendance Trend (2025-26)</div><span class="cc-badge">Division-wise</span></div>
+          <canvas id="hrd-attTrendChart"></canvas>
+        </div>
+        <div class="chart-card">
+          <div class="cc-hd"><div class="cc-title">👥 Staff Category Breakdown</div><span class="cc-badge">Today</span></div>
+          <canvas id="hrd-categoryChart"></canvas>
+        </div>
+      </div>
+
+      <div class="info-card">
+        <div class="ic-title" style="justify-content:space-between;display:flex;align-items:center;">
+          <span>🗂 Division-wise Attendance — Today <span id="hrd-live-badge" style="font-size:.6rem;padding:2px 7px;border-radius:2px;background:rgba(94,201,110,.2);color:var(--cn);margin-left:.5rem;">● LIVE</span></span>
+          <div style="display:flex;gap:.5rem;">
+            <select class="form-input" style="padding:.3rem .6rem;font-size:.7rem;width:auto;" onchange="showToast('Filtering by: '+this.value)">
+              <option>All Divisions</option><option>Dehradun</option><option>Haridwar</option><option>Nainital</option><option>Almora</option><option>Chamoli</option><option>Uttarkashi</option>
+            </select>
+            <button class="btn btn-outline btn-sm" onclick="showToast('Exporting attendance to Excel...')">⬇ Export</button>
+          </div>
+        </div>
+        <table class="data-table">
+          <thead><tr><th>Division</th><th>Total Staff</th><th>Present</th><th>Absent</th><th>On Leave</th><th>Late</th><th>Attendance%</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>Dehradun</td><td>624</td><td>558</td><td>42</td><td>24</td><td>18</td><td><span style="color:var(--cn)">89.4%</span></td><td><span class="status-pill sp-green">Good</span></td></tr>
+            <tr><td>Haridwar</td><td>412</td><td>348</td><td>38</td><td>26</td><td>22</td><td><span style="color:var(--am)">84.5%</span></td><td><span class="status-pill sp-amber">Average</span></td></tr>
+            <tr><td>Nainital</td><td>518</td><td>421</td><td>61</td><td>36</td><td>31</td><td><span style="color:var(--rd)">81.3%</span></td><td><span class="status-pill sp-red">Below Target</span></td></tr>
+            <tr><td>Almora</td><td>486</td><td>442</td><td>28</td><td>16</td><td>14</td><td><span style="color:var(--cn)">91.0%</span></td><td><span class="status-pill sp-green">Good</span></td></tr>
+            <tr><td>Chamoli</td><td>389</td><td>322</td><td>48</td><td>19</td><td>28</td><td><span style="color:var(--rd)">82.8%</span></td><td><span class="status-pill sp-amber">Average</span></td></tr>
+            <tr><td>Uttarkashi</td><td>342</td><td>318</td><td>14</td><td>10</td><td>8</td><td><span style="color:var(--cn)">93.0%</span></td><td><span class="status-pill sp-green">Excellent</span></td></tr>
+            <tr><td>Pithoragarh</td><td>298</td><td>256</td><td>28</td><td>14</td><td>19</td><td><span style="color:var(--am)">85.9%</span></td><td><span class="status-pill sp-amber">Average</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Absentee Alerts -->
+      <div class="info-card" style="border-color:rgba(224,92,92,.2);background:rgba(224,92,92,.04);">
+        <div class="ic-title" style="color:var(--rd);">🚨 Repeated Absenteeism Alerts (Auto-Generated)</div>
+        <table class="data-table">
+          <thead><tr><th>Employee ID</th><th>Name</th><th>Designation</th><th>Division</th><th>Absent Days (MTD)</th><th>Action</th></tr></thead>
+          <tbody>
+            <tr><td>UFD-2018-0842</td><td>Ram Prasad Negi</td><td>Forest Guard</td><td>Nainital</td><td><span style="color:var(--rd);font-weight:600">12 days</span></td><td><button class="btn btn-sm btn-outline" onclick="showToast('Warning notice sent to Ram Prasad Negi')">Send Notice</button></td></tr>
+            <tr><td>UFD-2020-1124</td><td>Sunita Rawat</td><td>Van Rakshak</td><td>Haridwar</td><td><span style="color:var(--am);font-weight:600">9 days</span></td><td><button class="btn btn-sm btn-outline" onclick="showToast('Reminder sent to Sunita Rawat')">Send Reminder</button></td></tr>
+            <tr><td>UFD-2019-0531</td><td>Mohan Singh</td><td>Forest Guard</td><td>Chamoli</td><td><span style="color:var(--am);font-weight:600">8 days</span></td><td><button class="btn btn-sm btn-outline" onclick="showToast('Escalating to Range Officer')">Escalate</button></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ══ TAB: MOBILE CHECK-IN ══ -->
+    <div id="hrd-checkin" class="hrd-tab" style="display:none">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;">
+        <!-- Mobile App Mockup -->
+        <div>
+          <div class="info-card" style="border-color:rgba(90,200,110,.3);">
+            <div class="ic-title">📱 GPS-Enabled Mobile Check-In</div>
+            <div style="background:rgba(10,31,13,.6);border-radius:12px;padding:1.5rem;margin-top:1rem;border:1px solid rgba(90,200,110,.15);max-width:320px;margin:1rem auto 0;">
+              <div style="text-align:center;margin-bottom:1rem;">
+                <div style="font-size:.7rem;color:var(--ms);letter-spacing:.1em;text-transform:uppercase;">Forest Guard Portal</div>
+                <div style="font-family:var(--serif);font-size:1.2rem;color:var(--cr);margin-top:.3rem;">GPS Check-In</div>
+              </div>
+              <div style="background:rgba(45,122,58,.15);border:1px solid rgba(90,200,110,.2);border-radius:8px;padding:1rem;margin-bottom:1rem;text-align:center;">
+                <div style="font-size:2rem;">📍</div>
+                <div style="font-size:.72rem;color:var(--cn);margin-top:.3rem;">Location Acquired</div>
+                <div style="font-size:.65rem;color:var(--ms);">30.3165°N, 78.0322°E</div>
+                <div style="font-size:.65rem;color:var(--ms);">Beat 12 — Rajpur Range ✓ Geo-fence OK</div>
+              </div>
+              <div class="form-group" style="margin-bottom:.8rem;"><label class="form-label">Employee ID</label><input class="form-input" value="UFD-2022-1847" readonly></div>
+              <div class="form-group" style="margin-bottom:.8rem;"><label class="form-label">Name</label><input class="form-input" value="Dinesh Kumar Rawat" readonly></div>
+              <div class="form-group" style="margin-bottom:1rem;"><label class="form-label">Shift</label><select class="form-input"><option>Morning (06:00 - 14:00)</option><option>Day (09:00 - 17:00)</option><option>Night (22:00 - 06:00)</option></select></div>
+              <button class="btn btn-primary" style="width:100%;justify-content:center;" onclick="showToast('✅ Check-In recorded at '+new Date().toLocaleTimeString()+' · Beat 12, Rajpur')">📍 CHECK IN NOW</button>
+              <button class="btn btn-outline" style="width:100%;justify-content:center;margin-top:.5rem;" onclick="showToast('✅ Check-Out recorded at '+new Date().toLocaleTimeString())">🚪 CHECK OUT</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Geo-fence config -->
+        <div>
+          <div class="info-card">
+            <div class="ic-title">🌐 Geo-Fence Configuration</div>
+            <table class="data-table" style="margin-top:.5rem;">
+              <thead><tr><th>Beat / Office</th><th>Division</th><th>Radius (m)</th><th>Status</th><th>Action</th></tr></thead>
+              <tbody>
+                <tr><td>Beat 12 – Rajpur</td><td>Dehradun</td><td>500m</td><td><span class="status-pill sp-green">Active</span></td><td><button class="btn btn-sm btn-outline" onclick="showToast('Editing geo-fence: Beat 12')">Edit</button></td></tr>
+                <tr><td>Beat 47 – Sukhatal</td><td>Nainital</td><td>750m</td><td><span class="status-pill sp-green">Active</span></td><td><button class="btn btn-sm btn-outline" onclick="showToast('Editing geo-fence: Beat 47')">Edit</button></td></tr>
+                <tr><td>DFO Office Almora</td><td>Almora</td><td>200m</td><td><span class="status-pill sp-green">Active</span></td><td><button class="btn btn-sm btn-outline" onclick="showToast('Editing geo-fence: Almora')">Edit</button></td></tr>
+                <tr><td>Range Office Birahi</td><td>Chamoli</td><td>300m</td><td><span class="status-pill sp-amber">Pending</span></td><td><button class="btn btn-sm btn-outline" onclick="showToast('Activating geo-fence: Birahi')">Activate</button></td></tr>
+              </tbody>
+            </table>
+            <button class="btn btn-primary btn-sm" style="margin-top:1rem;" onclick="showToast('Add new geo-fence location form opening...')">+ Add Location</button>
+          </div>
+
+          <div class="info-card" style="margin-top:1rem;">
+            <div class="ic-title">🕐 Today's Recent Check-Ins</div>
+            <table class="data-table">
+              <thead><tr><th>Name</th><th>Beat</th><th>Check-In</th><th>GPS Status</th></tr></thead>
+              <tbody>
+                <tr><td>Ramesh Singh</td><td>Beat 12</td><td>08:42 AM</td><td><span class="status-pill sp-green">✓ Verified</span></td></tr>
+                <tr><td>Sunita Devi</td><td>Beat 23</td><td>09:15 AM</td><td><span class="status-pill sp-green">✓ Verified</span></td></tr>
+                <tr><td>Gopal Negi</td><td>Beat 47</td><td>09:48 AM</td><td><span class="status-pill sp-amber">⚠ Late</span></td></tr>
+                <tr><td>Meena Rawat</td><td>Beat 08</td><td>08:30 AM</td><td><span class="status-pill sp-green">✓ Verified</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ TAB: LIVE MONITORING ══ -->
+    <div id="hrd-monitor" class="hrd-tab" style="display:none">
+      <div class="dash-hd">
+        <div>
+          <div style="font-size:1.1rem;font-weight:600;color:var(--cr);">🖥 Real-Time Attendance Monitoring</div>
+          <div style="font-size:.72rem;color:var(--ms);">Role: State Level View · Last refreshed: <span id="hrd-refresh-time"></span></div>
+        </div>
+        <div style="display:flex;gap:.5rem;flex-wrap:wrap;">
+          <select class="form-input" style="padding:.35rem .7rem;font-size:.72rem;width:auto;">
+            <option>State Level</option><option>Kumaon Circle</option><option>Garhwal Circle</option>
+          </select>
+          <button class="btn btn-outline btn-sm" onclick="showToast('Dashboard auto-refreshed!')">↻ Refresh</button>
+          <button class="btn btn-primary btn-sm" onclick="showToast('Generating live report PDF...')">📄 Live Report</button>
+        </div>
+      </div>
+
+      <div class="kpi-row">
+        <div class="kpi green"><div class="kpi-val">3,847</div><div class="kpi-label">Present (Permanent)</div></div>
+        <div class="kpi blue"><div class="kpi-val">1,284</div><div class="kpi-label">Present (Contractual)</div></div>
+        <div class="kpi red"><div class="kpi-val">412</div><div class="kpi-label">Absent</div></div>
+        <div class="kpi amber"><div class="kpi-val">187</div><div class="kpi-label">Late Arrivals</div></div>
+        <div class="kpi gold"><div class="kpi-val">64</div><div class="kpi-label">Early Departures</div></div>
+      </div>
+
+      <div class="charts-grid">
+        <div class="chart-card full">
+          <div class="cc-hd"><div class="cc-title">📊 Hourly Check-In Pattern — Today</div><span class="cc-badge">All Divisions</span></div>
+          <canvas id="hrd-hourlyChart"></canvas>
+        </div>
+      </div>
+
+      <div class="info-card">
+        <div class="ic-title" style="display:flex;justify-content:space-between;">
+          <span>⚠️ Late Arrival & Early Departure Log</span>
+          <button class="btn btn-outline btn-sm" onclick="showToast('Exporting late/early log to Excel...')">⬇ Export Excel</button>
+        </div>
+        <table class="data-table">
+          <thead><tr><th>Employee</th><th>Designation</th><th>Division</th><th>Type</th><th>Scheduled</th><th>Actual</th><th>Deviation</th><th>Action</th></tr></thead>
+          <tbody>
+            <tr><td>Gopal Negi</td><td>Forest Guard</td><td>Dehradun</td><td><span class="status-pill sp-amber">Late</span></td><td>08:00</td><td>09:48</td><td>+1h 48m</td><td><button class="btn btn-sm btn-outline" onclick="showToast('Note added for Gopal Negi')">Note</button></td></tr>
+            <tr><td>Rakesh Sharma</td><td>Van Rakshak</td><td>Haridwar</td><td><span class="status-pill sp-amber">Late</span></td><td>09:00</td><td>10:12</td><td>+1h 12m</td><td><button class="btn btn-sm btn-outline" onclick="showToast('Note added for Rakesh Sharma')">Note</button></td></tr>
+            <tr><td>Kamla Devi</td><td>Forester</td><td>Almora</td><td><span class="status-pill sp-red">Early Exit</span></td><td>17:00</td><td>14:30</td><td>-2h 30m</td><td><button class="btn btn-sm btn-outline" onclick="showToast('Reason sought from Kamla Devi')">Query</button></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ══ TAB: LEAVE MANAGEMENT ══ -->
+    <div id="hrd-leave" class="hrd-tab" style="display:none">
+      <div class="dash-hd">
+        <div style="font-size:1.1rem;font-weight:600;color:var(--cr);">🗓 Leave Application & Approval</div>
+        <button class="btn btn-primary btn-sm" onclick="showToast('New leave application form opening...')">+ Apply for Leave</button>
+      </div>
+      <div class="kpi-row">
+        <div class="kpi blue"><div class="kpi-val">253</div><div class="kpi-label">On Leave Today</div></div>
+        <div class="kpi amber"><div class="kpi-val">84</div><div class="kpi-label">Pending Approvals</div></div>
+        <div class="kpi green"><div class="kpi-val">1,284</div><div class="kpi-label">Approved (MTD)</div></div>
+        <div class="kpi red"><div class="kpi-val">42</div><div class="kpi-label">Rejected (MTD)</div></div>
+      </div>
+
+      <div class="notice-grid">
+        <!-- Leave Application Form -->
+        <div class="info-card">
+          <div class="ic-title">📝 Apply for Leave</div>
+          <div class="form-group" style="margin-bottom:.8rem;"><label class="form-label">Employee ID</label><input class="form-input" placeholder="Enter Employee ID"></div>
+          <div class="form-group" style="margin-bottom:.8rem;"><label class="form-label">Leave Type</label>
+            <select class="form-input"><option>Casual Leave (CL)</option><option>Earned Leave (EL)</option><option>Medical Leave (ML)</option><option>Half Pay Leave (HPL)</option><option>Maternity Leave</option><option>Special Leave</option><option>Extra Ordinary Leave (EOL)</option></select>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-bottom:.8rem;">
+            <div class="form-group"><label class="form-label">From Date</label><input class="form-input" type="date"></div>
+            <div class="form-group"><label class="form-label">To Date</label><input class="form-input" type="date"></div>
+          </div>
+          <div class="form-group" style="margin-bottom:1rem;"><label class="form-label">Reason</label><textarea class="form-input" rows="3" placeholder="State reason for leave..." style="resize:vertical;"></textarea></div>
+          <button class="btn btn-primary btn-sm" onclick="showToast('✅ Leave application submitted for approval!')">Submit Application</button>
+        </div>
+
+        <!-- Pending Approvals -->
+        <div class="info-card">
+          <div class="ic-title">⏳ Pending Leave Approvals</div>
+          <table class="data-table">
+            <thead><tr><th>Name</th><th>Leave Type</th><th>Days</th><th>From</th><th>Status</th><th>Action</th></tr></thead>
+            <tbody>
+              <tr><td>Ramesh Bisht</td><td>CL</td><td>2</td><td>28 Mar</td><td><span class="status-pill sp-amber">Pending</span></td>
+                <td style="display:flex;gap:.3rem;">
+                  <button class="btn btn-sm" style="background:rgba(74,173,90,.3);color:var(--cn);border:none;cursor:pointer;" onclick="showToast('✅ Leave approved for Ramesh Bisht')">✓</button>
+                  <button class="btn btn-sm" style="background:rgba(224,92,92,.25);color:var(--rd);border:none;cursor:pointer;" onclick="showToast('❌ Leave rejected for Ramesh Bisht')">✗</button>
+                </td>
+              </tr>
+              <tr><td>Sita Negi</td><td>ML</td><td>7</td><td>1 Apr</td><td><span class="status-pill sp-amber">Pending</span></td>
+                <td style="display:flex;gap:.3rem;">
+                  <button class="btn btn-sm" style="background:rgba(74,173,90,.3);color:var(--cn);border:none;cursor:pointer;" onclick="showToast('✅ Medical leave approved for Sita Negi')">✓</button>
+                  <button class="btn btn-sm" style="background:rgba(224,92,92,.25);color:var(--rd);border:none;cursor:pointer;" onclick="showToast('❌ Leave rejected for Sita Negi')">✗</button>
+                </td>
+              </tr>
+              <tr><td>Harish Mehra</td><td>EL</td><td>10</td><td>5 Apr</td><td><span class="status-pill sp-amber">Pending</span></td>
+                <td style="display:flex;gap:.3rem;">
+                  <button class="btn btn-sm" style="background:rgba(74,173,90,.3);color:var(--cn);border:none;cursor:pointer;" onclick="showToast('✅ EL approved for Harish Mehra')">✓</button>
+                  <button class="btn btn-sm" style="background:rgba(224,92,92,.25);color:var(--rd);border:none;cursor:pointer;" onclick="showToast('Leave rejected')">✗</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ TAB: EMPLOYEE DIRECTORY ══ -->
+    <div id="hrd-employees" class="hrd-tab" style="display:none">
+      <div class="dash-hd">
+        <div style="font-size:1.1rem;font-weight:600;color:var(--cr);">👥 Employee Database</div>
+        <div style="display:flex;gap:.5rem;flex-wrap:wrap;">
+          <select class="form-input" style="padding:.35rem .6rem;font-size:.72rem;width:auto;"><option>All Cadres</option><option>IFS</option><option>SFS</option><option>Forester</option><option>Forest Guard</option><option>Van Rakshak</option><option>Contractual</option></select>
+          <select class="form-input" style="padding:.35rem .6rem;font-size:.72rem;width:auto;"><option>All Divisions</option><option>Dehradun</option><option>Haridwar</option><option>Nainital</option><option>Almora</option></select>
+          <button class="btn btn-primary btn-sm" onclick="showToast('Employee onboarding form opening...')">+ Add Employee</button>
+          <button class="btn btn-outline btn-sm" onclick="showToast('Exporting employee list to Excel...')">⬇ Export</button>
+        </div>
+      </div>
+
+      <div class="kpi-row">
+        <div class="kpi green"><div class="kpi-val">4,512</div><div class="kpi-label">Total Employees</div></div>
+        <div class="kpi gold"><div class="kpi-val">3,284</div><div class="kpi-label">Permanent</div></div>
+        <div class="kpi blue"><div class="kpi-val">1,228</div><div class="kpi-label">Contractual</div></div>
+        <div class="kpi amber"><div class="kpi-val">348</div><div class="kpi-label">Vacancies</div></div>
+      </div>
+
+      <div class="search-bar" style="margin-bottom:1rem;max-width:500px;"><span class="search-ico">🔍</span><input class="search-inp" placeholder="Search by name, ID, designation, division…" oninput="filterEmployees(this.value)"></div>
+
+      <table class="data-table" id="empTable">
+        <thead><tr><th>Emp ID</th><th>Name</th><th>Designation</th><th>Cadre</th><th>Division</th><th>Type</th><th>Date of Joining</th><th>Status</th><th>Action</th></tr></thead>
+        <tbody id="empTableBody">
+          <tr><td>UFD-2018-0001</td><td>Rajendra Kumar Singh</td><td>DFO</td><td>SFS</td><td>Dehradun</td><td><span class="status-pill sp-blue">Permanent</span></td><td>15 Jun 2018</td><td><span class="status-pill sp-green">Active</span></td><td><button class="btn btn-sm btn-outline" onclick="hrdTab('profile',null)">View Profile</button></td></tr>
+          <tr><td>UFD-2020-0248</td><td>Priya Joshi</td><td>ACF</td><td>SFS</td><td>Nainital</td><td><span class="status-pill sp-blue">Permanent</span></td><td>03 Sep 2020</td><td><span class="status-pill sp-green">Active</span></td><td><button class="btn btn-sm btn-outline" onclick="hrdTab('profile',null)">View Profile</button></td></tr>
+          <tr><td>UFD-2019-0512</td><td>Mohan Lal Verma</td><td>Ranger</td><td>SFS</td><td>Haridwar</td><td><span class="status-pill sp-blue">Permanent</span></td><td>21 Jan 2019</td><td><span class="status-pill sp-green">Active</span></td><td><button class="btn btn-sm btn-outline" onclick="hrdTab('profile',null)">View Profile</button></td></tr>
+          <tr><td>UFD-2022-1847</td><td>Dinesh Kumar Rawat</td><td>Forest Guard</td><td>Subordinate</td><td>Dehradun</td><td><span class="status-pill sp-blue">Permanent</span></td><td>12 Mar 2022</td><td><span class="status-pill sp-green">Active</span></td><td><button class="btn btn-sm btn-outline" onclick="hrdTab('profile',null)">View Profile</button></td></tr>
+          <tr><td>UFD-C-2023-0142</td><td>Sunita Bora</td><td>Van Rakshak</td><td>Contractual</td><td>Almora</td><td><span class="status-pill sp-amber">Contractual</span></td><td>01 Apr 2023</td><td><span class="status-pill sp-green">Active</span></td><td><button class="btn btn-sm btn-outline" onclick="hrdTab('profile',null)">View Profile</button></td></tr>
+          <tr><td>UFD-2015-0088</td><td>Vijay Prasad Negi</td><td>Forester</td><td>Subordinate</td><td>Chamoli</td><td><span class="status-pill sp-blue">Permanent</span></td><td>08 Aug 2015</td><td><span class="status-pill sp-amber">On Deputation</span></td><td><button class="btn btn-sm btn-outline" onclick="hrdTab('profile',null)">View Profile</button></td></tr>
+          <tr><td>UFD-2010-0023</td><td>Kamla Devi Bisht</td><td>ACF</td><td>SFS</td><td>Pithoragarh</td><td><span class="status-pill sp-blue">Permanent</span></td><td>02 Feb 2010</td><td><span class="status-pill sp-green">Active</span></td><td><button class="btn btn-sm btn-outline" onclick="hrdTab('profile',null)">View Profile</button></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ══ TAB: EMPLOYEE PROFILE ══ -->
+    <div id="hrd-profile" class="hrd-tab" style="display:none">
+      <div class="dash-hd">
+        <div style="font-size:1.1rem;font-weight:600;color:var(--cr);">📋 Employee Profile — Digital Service Book</div>
+        <div style="display:flex;gap:.5rem;">
+          <button class="btn btn-outline btn-sm" onclick="showToast('Printing service book...')">🖨 Print</button>
+          <button class="btn btn-primary btn-sm" onclick="showToast('Downloading service book PDF...')">⬇ Download PDF</button>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:240px 1fr;gap:1.5rem;">
+        <!-- Profile Card -->
+        <div>
+          <div class="info-card" style="text-align:center;border-color:rgba(90,200,110,.25);">
+            <div style="width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--fm),var(--fb));display:flex;align-items:center;justify-content:center;font-size:2rem;margin:0 auto .8rem;border:3px solid rgba(90,200,110,.3);">👤</div>
+            <div style="font-size:.92rem;font-weight:700;color:var(--cr);">Rajendra Kumar Singh</div>
+            <div style="font-size:.72rem;color:var(--ms);margin-top:.2rem;">Divisional Forest Officer</div>
+            <div style="font-size:.68rem;color:var(--gd);margin-top:.3rem;">UFD-2018-0001</div>
+            <div style="margin-top:.8rem;"><span class="status-pill sp-green">Active</span></div>
+            <div style="margin-top:1rem;display:flex;flex-direction:column;gap:.4rem;">
+              <button class="btn btn-outline btn-sm" style="width:100%;justify-content:center;" onclick="showToast('Opening ACR records...')">📊 View ACR</button>
+              <button class="btn btn-outline btn-sm" style="width:100%;justify-content:center;" onclick="showToast('Opening posting history...')">📍 Posting History</button>
+              <button class="btn btn-outline btn-sm" style="width:100%;justify-content:center;" onclick="showToast('Opening training records...')">🎓 Training Records</button>
+              <button class="btn btn-outline btn-sm" style="width:100%;justify-content:center;" onclick="showToast('Opening document vault...')">📁 Documents</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Details -->
+        <div>
+          <div class="tab-row">
+            <button class="tab act" onclick="switchProfileTab('personal',this)">Personal</button>
+            <button class="tab" onclick="switchProfileTab('service',this)">Service Details</button>
+            <button class="tab" onclick="switchProfileTab('qualifications',this)">Qualifications</button>
+            <button class="tab" onclick="switchProfileTab('documents',this)">Documents</button>
+          </div>
+
+          <div id="pt-personal" class="profile-tab">
+            <div class="grid-2">
+              <div class="info-card"><div class="ic-title">🧑 Personal Information</div>
+                <div class="ic-row"><span class="ic-key">Full Name</span><span class="ic-val">Rajendra Kumar Singh</span></div>
+                <div class="ic-row"><span class="ic-key">Date of Birth</span><span class="ic-val">14 March 1982</span></div>
+                <div class="ic-row"><span class="ic-key">Gender</span><span class="ic-val">Male</span></div>
+                <div class="ic-row"><span class="ic-key">Category</span><span class="ic-val">OBC</span></div>
+                <div class="ic-row"><span class="ic-key">Aadhaar (Masked)</span><span class="ic-val">XXXX-XXXX-4821</span></div>
+                <div class="ic-row"><span class="ic-key">PAN (Masked)</span><span class="ic-val">AXXPS4XXXX</span></div>
+                <div class="ic-row"><span class="ic-key">Mobile</span><span class="ic-val">+91 94XXXXXX48</span></div>
+                <div class="ic-row"><span class="ic-key">Email</span><span class="ic-val">r.singh@forest.uk.gov.in</span></div>
+              </div>
+              <div class="info-card"><div class="ic-title">📍 Current Posting</div>
+                <div class="ic-row"><span class="ic-key">Designation</span><span class="ic-val">DFO</span></div>
+                <div class="ic-row"><span class="ic-key">Division</span><span class="ic-val">Dehradun Forest Division</span></div>
+                <div class="ic-row"><span class="ic-key">Circle</span><span class="ic-val">Garhwal Circle</span></div>
+                <div class="ic-row"><span class="ic-key">Posting Date</span><span class="ic-val">15 Jun 2023</span></div>
+                <div class="ic-row"><span class="ic-key">Pay Level</span><span class="ic-val">Level 12 (₹78,800)</span></div>
+                <div class="ic-row"><span class="ic-key">Retirement Date</span><span class="ic-val">31 Mar 2042</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div id="pt-service" class="profile-tab" style="display:none">
+            <div class="info-card"><div class="ic-title">📋 Service History</div>
+              <table class="data-table">
+                <thead><tr><th>Period</th><th>Post</th><th>Division/Unit</th><th>Remarks</th></tr></thead>
+                <tbody>
+                  <tr><td>Jun 2023 – Present</td><td>DFO</td><td>Dehradun</td><td>Current Posting</td></tr>
+                  <tr><td>Jan 2021 – May 2023</td><td>ACF</td><td>Haridwar</td><td>Regular</td></tr>
+                  <tr><td>Jun 2018 – Dec 2020</td><td>RO</td><td>Nainital</td><td>On Joining</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div id="pt-qualifications" class="profile-tab" style="display:none">
+            <div class="info-card"><div class="ic-title">🎓 Qualifications & Training</div>
+              <div class="ic-row"><span class="ic-key">Degree</span><span class="ic-val">B.Sc. Forestry — GBPUAT 2004</span></div>
+              <div class="ic-row"><span class="ic-key">M.Sc.</span><span class="ic-val">Forest Management — FRI 2006</span></div>
+              <div class="ic-row"><span class="ic-key">IGNFA Training</span><span class="ic-val">Completed 2018</span></div>
+              <div class="ic-row"><span class="ic-key">GIS Certification</span><span class="ic-val">NRSC Hyderabad 2022</span></div>
+              <div class="ic-row"><span class="ic-key">Fire Management</span><span class="ic-val">IGNFA Dehradun 2023</span></div>
+            </div>
+          </div>
+
+          <div id="pt-documents" class="profile-tab" style="display:none">
+            <div class="info-card"><div class="ic-title">📁 Document Repository</div>
+              <table class="data-table">
+                <thead><tr><th>Document</th><th>Uploaded On</th><th>Status</th><th>Action</th></tr></thead>
+                <tbody>
+                  <tr><td>Appointment Order</td><td>16 Jun 2018</td><td><span class="status-pill sp-green">Verified</span></td><td><button class="btn btn-sm btn-outline" onclick="showToast('Downloading Appointment Order...')">⬇ View</button></td></tr>
+                  <tr><td>Degree Certificate</td><td>01 Jul 2018</td><td><span class="status-pill sp-green">Verified</span></td><td><button class="btn btn-sm btn-outline" onclick="showToast('Downloading Degree Certificate...')">⬇ View</button></td></tr>
+                  <tr><td>Aadhaar Card</td><td>10 Jun 2018</td><td><span class="status-pill sp-green">Verified</span></td><td><button class="btn btn-sm btn-outline" onclick="showToast('Encrypted — Access restricted')">⬇ View</button></td></tr>
+                  <tr><td>Annual Property Return 2025</td><td>31 Jan 2026</td><td><span class="status-pill sp-green">Filed</span></td><td><button class="btn btn-sm btn-outline" onclick="showToast('Downloading APR 2025...')">⬇ View</button></td></tr>
+                </tbody>
+              </table>
+              <button class="btn btn-primary btn-sm" style="margin-top:1rem;" onclick="showToast('Upload document dialog opening...')">+ Upload Document</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ TAB: ONBOARDING ══ -->
+    <div id="hrd-onboard" class="hrd-tab" style="display:none">
+      <div style="font-size:1.1rem;font-weight:600;color:var(--cr);margin-bottom:1.2rem;">➕ New Employee Onboarding</div>
+      <div class="tab-row">
+        <button class="tab act" onclick="switchOnboardTab('basic',this)">1. Personal Details</button>
+        <button class="tab" onclick="switchOnboardTab('professional',this)">2. Professional</button>
+        <button class="tab" onclick="switchOnboardTab('docs',this)">3. Documents</button>
+        <button class="tab" onclick="switchOnboardTab('review',this)">4. Review & Submit</button>
+      </div>
+
+      <div id="ob-basic" class="onboard-tab">
+        <div class="form-grid">
+          <div class="form-group"><label class="form-label">Full Name *</label><input class="form-input" placeholder="As per service records"></div>
+          <div class="form-group"><label class="form-label">Date of Birth *</label><input class="form-input" type="date"></div>
+          <div class="form-group"><label class="form-label">Gender *</label><select class="form-input"><option>Male</option><option>Female</option><option>Other</option></select></div>
+          <div class="form-group"><label class="form-label">Category *</label><select class="form-input"><option>General</option><option>OBC</option><option>SC</option><option>ST</option><option>EWS</option></select></div>
+          <div class="form-group"><label class="form-label">Aadhaar Number *</label><input class="form-input" placeholder="XXXX-XXXX-XXXX"></div>
+          <div class="form-group"><label class="form-label">PAN Number</label><input class="form-input" placeholder="XXXXXXXXXX"></div>
+          <div class="form-group"><label class="form-label">Mobile Number *</label><input class="form-input" placeholder="+91 XXXXX XXXXX"></div>
+          <div class="form-group"><label class="form-label">Official Email</label><input class="form-input" placeholder="name@forest.uk.gov.in"></div>
+          <div class="form-group" style="grid-column:span 2;"><label class="form-label">Permanent Address</label><textarea class="form-input" rows="2" placeholder="Village, Tehsil, District, State, PIN" style="resize:vertical;"></textarea></div>
+        </div>
+        <div class="form-actions"><button class="btn btn-primary btn-sm" onclick="switchOnboardTab('professional',document.querySelector('.tab:nth-child(2)'))">Next: Professional Details →</button></div>
+      </div>
+
+      <div id="ob-professional" class="onboard-tab" style="display:none">
+        <div class="form-grid">
+          <div class="form-group"><label class="form-label">Employee Type *</label><select class="form-input"><option>Permanent</option><option>Contractual</option><option>Deputation</option></select></div>
+          <div class="form-group"><label class="form-label">Cadre *</label><select class="form-input"><option>IFS</option><option>SFS</option><option>Subordinate</option><option>Contractual</option></select></div>
+          <div class="form-group"><label class="form-label">Designation *</label><select class="form-input"><option>CCF</option><option>CF</option><option>DFO</option><option>ACF</option><option>RO / Ranger</option><option>Forester</option><option>Forest Guard</option><option>Van Rakshak</option></select></div>
+          <div class="form-group"><label class="form-label">Pay Level *</label><select class="form-input"><option>Level 6</option><option>Level 7</option><option>Level 8</option><option>Level 10</option><option>Level 11</option><option>Level 12</option><option>Level 14</option></select></div>
+          <div class="form-group"><label class="form-label">Date of Joining *</label><input class="form-input" type="date"></div>
+          <div class="form-group"><label class="form-label">Joining Division *</label><select class="form-input"><option>Dehradun</option><option>Haridwar</option><option>Nainital</option><option>Almora</option><option>Chamoli</option><option>Uttarkashi</option><option>Pithoragarh</option><option>Tehri</option></select></div>
+          <div class="form-group"><label class="form-label">Appointment Order No.</label><input class="form-input" placeholder="e.g. UK/FD/APT/2026/XXX"></div>
+          <div class="form-group"><label class="form-label">Reporting Officer</label><input class="form-input" placeholder="Name of reporting officer"></div>
+        </div>
+        <div class="form-actions">
+          <button class="btn btn-outline btn-sm" onclick="switchOnboardTab('basic',null)">← Back</button>
+          <button class="btn btn-primary btn-sm" onclick="switchOnboardTab('docs',null)">Next: Documents →</button>
+        </div>
+      </div>
+
+      <div id="ob-docs" class="onboard-tab" style="display:none">
+        <div style="display:flex;flex-direction:column;gap:.8rem;">
+          <div class="info-card" style="display:flex;align-items:center;justify-content:space-between;">
+            <div><div class="ic-title" style="margin-bottom:0;">📄 Appointment Order *</div><div style="font-size:.68rem;color:var(--ms);">PDF only · Max 5MB</div></div>
+            <button class="btn btn-outline btn-sm" onclick="showToast('File upload dialog opening...')">⬆ Upload</button>
+          </div>
+          <div class="info-card" style="display:flex;align-items:center;justify-content:space-between;">
+            <div><div class="ic-title" style="margin-bottom:0;">🪪 Aadhaar Card *</div><div style="font-size:.68rem;color:var(--ms);">Encrypted storage · PDF/JPG</div></div>
+            <button class="btn btn-outline btn-sm" onclick="showToast('Aadhaar upload dialog opening...')">⬆ Upload</button>
+          </div>
+          <div class="info-card" style="display:flex;align-items:center;justify-content:space-between;">
+            <div><div class="ic-title" style="margin-bottom:0;">🎓 Educational Certificates *</div><div style="font-size:.68rem;color:var(--ms);">All degree & training certificates</div></div>
+            <button class="btn btn-outline btn-sm" onclick="showToast('Certificate upload dialog opening...')">⬆ Upload</button>
+          </div>
+          <div class="info-card" style="display:flex;align-items:center;justify-content:space-between;">
+            <div><div class="ic-title" style="margin-bottom:0;">📸 Photograph *</div><div style="font-size:.68rem;color:var(--ms);">JPG · White background · Passport size</div></div>
+            <button class="btn btn-outline btn-sm" onclick="showToast('Photo upload dialog opening...')">⬆ Upload</button>
+          </div>
+          <div class="info-card" style="display:flex;align-items:center;justify-content:space-between;">
+            <div><div class="ic-title" style="margin-bottom:0;">✍️ Digital Signature</div><div style="font-size:.68rem;color:var(--ms);">PNG · White background</div></div>
+            <button class="btn btn-outline btn-sm" onclick="showToast('Signature upload dialog opening...')">⬆ Upload</button>
+          </div>
+        </div>
+        <div class="form-actions" style="margin-top:1rem;">
+          <button class="btn btn-outline btn-sm" onclick="switchOnboardTab('professional',null)">← Back</button>
+          <button class="btn btn-primary btn-sm" onclick="switchOnboardTab('review',null)">Next: Review →</button>
+        </div>
+      </div>
+
+      <div id="ob-review" class="onboard-tab" style="display:none">
+        <div class="info-card" style="border-color:rgba(201,162,39,.3);background:rgba(201,162,39,.04);">
+          <div class="ic-title" style="color:var(--gd);">✅ Review & Generate Service ID</div>
+          <p style="font-size:.78rem;color:var(--ms);line-height:1.7;margin-bottom:1rem;">All personal, professional details and documents have been filled. On submission, the system will automatically:<br>• Generate a unique Employee Service ID<br>• Create digital service book entry<br>• Send login credentials to employee's registered mobile/email<br>• Notify the reporting officer and HR admin</p>
+          <div style="background:rgba(45,122,58,.15);border:1px solid rgba(90,200,110,.25);border-radius:6px;padding:1rem;margin-bottom:1rem;">
+            <div style="font-size:.72rem;color:var(--cn);font-weight:600;margin-bottom:.5rem;">Auto-generated Service ID Preview</div>
+            <div style="font-family:monospace;font-size:1.2rem;color:var(--gd);">UFD-2026-<span style="color:var(--cn);">4513</span></div>
+          </div>
+          <div class="form-actions">
+            <button class="btn btn-primary" onclick="showToast('✅ Employee UFD-2026-4513 onboarded! Credentials sent via SMS and Email.')">🚀 Submit & Onboard Employee</button>
+            <button class="btn btn-outline btn-sm" onclick="switchOnboardTab('docs',null)">← Back</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ TAB: LIFECYCLE / TRANSFERS ══ -->
+    <div id="hrd-lifecycle" class="hrd-tab" style="display:none">
+      <div class="dash-hd"><div style="font-size:1.1rem;font-weight:600;color:var(--cr);">🔄 Transfers & Postings</div><button class="btn btn-primary btn-sm" onclick="showToast('Transfer order form opening...')">+ Issue Transfer Order</button></div>
+      <div class="kpi-row">
+        <div class="kpi amber"><div class="kpi-val">84</div><div class="kpi-label">Transfer Requests</div></div>
+        <div class="kpi green"><div class="kpi-val">48</div><div class="kpi-label">Orders Issued (FY)</div></div>
+        <div class="kpi blue"><div class="kpi-val">12</div><div class="kpi-label">On Deputation</div></div>
+        <div class="kpi gold"><div class="kpi-val">28</div><div class="kpi-label">Pending Joining</div></div>
+      </div>
+      <table class="data-table">
+        <thead><tr><th>Employee</th><th>Current Post</th><th>From Division</th><th>To Division</th><th>Order Date</th><th>Joining By</th><th>Status</th><th>Action</th></tr></thead>
+        <tbody>
+          <tr><td>Sh. A. Sharma</td><td>DFO</td><td>Chamoli</td><td>Haridwar</td><td>10 Mar 2026</td><td>31 Mar 2026</td><td><span class="status-pill sp-amber">Awaiting Joining</span></td><td><button class="btn btn-sm btn-outline" onclick="showToast('Viewing transfer order: Sh. A. Sharma')">View Order</button></td></tr>
+          <tr><td>Ms. P. Joshi</td><td>ACF</td><td>Pauri</td><td>Nainital</td><td>15 Mar 2026</td><td>05 Apr 2026</td><td><span class="status-pill sp-blue">Order Issued</span></td><td><button class="btn btn-sm btn-outline" onclick="showToast('Viewing transfer order: Ms. P. Joshi')">View Order</button></td></tr>
+          <tr><td>Sh. V. Bisht</td><td>CF</td><td>Almora</td><td>HQ Dehradun</td><td>01 Mar 2026</td><td>20 Mar 2026</td><td><span class="status-pill sp-green">Joined</span></td><td><button class="btn btn-sm btn-outline" onclick="showToast('Viewing joining report: Sh. V. Bisht')">Joining Report</button></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ══ TAB: PROMOTIONS ══ -->
+    <div id="hrd-promotion" class="hrd-tab" style="display:none">
+      <div class="dash-hd"><div style="font-size:1.1rem;font-weight:600;color:var(--cr);">⬆ Promotion Tracking</div><button class="btn btn-primary btn-sm" onclick="showToast('DPC promotion list generating...')">Generate DPC List</button></div>
+      <div class="kpi-row">
+        <div class="kpi gold"><div class="kpi-val">124</div><div class="kpi-label">Due for Promotion</div></div>
+        <div class="kpi green"><div class="kpi-val">48</div><div class="kpi-label">Promoted (FY)</div></div>
+        <div class="kpi amber"><div class="kpi-val">76</div><div class="kpi-label">DPC Pending</div></div>
+      </div>
+      <table class="data-table">
+        <thead><tr><th>Employee</th><th>Current Designation</th><th>Next Designation</th><th>Eligible Since</th><th>ACR Status</th><th>Vigilance Clearance</th><th>Action</th></tr></thead>
+        <tbody>
+          <tr><td>Sh. M.L. Verma</td><td>Ranger</td><td>ACF</td><td>Jan 2025</td><td><span class="status-pill sp-green">Complete</span></td><td><span class="status-pill sp-green">Clear</span></td><td><button class="btn btn-sm btn-outline" onclick="showToast('Processing promotion for Sh. M.L. Verma')">Process</button></td></tr>
+          <tr><td>Sh. D.K. Rawat</td><td>Forest Guard</td><td>Head Guard</td><td>Mar 2025</td><td><span class="status-pill sp-amber">Incomplete</span></td><td><span class="status-pill sp-green">Clear</span></td><td><button class="btn btn-sm btn-outline" onclick="showToast('ACR pending — requesting from DFO')">Request ACR</button></td></tr>
+          <tr><td>Ms. S. Bora</td><td>Van Rakshak</td><td>Forest Guard</td><td>Apr 2025</td><td><span class="status-pill sp-green">Complete</span></td><td><span class="status-pill sp-green">Clear</span></td><td><button class="btn btn-sm btn-outline" onclick="showToast('Processing promotion for Ms. S. Bora')">Process</button></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ══ TAB: RETIREMENT FORECAST ══ -->
+    <div id="hrd-retirement" class="hrd-tab" style="display:none">
+      <div class="dash-hd"><div style="font-size:1.1rem;font-weight:600;color:var(--cr);">🏅 Retirement Forecast & Superannuation</div><button class="btn btn-outline btn-sm" onclick="showToast('Exporting retirement forecast to Excel...')">⬇ Export</button></div>
+      <div class="kpi-row">
+        <div class="kpi red"><div class="kpi-val">18</div><div class="kpi-label">Retiring in 2026</div></div>
+        <div class="kpi amber"><div class="kpi-val">42</div><div class="kpi-label">Retiring in 2027</div></div>
+        <div class="kpi gold"><div class="kpi-val">68</div><div class="kpi-label">Retiring in 2028</div></div>
+        <div class="kpi blue"><div class="kpi-val">348</div><div class="kpi-label">Total Vacancies (3yr)</div></div>
+      </div>
+      <div class="chart-card"><div class="cc-hd"><div class="cc-title">📊 Retirement Forecast by Year & Cadre</div></div><canvas id="hrd-retirementChart"></canvas></div>
+      <div style="margin-top:1rem;">
+        <table class="data-table">
+          <thead><tr><th>Name</th><th>Designation</th><th>Division</th><th>Date of Retirement</th><th>Months Left</th><th>NOC Status</th><th>Action</th></tr></thead>
+          <tbody>
+            <tr><td>Sh. B.D. Negi</td><td>CCF</td><td>HQ Dehradun</td><td>30 Jun 2026</td><td style="color:var(--rd);font-weight:600">3 months</td><td><span class="status-pill sp-amber">Pending</span></td><td><button class="btn btn-sm btn-outline" onclick="showToast('Initiating retirement processing for Sh. B.D. Negi')">Initiate</button></td></tr>
+            <tr><td>Sh. H.C. Rawat</td><td>CF</td><td>Almora</td><td>31 Aug 2026</td><td style="color:var(--am);font-weight:600">5 months</td><td><span class="status-pill sp-green">Issued</span></td><td><button class="btn btn-sm btn-outline" onclick="showToast('Viewing retirement order: Sh. H.C. Rawat')">View</button></td></tr>
+            <tr><td>Ms. K.D. Bisht</td><td>ACF</td><td>Pithoragarh</td><td>31 Jan 2027</td><td style="color:var(--cn);font-weight:600">10 months</td><td><span class="status-pill sp-blue">Not Started</span></td><td><button class="btn btn-sm btn-outline" onclick="showToast('Starting NOC process for Ms. K.D. Bisht')">Start NOC</button></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ══ TAB: DISCIPLINARY ══ -->
+    <div id="hrd-disciplinary" class="hrd-tab" style="display:none">
+      <div class="dash-hd"><div style="font-size:1.1rem;font-weight:600;color:var(--cr);">⚖️ Disciplinary Records & Suspension</div><button class="btn btn-primary btn-sm" onclick="showToast('New disciplinary enquiry form opening...')">+ Initiate Enquiry</button></div>
+      <div class="kpi-row">
+        <div class="kpi red"><div class="kpi-val">24</div><div class="kpi-label">Active Enquiries</div></div>
+        <div class="kpi amber"><div class="kpi-val">6</div><div class="kpi-label">Suspended Staff</div></div>
+        <div class="kpi blue"><div class="kpi-val">38</div><div class="kpi-label">Closed (FY)</div></div>
+        <div class="kpi green"><div class="kpi-val">12</div><div class="kpi-label">Exonerated</div></div>
+      </div>
+      <table class="data-table">
+        <thead><tr><th>Case No.</th><th>Employee</th><th>Designation</th><th>Charge</th><th>EO Appointed</th><th>Stage</th><th>Status</th><th>Action</th></tr></thead>
+        <tbody>
+          <tr><td>DISC/2026/042</td><td>Sh. R. Kumar</td><td>Forest Guard</td><td>Dereliction of Duty</td><td>Sh. M. Bisht (RO)</td><td>Charge Sheet Issued</td><td><span class="status-pill sp-red">Active</span></td><td><button class="btn btn-sm btn-outline" onclick="showToast('Viewing case DISC/2026/042')">View</button></td></tr>
+          <tr><td>DISC/2026/031</td><td>Sh. P. Negi</td><td>Forester</td><td>Misappropriation</td><td>Sh. V. Singh (ACF)</td><td>Enquiry in Progress</td><td><span class="status-pill sp-amber">Ongoing</span></td><td><button class="btn btn-sm btn-outline" onclick="showToast('Viewing case DISC/2026/031')">View</button></td></tr>
+          <tr><td>DISC/2025/198</td><td>Ms. S. Rawat</td><td>Van Rakshak</td><td>Absenteeism</td><td>Sh. A. Kumar (RO)</td><td>Report Submitted</td><td><span class="status-pill sp-blue">Pending Order</span></td><td><button class="btn btn-sm btn-outline" onclick="showToast('Issuing final order for DISC/2025/198')">Issue Order</button></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ══ TAB: ANALYTICS ══ -->
+    <div id="hrd-analytics" class="hrd-tab" style="display:none">
+      <div style="font-size:1.1rem;font-weight:600;color:var(--cr);margin-bottom:1.5rem;">📈 Workforce Analytics</div>
+      <div class="kpi-row">
+        <div class="kpi green"><div class="kpi-val">4,512</div><div class="kpi-label">Total Strength</div></div>
+        <div class="kpi gold"><div class="kpi-val">4,860</div><div class="kpi-label">Sanctioned Posts</div></div>
+        <div class="kpi red"><div class="kpi-val">348</div><div class="kpi-label">Vacancies</div></div>
+        <div class="kpi blue"><div class="kpi-val">28%</div><div class="kpi-label">Women Employees</div></div>
+        <div class="kpi amber"><div class="kpi-val">42 yrs</div><div class="kpi-label">Avg. Age</div></div>
+      </div>
+
+      <div class="charts-grid">
+        <div class="chart-card"><div class="cc-hd"><div class="cc-title">👥 Staff by Designation</div></div><canvas id="hrd-desigChart"></canvas></div>
+        <div class="chart-card"><div class="cc-hd"><div class="cc-title">📊 Permanent vs Contractual by Division</div></div><canvas id="hrd-permConChart"></canvas></div>
+        <div class="chart-card"><div class="cc-hd"><div class="cc-title">👩 Gender Distribution</div></div><canvas id="hrd-genderChart"></canvas></div>
+        <div class="chart-card"><div class="cc-hd"><div class="cc-title">🎂 Age Profile of Workforce</div></div><canvas id="hrd-ageChart"></canvas></div>
+        <div class="chart-card full"><div class="cc-hd"><div class="cc-title">📉 Sanctioned vs Posted — Division-wise Vacancy Analysis</div></div><canvas id="hrd-vacancyChart"></canvas></div>
+      </div>
+    </div>
+
+    <!-- ══ TAB: REPORTS ══ -->
+    <div id="hrd-reports" class="hrd-tab" style="display:none">
+      <div style="font-size:1.1rem;font-weight:600;color:var(--cr);margin-bottom:1rem;">📄 Reports & Data Export</div>
+
+      <div class="info-card" style="margin-bottom:1rem;">
+        <div class="ic-title">🔧 Custom Report Builder</div>
+        <div class="form-grid" style="margin-top:.5rem;">
+          <div class="form-group"><label class="form-label">Report Type</label>
+            <select class="form-input"><option>Attendance Summary</option><option>Employee Strength</option><option>Vacancy Analysis</option><option>Transfer History</option><option>Promotion History</option><option>Retirement Forecast</option><option>Training Coverage</option><option>Gender Analytics</option><option>Category Analytics</option><option>Absenteeism Report</option></select>
+          </div>
+          <div class="form-group"><label class="form-label">Period</label>
+            <select class="form-input"><option>Current Month</option><option>Last Month</option><option>Current Quarter</option><option>Last Quarter</option><option>Financial Year 2025-26</option><option>Custom Range</option></select>
+          </div>
+          <div class="form-group"><label class="form-label">Level</label>
+            <select class="form-input"><option>State</option><option>Circle</option><option>Division</option><option>Range</option></select>
+          </div>
+          <div class="form-group"><label class="form-label">Export Format</label>
+            <select class="form-input"><option>PDF</option><option>Excel (.xlsx)</option><option>CSV</option></select>
+          </div>
+        </div>
+        <div class="form-actions" style="margin-top:1rem;">
+          <button class="btn btn-primary btn-sm" onclick="showToast('✅ Generating custom report... Please wait.')">📊 Generate Report</button>
+          <button class="btn btn-outline btn-sm" onclick="showToast('Report preview window opening...')">👁 Preview</button>
+        </div>
+      </div>
+
+      <div style="font-size:.8rem;font-weight:600;color:var(--cr);margin-bottom:.8rem;">📂 Standard Reports</div>
+      <div style="display:flex;flex-direction:column;gap:.6rem;">
+        <div class="info-card" style="display:flex;align-items:center;justify-content:space-between;padding:.8rem 1.2rem;cursor:pointer;" onclick="showToast('Downloading Monthly Attendance Report — March 2026...')">
+          <div><div style="font-size:.78rem;font-weight:600;color:var(--cr);">📅 Monthly Attendance Report — March 2026</div><div style="font-size:.65rem;color:var(--ms);">All Divisions · Perm + Contractual · PDF · Auto-generated</div></div>
+          <div style="display:flex;gap:.5rem;"><button class="btn btn-outline btn-sm" onclick="event.stopPropagation();showToast('Opening preview...')">👁 Preview</button><button class="btn btn-primary btn-sm" onclick="event.stopPropagation();showToast('Downloading Monthly Attendance...')">⬇ Download</button></div>
+        </div>
+        <div class="info-card" style="display:flex;align-items:center;justify-content:space-between;padding:.8rem 1.2rem;cursor:pointer;" onclick="showToast('Downloading Employee Strength Report...')">
+          <div><div style="font-size:.78rem;font-weight:600;color:var(--cr);">👥 Employee Strength — Category & Cadre-wise</div><div style="font-size:.65rem;color:var(--ms);">State level · As on 26 Mar 2026 · Excel</div></div>
+          <div style="display:flex;gap:.5rem;"><button class="btn btn-outline btn-sm" onclick="event.stopPropagation();showToast('Opening preview...')">👁 Preview</button><button class="btn btn-primary btn-sm" onclick="event.stopPropagation();showToast('Downloading Strength Report...')">⬇ Download</button></div>
+        </div>
+        <div class="info-card" style="display:flex;align-items:center;justify-content:space-between;padding:.8rem 1.2rem;cursor:pointer;" onclick="showToast('Downloading Vacancy Analysis Report...')">
+          <div><div style="font-size:.78rem;font-weight:600;color:var(--cr);">📉 Vacancy Position Analysis — Sanctioned vs Posted</div><div style="font-size:.65rem;color:var(--ms);">Division-wise · Q4 FY 2025-26 · PDF</div></div>
+          <div style="display:flex;gap:.5rem;"><button class="btn btn-outline btn-sm" onclick="event.stopPropagation();showToast('Opening preview...')">👁 Preview</button><button class="btn btn-primary btn-sm" onclick="event.stopPropagation();showToast('Downloading Vacancy Report...')">⬇ Download</button></div>
+        </div>
+        <div class="info-card" style="display:flex;align-items:center;justify-content:space-between;padding:.8rem 1.2rem;cursor:pointer;" onclick="showToast('Downloading Retirement Forecast Report...')">
+          <div><div style="font-size:.78rem;font-weight:600;color:var(--cr);">🏅 Retirement Forecast — 2026-2030</div><div style="font-size:.65rem;color:var(--ms);">5-year projection · Cadre-wise · Excel</div></div>
+          <div style="display:flex;gap:.5rem;"><button class="btn btn-outline btn-sm" onclick="event.stopPropagation();showToast('Opening preview...')">👁 Preview</button><button class="btn btn-primary btn-sm" onclick="event.stopPropagation();showToast('Downloading Retirement Forecast...')">⬇ Download</button></div>
+        </div>
+        <div class="info-card" style="display:flex;align-items:center;justify-content:space-between;padding:.8rem 1.2rem;cursor:pointer;" onclick="showToast('Downloading Quarterly Attendance Report...')">
+          <div><div style="font-size:.78rem;font-weight:600;color:var(--cr);">📊 Quarterly Attendance Report — Q4 2025-26</div><div style="font-size:.65rem;color:var(--ms);">Automated · All Divisions · Perm + Contractual · PDF</div></div>
+          <div style="display:flex;gap:.5rem;"><button class="btn btn-outline btn-sm" onclick="event.stopPropagation();showToast('Opening preview...')">👁 Preview</button><button class="btn btn-primary btn-sm" onclick="event.stopPropagation();showToast('Downloading Q4 Report...')">⬇ Download</button></div>
+        </div>
+        <div class="info-card" style="display:flex;align-items:center;justify-content:space-between;padding:.8rem 1.2rem;cursor:pointer;" onclick="showToast('Downloading Defaulter Report...')">
+          <div><div style="font-size:.78rem;font-weight:600;color:var(--cr);">🚨 Defaulter Identification Report — March 2026</div><div style="font-size:.65rem;color:var(--ms);">Staff with &lt;75% attendance · Auto-alert triggered · PDF</div></div>
+          <div style="display:flex;gap:.5rem;"><button class="btn btn-outline btn-sm" onclick="event.stopPropagation();showToast('Opening preview...')">👁 Preview</button><button class="btn btn-primary btn-sm" onclick="event.stopPropagation();showToast('Downloading Defaulter Report...')">⬇ Download</button></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end mod-main -->
+</div><!-- end mod-page-layout -->
+</div><!-- end page-hrd -->
 
 <div class="page" id="page-research"><div class="topbar"><div class="topbar-brand" onclick="showPage('home')">🌲 UFD Portal</div><div class="topbar-nav"><button class="tnav" onclick="showPage('home')">← Home</button><button class="tnav act">🔬 Research</button></div><div class="topbar-right"><button class="lang-btn" onclick="toggleLang()">🌐 हिंदी / EN</button></div></div><div style="padding:2rem;"><div class="mod-page-title">🔬 Research, Training & Working Plans</div><div class="mod-page-sub" style="margin-bottom:1.5rem;">Forest research, publications and working plan management</div><div class="grid-3"><div class="info-card" style="cursor:pointer;" onclick="showToast('Downloading Working Plan: Dehradun Division...')"><div class="ic-title">📗 Working Plan</div><div class="ic-row"><span class="ic-key">Dehradun Division</span><span class="ic-val">2020-30</span></div><button class="btn btn-outline btn-sm" style="margin-top:.5rem;">⬇ Download</button></div><div class="info-card" style="cursor:pointer;" onclick="showToast('Downloading Working Plan: Almora Division...')"><div class="ic-title">📗 Working Plan</div><div class="ic-row"><span class="ic-key">Almora Division</span><span class="ic-val">2021-31</span></div><button class="btn btn-outline btn-sm" style="margin-top:.5rem;">⬇ Download</button></div><div class="info-card" style="cursor:pointer;" onclick="showToast('Downloading Research Bulletin...')"><div class="ic-title">🔬 Research Bulletin</div><div class="ic-row"><span class="ic-key">Oak Restoration UK</span><span class="ic-val">2025</span></div><button class="btn btn-outline btn-sm" style="margin-top:.5rem;">⬇ Download</button></div></div></div></div>
 
@@ -1354,6 +2007,7 @@ function showPage(name) {
   if (name === 'ntfp') setTimeout(initDepotMapSafe, 150);
   if (name === 'dashboard') { setTimeout(initCharts, 200); }
   if (name === 'campa') setTimeout(initCampaCharts, 200);
+  if (name === 'hrd') setTimeout(function(){ hrdTab('attendance', null); }, 150);
   if (name === 'ecotourism') setTimeout(initEcoCharts, 200);
 }
 
@@ -1554,6 +2208,133 @@ function initCampaCharts() {
 
 function initEcoCharts() {
   mkChart('ecoRevChart','bar',{labels:['Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec','Jan','Feb','Mar'],datasets:[{label:'Revenue (\u20B9 Lakhs)',data:[82,145,198,284,322,248,112,68,42,95,168,224],backgroundColor:'rgba(74,173,90,.7)',borderColor:'#4aad5a',borderWidth:1}]});
+}
+
+
+// ══ HRD TAB SWITCH ══
+function hrdTab(name, btn) {
+  document.querySelectorAll('#page-hrd .hrd-tab').forEach(t => t.style.display='none');
+  const tab = document.getElementById('hrd-'+name);
+  if(tab) tab.style.display = 'block';
+  // Update sidebar active state
+  document.querySelectorAll('#page-hrd .ds-lnk').forEach(b => b.classList.remove('act'));
+  const sbBtn = document.getElementById('hrd-sb-'+name);
+  if(sbBtn) sbBtn.classList.add('act');
+  // Update topbar nav
+  if(btn && btn.classList && btn.classList.contains('tnav')) {
+    document.querySelectorAll('#page-hrd .tnav').forEach(b => b.classList.remove('act'));
+    btn.classList.add('act');
+  }
+  // Init charts for specific tabs
+  const chartMap = {
+    'attendance': initHrdAttCharts,
+    'monitor': initHrdMonitorCharts,
+    'analytics': initHrdAnalyticsCharts,
+    'retirement': initHrdRetirementChart
+  };
+  if(chartMap[name]) setTimeout(chartMap[name], 120);
+  // Set refresh time
+  const rt = document.getElementById('hrd-refresh-time');
+  if(rt) rt.textContent = new Date().toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'});
+}
+
+// Profile sub-tab switch
+function switchProfileTab(name, btn) {
+  document.querySelectorAll('.profile-tab').forEach(t => t.style.display='none');
+  const t = document.getElementById('pt-'+name);
+  if(t) t.style.display='block';
+  if(btn) {
+    btn.closest('.tab-row').querySelectorAll('.tab').forEach(b => b.classList.remove('act'));
+    btn.classList.add('act');
+  }
+}
+
+// Onboarding sub-tab switch
+function switchOnboardTab(name, btn) {
+  document.querySelectorAll('.onboard-tab').forEach(t => t.style.display='none');
+  const t = document.getElementById('ob-'+name);
+  if(t) t.style.display='block';
+  const tabRow = document.querySelector('#hrd-onboard .tab-row');
+  if(tabRow && btn) {
+    tabRow.querySelectorAll('.tab').forEach(b => b.classList.remove('act'));
+    if(btn.classList && btn.classList.contains('tab')) btn.classList.add('act');
+  }
+}
+
+// Employee filter
+function filterEmployees(q) {
+  const rows = document.querySelectorAll('#empTableBody tr');
+  rows.forEach(r => {
+    r.style.display = r.textContent.toLowerCase().includes(q.toLowerCase()) ? '' : 'none';
+  });
+}
+
+// ══ HRD CHARTS ══
+function initHrdAttCharts() {
+  mkChart('hrd-attTrendChart','line',{
+    labels:['Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec','Jan','Feb','Mar'],
+    datasets:[
+      {label:'Dehradun',data:[91,90,88,85,87,89,92,93,90,88,89,89],borderColor:'#4aad5a',fill:false,tension:.4},
+      {label:'Haridwar',data:[85,84,82,80,83,85,87,88,84,83,84,84],borderColor:'#c9a227',fill:false,tension:.4},
+      {label:'Nainital',data:[82,80,78,76,79,81,83,84,80,79,80,81],borderColor:'#e05c5c',fill:false,tension:.4},
+      {label:'Almora',data:[90,89,87,85,88,90,92,93,89,88,90,91],borderColor:'#a8d5e2',fill:false,tension:.4}
+    ]
+  });
+  mkChart('hrd-categoryChart','doughnut',{
+    labels:['IFS Officers','SFS Officers','Foresters','Forest Guards','Van Rakshak','Contractual'],
+    datasets:[{data:[124,892,680,1482,106,1228],backgroundColor:['#c9a227','#4aad5a','#a8d5e2','#2d7a3a','#e89a3c','#8bc88f'],borderWidth:0}]
+  });
+}
+
+function initHrdMonitorCharts() {
+  mkChart('hrd-hourlyChart','bar',{
+    labels:['06:00','07:00','08:00','09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00'],
+    datasets:[
+      {label:'Check-Ins',data:[48,284,1840,842,214,28,12,8,6,4,2,1],backgroundColor:'rgba(74,173,90,.7)',borderColor:'#4aad5a',borderWidth:1},
+      {label:'Check-Outs',data:[0,0,2,4,8,12,280,640,1120,420,180,84],backgroundColor:'rgba(168,213,226,.5)',borderColor:'#a8d5e2',borderWidth:1}
+    ]
+  });
+}
+
+function initHrdAnalyticsCharts() {
+  mkChart('hrd-desigChart','bar',{
+    labels:['Forest Guard','Forester','Ranger','ACF','DFO','CF','CCF','Van Rakshak'],
+    datasets:[{label:'Staff Count',data:[1482,680,420,248,124,64,24,106],backgroundColor:'rgba(74,173,90,.7)',borderColor:'#4aad5a',borderWidth:1}]
+  });
+  mkChart('hrd-permConChart','bar',{
+    labels:['Dehradun','Haridwar','Nainital','Almora','Chamoli','Uttarkashi','Others'],
+    datasets:[
+      {label:'Permanent',data:[448,298,364,342,274,248,1310],backgroundColor:'rgba(45,122,58,.75)'},
+      {label:'Contractual',data:[176,114,154,144,115,94,431],backgroundColor:'rgba(201,162,39,.65)'}
+    ]
+  });
+  mkChart('hrd-genderChart','doughnut',{
+    labels:['Male','Female','Other'],
+    datasets:[{data:[3248,1258,6],backgroundColor:['#2d7a3a','#a8d5e2','#c9a227'],borderWidth:0}]
+  });
+  mkChart('hrd-ageChart','bar',{
+    labels:['<25','25-30','31-35','36-40','41-45','46-50','51-55','56-60'],
+    datasets:[{label:'Employees',data:[124,480,840,924,882,748,368,146],backgroundColor:'rgba(168,213,226,.65)',borderColor:'#a8d5e2',borderWidth:1}]
+  });
+  mkChart('hrd-vacancyChart','bar',{
+    labels:['Dehradun','Haridwar','Nainital','Almora','Chamoli','Uttarkashi','Pithoragarh','Tehri','Rudraprayag','Bageshwar','US Nagar','Pauri','Champawat'],
+    datasets:[
+      {label:'Sanctioned',data:[660,440,548,512,420,368,324,298,180,164,518,284,148],backgroundColor:'rgba(201,162,39,.4)'},
+      {label:'Posted',data:[624,412,518,486,389,342,298,272,168,148,492,262,139],backgroundColor:'rgba(74,173,90,.7)'}
+    ]
+  });
+}
+
+function initHrdRetirementChart() {
+  mkChart('hrd-retirementChart','bar',{
+    labels:['2026','2027','2028','2029','2030'],
+    datasets:[
+      {label:'IFS/SFS',data:[8,12,18,14,22],backgroundColor:'rgba(201,162,39,.7)'},
+      {label:'Forester/Ranger',data:[14,24,32,28,38],backgroundColor:'rgba(168,213,226,.65)'},
+      {label:'Forest Guard',data:[24,42,58,48,64],backgroundColor:'rgba(74,173,90,.65)'},
+      {label:'Contractual',data:[12,18,24,20,28],backgroundColor:'rgba(232,154,60,.6)'}
+    ]
+  });
 }
 
 // ══ INIT on load ══
