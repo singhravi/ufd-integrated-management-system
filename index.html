@@ -1101,160 +1101,1045 @@ select.form-input option{background:var(--fd3);color:var(--cr);}
 <!-- ══════════════════════════════════════════════════
      PAGE: NTFP
 ══════════════════════════════════════════════════ -->
+<!-- ══════════════════════════════════════════════════
+     PAGE: NTFP, LIVELIHOODS & VAN PANCHAYAT
+══════════════════════════════════════════════════ -->
 <div class="page" id="page-ntfp">
-  <div class="topbar">
-    <div class="topbar-brand" onclick="showPage('home')">🌲 UFD Portal</div>
-    <div class="topbar-nav"><button class="tnav" onclick="showPage('home')">← Home</button><button class="tnav act">🌿 NTFP</button></div>
-    <div class="topbar-right"><button class="lang-btn" onclick="toggleLang()">🌐 हिंदी / EN</button><button class="login-btn" onclick="openModal('loginModal')">🔐 Login</button></div>
+<div class="topbar">
+  <div class="topbar-brand" onclick="showPage('home')">🌲 UFD Portal</div>
+  <div class="topbar-nav">
+    <button class="tnav" onclick="showPage('home')">← Home</button>
+    <button class="tnav act">🌿 NTFP & Livelihoods</button>
+    <button class="tnav" onclick="ntfpTab('mapping',this)">📍 Production Mapping</button>
+    <button class="tnav" onclick="ntfpTab('gis',this)">🗺 GIS & MIS</button>
+    <button class="tnav" onclick="ntfpTab('livelihood',this)">🤝 Livelihoods</button>
+    <button class="tnav" onclick="ntfpTab('market',this)">📈 Market Prices</button>
+    <button class="tnav" onclick="ntfpTab('permits',this)">📋 Permits</button>
   </div>
-  <div class="mod-page-layout">
-    <div class="mod-sidebar">
-      <div class="ds-title">NTFP MODULE</div>
-      <button class="ds-lnk act" onclick="switchModTab('ntfp','market',this)">📈 Market Prices</button>
-      <button class="ds-lnk" onclick="switchModTab('ntfp','permits',this)">📋 Permits</button>
-      <button class="ds-lnk" onclick="switchModTab('ntfp','shg',this)">🤝 SHG Linkage</button>
-      <button class="ds-lnk" onclick="switchModTab('ntfp','depot',this)">📦 Depot Locator</button>
-    </div>
-    <div class="mod-main">
-      <div class="breadcrumb"><span onclick="showPage('home')" style="cursor:pointer;">Home</span> <span>›</span> NTFP & Livelihoods</div>
-      <div class="mod-page-title">🌿 Non-Timber Forest Produce & Livelihoods</div>
-      <div class="mod-page-sub">Sustainable harvest management, market linkages and livelihood support</div>
-      <div id="ntfp-market" class="modtab-content">
-        <div class="kpi-row">
-          <div class="kpi green"><div class="kpi-val">₹84Cr</div><div class="kpi-label">NTFP Revenue</div></div>
-          <div class="kpi gold"><div class="kpi-val">142</div><div class="kpi-label">Species Tracked</div></div>
-          <div class="kpi blue"><div class="kpi-val">48,000</div><div class="kpi-label">Collector Households</div></div>
-        </div>
-        <div style="font-size:.85rem;font-weight:600;color:var(--cr);margin-bottom:1rem;">📊 Live Market Prices (MSP + Mandi)</div>
-        <table class="data-table"><thead><tr><th>NTFP Species</th><th>Local Name</th><th>MSP (₹/kg)</th><th>Mandi Price</th><th>Season</th><th>Availability</th></tr></thead>
-        <tbody>
-          <tr><td>Chyura (Butter Tree)</td><td>च्यूरा</td><td>₹55</td><td>₹62</td><td>Apr-Jun</td><td><span class="status-pill sp-green">In Season</span></td></tr>
-          <tr><td>Timru (Wild Thyme)</td><td>तिमरु</td><td>₹380</td><td>₹420</td><td>Oct-Dec</td><td><span class="status-pill sp-amber">Off Season</span></td></tr>
-          <tr><td>Ringal Bamboo</td><td>रिंगाल</td><td>₹28</td><td>₹35</td><td>Year-round</td><td><span class="status-pill sp-green">Available</span></td></tr>
-          <tr><td>Pine Resin</td><td>चीड़ राल</td><td>₹42</td><td>₹48</td><td>Mar-May</td><td><span class="status-pill sp-green">Peak Season</span></td></tr>
-          <tr><td>Banj Oak (Leaves)</td><td>बाँज पत्ती</td><td>₹12</td><td>₹15</td><td>Year-round</td><td><span class="status-pill sp-green">Available</span></td></tr>
-          <tr><td>Honey (Forest)</td><td>वन मधु</td><td>₹480</td><td>₹620</td><td>Apr-Aug</td><td><span class="status-pill sp-amber">Pre-Season</span></td></tr>
-        </tbody></table>
-      </div>
-      <div id="ntfp-permits" class="modtab-content" style="display:none">
-        <div class="dash-hd"><div style="font-weight:600;color:var(--cr);">Collection Permits</div><button class="btn btn-primary btn-sm" onclick="showToast('NTFP permit application form...')">+ Apply for Permit</button></div>
-        <div class="form-grid" style="margin-bottom:1rem;">
-          <div class="form-group"><label class="form-label">Applicant Name</label><input class="form-input" placeholder="Full name"></div>
-          <div class="form-group"><label class="form-label">Aadhaar No.</label><input class="form-input" placeholder="XXXX XXXX XXXX"></div>
-          <div class="form-group"><label class="form-label">NTFP Species</label><select class="form-input"><option>Select Species</option><option>Pine Resin</option><option>Ringal Bamboo</option><option>Chyura</option><option>Honey</option></select></div>
-          <div class="form-group"><label class="form-label">Quantity (Quintals)</label><input class="form-input" type="number" placeholder="e.g. 10"></div>
-          <div class="form-group"><label class="form-label">Division</label><select class="form-input"><option>Select Division</option><option>Dehradun</option><option>Almora</option><option>Chamoli</option><option>Uttarkashi</option></select></div>
-          <div class="form-group"><label class="form-label">Collection Period</label><input class="form-input" type="date"></div>
-        </div>
-        <div class="form-actions"><button class="btn btn-primary btn-sm" onclick="showToast('✅ Permit application submitted! Reference: NTFP/2026/4821')">Submit Application</button><button class="btn btn-outline btn-sm" onclick="showToast('Tracking permit status...')">Track Status</button></div>
-      </div>
-      <div id="ntfp-shg" class="modtab-content" style="display:none">
-        <div class="kpi-row">
-          <div class="kpi green"><div class="kpi-val">1,284</div><div class="kpi-label">Registered SHGs</div></div>
-          <div class="kpi blue"><div class="kpi-val">18,200</div><div class="kpi-label">SHG Members</div></div>
-          <div class="kpi gold"><div class="kpi-val">₹24Cr</div><div class="kpi-label">SHG Turnover</div></div>
-        </div>
-        <table class="data-table"><thead><tr><th>SHG Name</th><th>District</th><th>Members</th><th>NTFP Product</th><th>Revenue (₹)</th><th>Status</th></tr></thead>
-        <tbody>
-          <tr><td>Parvati Mahila SHG</td><td>Almora</td><td>12</td><td>Wild Honey</td><td>₹4,20,000</td><td><span class="status-pill sp-green">Active</span></td></tr>
-          <tr><td>Nanda Devi Van SHG</td><td>Chamoli</td><td>15</td><td>Ringal Products</td><td>₹2,80,000</td><td><span class="status-pill sp-green">Active</span></td></tr>
-          <tr><td>Ganga Uttarakhand SHG</td><td>Uttarkashi</td><td>10</td><td>Pine Resin</td><td>₹1,95,000</td><td><span class="status-pill sp-amber">Dormant</span></td></tr>
-        </tbody></table>
-      </div>
-      <div id="ntfp-depot" class="modtab-content" style="display:none">
-        <div style="height:350px;border-radius:6px;overflow:hidden;border:1px solid rgba(90,200,110,.2);margin-bottom:1rem;" id="depotMap"></div>
-        <table class="data-table"><thead><tr><th>Depot Name</th><th>District</th><th>Products</th><th>Open Timings</th><th>Contact</th></tr></thead>
-        <tbody>
-          <tr><td>Dehradun NTFP Depot</td><td>Dehradun</td><td>Resin, Honey, Herbs</td><td>9AM-5PM Mon-Sat</td><td>0135-2XXXXXX</td></tr>
-          <tr><td>Almora Central Depot</td><td>Almora</td><td>Chyura, Timru, Banj</td><td>8AM-4PM Mon-Sat</td><td>05962-XXXXXX</td></tr>
-          <tr><td>Ramnagar FDC Depot</td><td>US Nagar</td><td>Bamboo, Grass, Resin</td><td>9AM-5PM Mon-Fri</td><td>05947-XXXXXX</td></tr>
-        </tbody></table>
-      </div>
-    </div>
+  <div class="topbar-right">
+    <button class="lang-btn" onclick="toggleLang()">🌐 हिंदी / EN</button>
+    <button class="login-btn" onclick="openModal('loginModal')">🔐 Login</button>
   </div>
 </div>
 
+<div class="mod-page-layout">
+  <div class="mod-sidebar">
+    <div class="ds-title">NTFP MODULE</div>
+    <div class="ds-title" style="color:rgba(168,213,226,.5);margin-top:.3rem;">📍 PRODUCTION</div>
+    <button class="ds-lnk act" id="ntfp-sb-mapping" onclick="ntfpTab('mapping',this)">🗺 Production Mapping</button>
+    <button class="ds-lnk" id="ntfp-sb-collection" onclick="ntfpTab('collection',this)">📱 Mobile Collection</button>
+    <button class="ds-lnk" id="ntfp-sb-approval" onclick="ntfpTab('approval',this)">✅ Approval Workflow</button>
+    <div class="ds-sep"></div>
+    <div class="ds-title" style="color:rgba(168,213,226,.5);">🌐 GIS & MIS</div>
+    <button class="ds-lnk" id="ntfp-sb-gis" onclick="ntfpTab('gis',this)">🗺 GIS Dashboard</button>
+    <button class="ds-lnk" id="ntfp-sb-hotspot" onclick="ntfpTab('hotspot',this)">🔥 Hotspot Analysis</button>
+    <div class="ds-sep"></div>
+    <div class="ds-title" style="color:rgba(168,213,226,.5);">🤝 LIVELIHOODS</div>
+    <button class="ds-lnk" id="ntfp-sb-livelihood" onclick="ntfpTab('livelihood',this)">👨‍🌾 Livelihood Mgmt</button>
+    <button class="ds-lnk" id="ntfp-sb-training" onclick="ntfpTab('training',this)">🎓 Training Module</button>
+    <button class="ds-lnk" id="ntfp-sb-beneficiary" onclick="ntfpTab('beneficiary',this)">👥 Beneficiary Profiles</button>
+    <div class="ds-sep"></div>
+    <div class="ds-title" style="color:rgba(168,213,226,.5);">🏪 MARKET</div>
+    <button class="ds-lnk" id="ntfp-sb-market" onclick="ntfpTab('market',this)">📈 Market Prices</button>
+    <button class="ds-lnk" id="ntfp-sb-permits" onclick="ntfpTab('permits',this)">📋 Permits & Depot</button>
+    <button class="ds-lnk" id="ntfp-sb-reports" onclick="ntfpTab('reports',this)">📄 Reports & Export</button>
+  </div>
+
+  <div class="mod-main" style="background:rgba(6,18,9,.4);">
+    <div class="breadcrumb"><span onclick="showPage('home')" style="cursor:pointer;">Home</span> <span>›</span> NTFP, Livelihoods & Van Panchayat Management</div>
+    <div class="mod-page-title">🌿 NTFP, Livelihoods & Van Panchayat MIS</div>
+    <div class="mod-page-sub">Production Mapping · GIS Analytics · Livelihood Tracking · Market Intelligence · Uttarakhand Forest Department</div>
+
+    <!-- ══ TAB: PRODUCTION MAPPING ══ -->
+    <div id="ntfp-mapping" class="ntfp-tab">
+      <div class="kpi-row">
+        <div class="kpi green"><div class="kpi-ico">🌿</div><div class="kpi-val">142</div><div class="kpi-label">NTFP Species Mapped</div><div class="kpi-trend trend-up">↑ 8 new this season</div></div>
+        <div class="kpi gold"><div class="kpi-ico">📍</div><div class="kpi-val">4,821</div><div class="kpi-label">GPS Points Collected</div><div class="kpi-trend trend-up">Geo-tagged locations</div></div>
+        <div class="kpi blue"><div class="kpi-ico">📊</div><div class="kpi-val">₹84Cr</div><div class="kpi-label">Total NTFP Revenue</div><div class="kpi-trend trend-up">↑ 12% YoY</div></div>
+        <div class="kpi amber"><div class="kpi-ico">🗺</div><div class="kpi-val">13</div><div class="kpi-label">Districts Mapped</div><div class="kpi-trend">100% coverage</div></div>
+        <div class="kpi green"><div class="kpi-ico">🧑‍🌾</div><div class="kpi-val">48,000</div><div class="kpi-label">Collector Households</div><div class="kpi-trend trend-up">↑ 2,400 new</div></div>
+        <div class="kpi red"><div class="kpi-ico">⏳</div><div class="kpi-val">284</div><div class="kpi-label">Pending Approvals</div><div class="kpi-trend" style="color:var(--am);">Awaiting review</div></div>
+      </div>
+
+      <div class="charts-grid">
+        <div class="chart-card">
+          <div class="cc-hd"><div class="cc-title">📦 NTFP Production by Species (Quintals)</div><span class="cc-badge">2025-26</span></div>
+          <canvas id="ntfp-speciesChart"></canvas>
+        </div>
+        <div class="chart-card">
+          <div class="cc-hd"><div class="cc-title">📅 Season-wise Production Trend</div><span class="cc-badge">Year-on-Year</span></div>
+          <canvas id="ntfp-seasonChart"></canvas>
+        </div>
+      </div>
+
+      <!-- GIS Production Map -->
+      <div class="info-card">
+        <div class="ic-title" style="display:flex;justify-content:space-between;align-items:center;">
+          <span>🗺 NTFP Production Distribution Map</span>
+          <div style="display:flex;gap:.5rem;">
+            <select class="form-input" style="padding:.3rem .6rem;font-size:.7rem;width:auto;" onchange="showToast('Filter: '+this.value)">
+              <option>All Species</option><option>Pine Resin</option><option>Honey</option><option>Ringal Bamboo</option><option>Chyura</option><option>Timru</option>
+            </select>
+            <select class="form-input" style="padding:.3rem .6rem;font-size:.7rem;width:auto;">
+              <option>Current Season</option><option>2024-25</option><option>2023-24</option>
+            </select>
+            <button class="btn btn-outline btn-sm" onclick="showToast('Exporting production map as PDF...')">⬇ Export</button>
+          </div>
+        </div>
+        <div id="ntfp-prodMap" style="height:380px;border-radius:6px;overflow:hidden;margin-top:.8rem;border:1px solid rgba(90,200,110,.2);"></div>
+        <div style="display:flex;gap:1.5rem;margin-top:.8rem;flex-wrap:wrap;">
+          <div class="leg-item"><div class="leg-dot" style="background:#4aad5a;"></div> High Production (>500 Q)</div>
+          <div class="leg-item"><div class="leg-dot" style="background:#c9a227;"></div> Medium (100-500 Q)</div>
+          <div class="leg-item"><div class="leg-dot" style="background:#e89a3c;"></div> Low (<100 Q)</div>
+          <div class="leg-item"><div class="leg-dot" style="background:#a8d5e2;"></div> Data Collection Point</div>
+          <div class="leg-item"><div class="leg-dot" style="background:#e05c5c;"></div> Potential Unexplored Area</div>
+        </div>
+      </div>
+
+      <!-- Production Records Table -->
+      <div class="info-card">
+        <div class="ic-title" style="display:flex;justify-content:space-between;align-items:center;">
+          <span>📋 District-wise NTFP Production Records</span>
+          <button class="btn btn-primary btn-sm" onclick="showToast('Adding new production record...')">+ Add Record</button>
+        </div>
+        <table class="data-table">
+          <thead><tr><th>District</th><th>Top Species</th><th>Production (Q)</th><th>Collection Pts</th><th>Households</th><th>Revenue (₹L)</th><th>YoY Change</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>Almora</td><td>Chyura, Timru</td><td>4,821</td><td>284</td><td>6,200</td><td>₹182L</td><td><span style="color:var(--cn)">↑ 14%</span></td><td><span class="status-pill sp-green">Verified</span></td></tr>
+            <tr><td>Pithoragarh</td><td>Honey, Ringal</td><td>3,642</td><td>218</td><td>4,800</td><td>₹148L</td><td><span style="color:var(--cn)">↑ 8%</span></td><td><span class="status-pill sp-green">Verified</span></td></tr>
+            <tr><td>Chamoli</td><td>Pine Resin, Herbs</td><td>5,124</td><td>312</td><td>7,400</td><td>₹198L</td><td><span style="color:var(--cn)">↑ 18%</span></td><td><span class="status-pill sp-green">Verified</span></td></tr>
+            <tr><td>Uttarkashi</td><td>Banj Oak, Resin</td><td>2,984</td><td>176</td><td>3,900</td><td>₹112L</td><td><span style="color:var(--am)">↑ 3%</span></td><td><span class="status-pill sp-amber">Pending</span></td></tr>
+            <tr><td>Pauri Garhwal</td><td>Timru, Grass</td><td>2,148</td><td>142</td><td>3,200</td><td>₹84L</td><td><span style="color:var(--rd)">↓ 2%</span></td><td><span class="status-pill sp-amber">Under Review</span></td></tr>
+            <tr><td>Bageshwar</td><td>Ringal, Honey</td><td>1,842</td><td>98</td><td>2,400</td><td>₹68L</td><td><span style="color:var(--cn)">↑ 6%</span></td><td><span class="status-pill sp-green">Verified</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ══ TAB: MOBILE COLLECTION ══ -->
+    <div id="ntfp-collection" class="ntfp-tab" style="display:none">
+      <div style="display:grid;grid-template-columns:320px 1fr;gap:1.5rem;">
+        <!-- Mobile App Mockup -->
+        <div class="info-card" style="border-color:rgba(90,200,110,.3);">
+          <div class="ic-title">📱 GPS-Enabled NTFP Data Collection App</div>
+          <div style="background:rgba(10,31,13,.7);border-radius:12px;padding:1.2rem;margin-top:.8rem;border:1px solid rgba(90,200,110,.18);">
+            <div style="text-align:center;margin-bottom:1rem;">
+              <div style="font-size:.65rem;color:var(--ms);text-transform:uppercase;letter-spacing:.1em;">NTFP Field Survey App</div>
+              <div style="font-family:var(--serif);font-size:1.1rem;color:var(--cr);">New Collection Entry</div>
+            </div>
+            <div style="background:rgba(45,122,58,.2);border:1px solid rgba(90,200,110,.25);border-radius:8px;padding:.8rem;margin-bottom:.8rem;text-align:center;">
+              <div style="font-size:1.5rem;">📍</div>
+              <div style="font-size:.68rem;color:var(--cn);margin-top:.2rem;">GPS Active · 4 satellites</div>
+              <div style="font-size:.62rem;color:var(--ms);">30.3165°N, 78.0322°E · Accuracy: ±3m</div>
+              <div style="font-size:.62rem;color:var(--ms);">Almora Division · Beat 12</div>
+            </div>
+            <div class="form-group" style="margin-bottom:.6rem;"><label class="form-label" style="font-size:.62rem;">NTFP Species</label>
+              <select class="form-input" style="font-size:.72rem;padding:.4rem .6rem;">
+                <option>Chyura (Butter Tree)</option><option>Pine Resin</option><option>Ringal Bamboo</option><option>Wild Honey</option><option>Timru</option>
+              </select>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-bottom:.6rem;">
+              <div class="form-group"><label class="form-label" style="font-size:.62rem;">Quantity (kg)</label><input class="form-input" type="number" placeholder="0.0" style="font-size:.72rem;padding:.4rem .6rem;"></div>
+              <div class="form-group"><label class="form-label" style="font-size:.62rem;">Quality Grade</label>
+                <select class="form-input" style="font-size:.72rem;padding:.4rem .6rem;"><option>Grade A</option><option>Grade B</option><option>Grade C</option></select>
+              </div>
+            </div>
+            <div class="form-group" style="margin-bottom:.6rem;"><label class="form-label" style="font-size:.62rem;">Season</label>
+              <select class="form-input" style="font-size:.72rem;padding:.4rem .6rem;"><option>Spring (Mar-May)</option><option>Summer (Jun-Aug)</option><option>Autumn (Sep-Nov)</option><option>Winter (Dec-Feb)</option></select>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-bottom:.8rem;">
+              <button class="btn btn-outline btn-sm" style="justify-content:center;font-size:.68rem;" onclick="showToast('Camera opening for geo-tagged photo...')">📸 Add Photo</button>
+              <button class="btn btn-outline btn-sm" style="justify-content:center;font-size:.68rem;" onclick="showToast('Remarks field opened...')">📝 Remarks</button>
+            </div>
+            <button class="btn btn-primary" style="width:100%;justify-content:center;font-size:.75rem;" onclick="showToast('✅ Collection record saved! Ref: NTFP/COL/2026/'+Math.floor(Math.random()*9000+1000))">💾 Save & Submit</button>
+            <button class="btn btn-outline" style="width:100%;justify-content:center;margin-top:.4rem;font-size:.72rem;" onclick="showToast('Record saved offline — will sync when connected')">📴 Save Offline</button>
+          </div>
+        </div>
+
+        <!-- Recent submissions -->
+        <div>
+          <div class="info-card" style="margin-bottom:1rem;">
+            <div class="ic-title" style="display:flex;justify-content:space-between;">
+              <span>📤 Recent Field Submissions (Pending Approval)</span>
+              <span style="font-size:.65rem;color:var(--cn);">● Live Sync</span>
+            </div>
+            <table class="data-table">
+              <thead><tr><th>Ref ID</th><th>Collector</th><th>Species</th><th>Qty (kg)</th><th>District</th><th>Geo-tag</th><th>Photo</th><th>Status</th></tr></thead>
+              <tbody>
+                <tr><td>NTFP/COL/2026/8421</td><td>Ramesh Bisht</td><td>Chyura</td><td>48.5</td><td>Almora</td><td><span class="status-pill sp-green">✓ GPS</span></td><td><span class="status-pill sp-green">✓ 3 Photos</span></td><td><span class="status-pill sp-amber">Pending</span></td></tr>
+                <tr><td>NTFP/COL/2026/8418</td><td>Sita Devi</td><td>Wild Honey</td><td>12.2</td><td>Pithoragarh</td><td><span class="status-pill sp-green">✓ GPS</span></td><td><span class="status-pill sp-amber">1 Photo</span></td><td><span class="status-pill sp-amber">Pending</span></td></tr>
+                <tr><td>NTFP/COL/2026/8412</td><td>Gopal Negi</td><td>Pine Resin</td><td>124.0</td><td>Chamoli</td><td><span class="status-pill sp-green">✓ GPS</span></td><td><span class="status-pill sp-green">✓ 5 Photos</span></td><td><span class="status-pill sp-green">Approved</span></td></tr>
+                <tr><td>NTFP/COL/2026/8401</td><td>Meena Rawat</td><td>Ringal Bamboo</td><td>280.0</td><td>Uttarkashi</td><td><span class="status-pill sp-green">✓ GPS</span></td><td><span class="status-pill sp-green">✓ 4 Photos</span></td><td><span class="status-pill sp-green">Approved</span></td></tr>
+                <tr><td>NTFP/COL/2026/8395</td><td>Harish Mehra</td><td>Timru</td><td>22.8</td><td>Bageshwar</td><td><span class="status-pill sp-red">⚠ No GPS</span></td><td><span class="status-pill sp-green">✓ 2 Photos</span></td><td><span class="status-pill sp-red">Rejected</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="info-card">
+            <div class="ic-title">📐 Quality Parameter Standards</div>
+            <table class="data-table">
+              <thead><tr><th>Species</th><th>Grade A</th><th>Grade B</th><th>Moisture Max</th><th>MSP (₹/kg)</th></tr></thead>
+              <tbody>
+                <tr><td>Chyura Seed</td><td>Clean, Dry</td><td>Partial hulled</td><td>10%</td><td>₹55</td></tr>
+                <tr><td>Pine Resin</td><td>Clear, Amber</td><td>Cloudy</td><td>5%</td><td>₹42</td></tr>
+                <tr><td>Wild Honey</td><td>>80 Brix</td><td>70-80 Brix</td><td>20%</td><td>₹480</td></tr>
+                <tr><td>Timru Leaf</td><td>Dark green</td><td>Mixed</td><td>12%</td><td>₹380</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ TAB: APPROVAL WORKFLOW ══ -->
+    <div id="ntfp-approval" class="ntfp-tab" style="display:none">
+      <div class="dash-hd">
+        <div style="font-size:1.1rem;font-weight:600;color:var(--cr);">✅ Multi-Level Approval Workflow</div>
+        <div style="display:flex;gap:.5rem;">
+          <button class="btn btn-outline btn-sm" onclick="showToast('Exporting pending approvals to Excel...')">⬇ Export</button>
+          <button class="btn btn-primary btn-sm" onclick="showToast('Bulk approval processing...')">✓ Bulk Approve</button>
+        </div>
+      </div>
+
+      <!-- Workflow diagram -->
+      <div class="info-card" style="margin-bottom:1.2rem;">
+        <div class="ic-title">🔄 Approval Workflow Stages</div>
+        <div style="display:flex;align-items:center;gap:0;margin-top:.8rem;overflow-x:auto;padding-bottom:.5rem;">
+          <div style="text-align:center;padding:.6rem 1rem;background:rgba(74,173,90,.15);border:1px solid rgba(90,200,110,.3);border-radius:6px;min-width:110px;">
+            <div style="font-size:1.2rem;">📱</div><div style="font-size:.65rem;color:var(--cn);font-weight:600;margin-top:.2rem;">Field Data Entry</div><div style="font-size:.58rem;color:var(--ms);">Forest Guard</div>
+          </div>
+          <div style="font-size:1.2rem;color:var(--ms);padding:0 .3rem;">→</div>
+          <div style="text-align:center;padding:.6rem 1rem;background:rgba(201,162,39,.12);border:1px solid rgba(201,162,39,.3);border-radius:6px;min-width:110px;">
+            <div style="font-size:1.2rem;">👮</div><div style="font-size:.65rem;color:var(--gd);font-weight:600;margin-top:.2rem;">Range Verification</div><div style="font-size:.58rem;color:var(--ms);">Range Officer</div>
+          </div>
+          <div style="font-size:1.2rem;color:var(--ms);padding:0 .3rem;">→</div>
+          <div style="text-align:center;padding:.6rem 1rem;background:rgba(168,213,226,.1);border:1px solid rgba(168,213,226,.3);border-radius:6px;min-width:110px;">
+            <div style="font-size:1.2rem;">🏛</div><div style="font-size:.65rem;color:var(--sk);font-weight:600;margin-top:.2rem;">Division Review</div><div style="font-size:.58rem;color:var(--ms);">DFO</div>
+          </div>
+          <div style="font-size:1.2rem;color:var(--ms);padding:0 .3rem;">→</div>
+          <div style="text-align:center;padding:.6rem 1rem;background:rgba(232,154,60,.1);border:1px solid rgba(232,154,60,.3);border-radius:6px;min-width:110px;">
+            <div style="font-size:1.2rem;">🌐</div><div style="font-size:.65rem;color:var(--am);font-weight:600;margin-top:.2rem;">Circle Approval</div><div style="font-size:.58rem;color:var(--ms);">CCF/CF</div>
+          </div>
+          <div style="font-size:1.2rem;color:var(--ms);padding:0 .3rem;">→</div>
+          <div style="text-align:center;padding:.6rem 1rem;background:rgba(74,173,90,.2);border:1px solid rgba(74,173,90,.4);border-radius:6px;min-width:110px;">
+            <div style="font-size:1.2rem;">✅</div><div style="font-size:.65rem;color:var(--cn);font-weight:600;margin-top:.2rem;">Final Record</div><div style="font-size:.58rem;color:var(--ms);">State MIS</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="kpi-row">
+        <div class="kpi amber"><div class="kpi-val">284</div><div class="kpi-label">Awaiting Range Officer</div></div>
+        <div class="kpi blue"><div class="kpi-val">142</div><div class="kpi-label">Awaiting DFO</div></div>
+        <div class="kpi gold"><div class="kpi-val">48</div><div class="kpi-label">Awaiting CCF</div></div>
+        <div class="kpi green"><div class="kpi-val">3,824</div><div class="kpi-label">Approved (FY)</div></div>
+        <div class="kpi red"><div class="kpi-val">124</div><div class="kpi-label">Rejected</div></div>
+      </div>
+
+      <table class="data-table">
+        <thead><tr><th>Ref ID</th><th>Species</th><th>Qty</th><th>District</th><th>Collector</th><th>Current Stage</th><th>Submitted</th><th>Action</th></tr></thead>
+        <tbody>
+          <tr><td>NTFP/COL/2026/8421</td><td>Chyura</td><td>48.5 kg</td><td>Almora</td><td>Ramesh Bisht</td><td><span class="status-pill sp-amber">Range Verification</span></td><td>25 Mar</td>
+            <td style="display:flex;gap:.3rem;">
+              <button class="btn btn-sm" style="background:rgba(74,173,90,.3);color:var(--cn);border:none;cursor:pointer;font-family:var(--sans);border-radius:3px;padding:2px 8px;" onclick="showToast('✅ Record 8421 approved and forwarded to DFO')">Approve</button>
+              <button class="btn btn-sm" style="background:rgba(224,92,92,.25);color:var(--rd);border:none;cursor:pointer;font-family:var(--sans);border-radius:3px;padding:2px 8px;" onclick="showToast('Rejection reason form opening...')">Reject</button>
+            </td>
+          </tr>
+          <tr><td>NTFP/COL/2026/8418</td><td>Wild Honey</td><td>12.2 kg</td><td>Pithoragarh</td><td>Sita Devi</td><td><span class="status-pill sp-amber">Range Verification</span></td><td>25 Mar</td>
+            <td style="display:flex;gap:.3rem;">
+              <button class="btn btn-sm" style="background:rgba(74,173,90,.3);color:var(--cn);border:none;cursor:pointer;font-family:var(--sans);border-radius:3px;padding:2px 8px;" onclick="showToast('✅ Record 8418 approved')">Approve</button>
+              <button class="btn btn-sm" style="background:rgba(224,92,92,.25);color:var(--rd);border:none;cursor:pointer;font-family:var(--sans);border-radius:3px;padding:2px 8px;" onclick="showToast('Rejection reason form opening...')">Reject</button>
+            </td>
+          </tr>
+          <tr><td>NTFP/COL/2026/8395</td><td>Timru</td><td>22.8 kg</td><td>Bageshwar</td><td>Harish Mehra</td><td><span class="status-pill sp-red">Rejected — No GPS</span></td><td>24 Mar</td>
+            <td><button class="btn btn-sm btn-outline" onclick="showToast('Viewing rejection details for 8395...')">View Reason</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ══ TAB: GIS DASHBOARD ══ -->
+    <div id="ntfp-gis" class="ntfp-tab" style="display:none">
+      <div class="dash-hd">
+        <div style="font-size:1.1rem;font-weight:600;color:var(--cr);">🗺 Web GIS & MIS — NTFP & Livelihoods</div>
+        <div style="display:flex;gap:.5rem;">
+          <select class="form-input" style="padding:.35rem .6rem;font-size:.72rem;width:auto;" onchange="showToast('Layer changed: '+this.value)">
+            <option>NTFP Production Density</option><option>Livelihood Coverage</option><option>Training Coverage</option><option>SHG Distribution</option><option>Collector Households</option>
+          </select>
+          <button class="btn btn-outline btn-sm" onclick="showToast('Exporting GIS map as shapefile...')">⬇ Shapefile</button>
+          <button class="btn btn-outline btn-sm" onclick="showToast('Printing GIS map...')">🖨 Print</button>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 300px;gap:1rem;">
+        <div id="ntfp-gisMap" style="height:420px;border-radius:6px;overflow:hidden;border:1px solid rgba(90,200,110,.2);"></div>
+        <div>
+          <div class="info-card" style="height:420px;overflow-y:auto;">
+            <div class="ic-title">📊 Spatial Analysis Tools</div>
+            <div style="display:flex;flex-direction:column;gap:.6rem;margin-top:.5rem;">
+              <button class="btn btn-outline btn-sm" style="justify-content:flex-start;gap:.5rem;" onclick="showToast('Running clustering analysis...')">🔵 Clustering Analysis</button>
+              <button class="btn btn-outline btn-sm" style="justify-content:flex-start;gap:.5rem;" onclick="showToast('Identifying production hotspots...')">🔥 Hotspot Identification</button>
+              <button class="btn btn-outline btn-sm" style="justify-content:flex-start;gap:.5rem;" onclick="showToast('Running year-on-year comparison...')">📈 YoY Comparison</button>
+              <button class="btn btn-outline btn-sm" style="justify-content:flex-start;gap:.5rem;" onclick="showToast('Identifying potential NTFP areas...')">🌿 Potential Area ID</button>
+              <button class="btn btn-outline btn-sm" style="justify-content:flex-start;gap:.5rem;" onclick="showToast('Running overlap analysis...')">⬡ Overlap Analysis</button>
+              <div class="ds-sep"></div>
+              <div style="font-size:.68rem;font-weight:600;color:var(--cn);letter-spacing:.08em;text-transform:uppercase;">Selected Area Stats</div>
+              <div class="ic-row"><span class="ic-key">Area</span><span class="ic-val">Chamoli Dist.</span></div>
+              <div class="ic-row"><span class="ic-key">Production</span><span class="ic-val">5,124 Q</span></div>
+              <div class="ic-row"><span class="ic-key">Species</span><span class="ic-val">28 mapped</span></div>
+              <div class="ic-row"><span class="ic-key">Households</span><span class="ic-val">7,400</span></div>
+              <div class="ic-row"><span class="ic-key">SHGs</span><span class="ic-val">142</span></div>
+              <div class="ic-row"><span class="ic-key">Revenue</span><span class="ic-val">₹198L</span></div>
+              <button class="btn btn-primary btn-sm" style="margin-top:.5rem;justify-content:center;" onclick="showToast('Generating impact assessment report for Chamoli...')">📄 Impact Report</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="charts-grid" style="margin-top:1rem;">
+        <div class="chart-card">
+          <div class="cc-hd"><div class="cc-title">📊 District-wise NTFP Revenue (₹ Lakhs)</div></div>
+          <canvas id="ntfp-distRevChart"></canvas>
+        </div>
+        <div class="chart-card">
+          <div class="cc-hd"><div class="cc-title">🧑‍🌾 Training Coverage Analysis</div></div>
+          <canvas id="ntfp-trainCovChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ TAB: HOTSPOT ANALYSIS ══ -->
+    <div id="ntfp-hotspot" class="ntfp-tab" style="display:none">
+      <div style="font-size:1.1rem;font-weight:600;color:var(--cr);margin-bottom:1rem;">🔥 NTFP Production Hotspot & Potential Area Identification</div>
+      <div class="kpi-row">
+        <div class="kpi green"><div class="kpi-val">24</div><div class="kpi-label">High Production Zones</div></div>
+        <div class="kpi gold"><div class="kpi-val">38</div><div class="kpi-label">Medium Zones</div></div>
+        <div class="kpi blue"><div class="kpi-val">18</div><div class="kpi-label">Potential New Areas</div></div>
+        <div class="kpi amber"><div class="kpi-val">12</div><div class="kpi-label">Declining Zones</div></div>
+      </div>
+      <div id="ntfp-hotspotMap" style="height:380px;border-radius:6px;overflow:hidden;border:1px solid rgba(90,200,110,.2);margin-bottom:1rem;"></div>
+      <table class="data-table">
+        <thead><tr><th>Zone Name</th><th>District</th><th>Area (Ha)</th><th>Primary Species</th><th>Intensity</th><th>YoY Trend</th><th>Intervention</th></tr></thead>
+        <tbody>
+          <tr><td>Binsar Cluster</td><td>Almora</td><td>2,840</td><td>Chyura, Banj</td><td><span class="status-pill sp-green">High</span></td><td>↑ 14%</td><td><button class="btn btn-sm btn-outline" onclick="showToast('Opening Binsar cluster plan...')">View Plan</button></td></tr>
+          <tr><td>Munsiyari Belt</td><td>Pithoragarh</td><td>4,120</td><td>Honey, Herbs</td><td><span class="status-pill sp-green">High</span></td><td>↑ 22%</td><td><button class="btn btn-sm btn-outline" onclick="showToast('Opening Munsiyari cluster plan...')">View Plan</button></td></tr>
+          <tr><td>Kedarnath Buffer</td><td>Rudraprayag</td><td>1,840</td><td>Ringal, Grass</td><td><span class="status-pill sp-amber">Medium</span></td><td>↑ 5%</td><td><button class="btn btn-sm btn-outline" onclick="showToast('Opening intervention plan...')">View Plan</button></td></tr>
+          <tr><td>Nandakini Valley</td><td>Chamoli</td><td>3,200</td><td>Pine Resin</td><td><span class="status-pill sp-green">High</span></td><td>↑ 18%</td><td><button class="btn btn-sm btn-outline" onclick="showToast('Opening Nandakini plan...')">View Plan</button></td></tr>
+          <tr><td>Saryu Basin</td><td>Bageshwar</td><td>980</td><td>Timru</td><td><span class="status-pill sp-blue">Potential</span></td><td>New ID</td><td><button class="btn btn-sm btn-outline" onclick="showToast('Initiating Saryu Basin survey...')">Survey</button></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ══ TAB: LIVELIHOOD MANAGEMENT ══ -->
+    <div id="ntfp-livelihood" class="ntfp-tab" style="display:none">
+      <div class="dash-hd">
+        <div style="font-size:1.1rem;font-weight:600;color:var(--cr);">🤝 Livelihood Management Module</div>
+        <button class="btn btn-primary btn-sm" onclick="showToast('New livelihood programme form opening...')">+ New Programme</button>
+      </div>
+      <div class="kpi-row">
+        <div class="kpi green"><div class="kpi-val">1,284</div><div class="kpi-label">Registered SHGs</div></div>
+        <div class="kpi blue"><div class="kpi-val">18,240</div><div class="kpi-label">SHG Members</div></div>
+        <div class="kpi gold"><div class="kpi-val">₹24Cr</div><div class="kpi-label">SHG Turnover</div></div>
+        <div class="kpi amber"><div class="kpi-val">48,000</div><div class="kpi-label">Beneficiary HH</div></div>
+        <div class="kpi green"><div class="kpi-val">842</div><div class="kpi-label">Trainings Held</div></div>
+        <div class="kpi blue"><div class="kpi-val">14,280</div><div class="kpi-label">Persons Trained</div></div>
+      </div>
+
+      <div class="notice-grid">
+        <div class="info-card">
+          <div class="ic-title">👥 Active Livelihood Programmes</div>
+          <table class="data-table">
+            <thead><tr><th>Programme</th><th>Beneficiaries</th><th>Budget (₹L)</th><th>Progress</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td>NTFP Value Addition Centers</td><td>4,200</td><td>₹84L</td><td><div class="progress-bar-wrap" style="width:100px"><div class="progress-bar" style="width:68%"></div></div></td><td><span class="status-pill sp-green">Active</span></td></tr>
+              <tr><td>Honey Mission Uttarakhand</td><td>2,840</td><td>₹48L</td><td><div class="progress-bar-wrap" style="width:100px"><div class="progress-bar gold" style="width:82%"></div></div></td><td><span class="status-pill sp-green">Active</span></td></tr>
+              <tr><td>Ringal Craft Cluster</td><td>1,240</td><td>₹24L</td><td><div class="progress-bar-wrap" style="width:100px"><div class="progress-bar" style="width:45%"></div></div></td><td><span class="status-pill sp-amber">In Progress</span></td></tr>
+              <tr><td>Women NTFP Entrepreneurs</td><td>984</td><td>₹18L</td><td><div class="progress-bar-wrap" style="width:100px"><div class="progress-bar" style="width:92%"></div></div></td><td><span class="status-pill sp-green">Near Complete</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="info-card">
+          <div class="ic-title">📦 NTFP Collection Quantity Tracking (MTD)</div>
+          <canvas id="ntfp-collQtyChart" style="max-height:200px;"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ TAB: TRAINING MODULE ══ -->
+    <div id="ntfp-training" class="ntfp-tab" style="display:none">
+      <div class="dash-hd">
+        <div style="font-size:1.1rem;font-weight:600;color:var(--cr);">🎓 Training Schedule & Management</div>
+        <div style="display:flex;gap:.5rem;">
+          <button class="btn btn-outline btn-sm" onclick="showToast('Opening training material repository...')">📚 Materials</button>
+          <button class="btn btn-primary btn-sm" onclick="showToast('New training schedule form opening...')">+ Schedule Training</button>
+        </div>
+      </div>
+      <div class="kpi-row">
+        <div class="kpi blue"><div class="kpi-val">12</div><div class="kpi-label">Upcoming Trainings</div></div>
+        <div class="kpi green"><div class="kpi-val">842</div><div class="kpi-label">Completed (FY)</div></div>
+        <div class="kpi gold"><div class="kpi-val">14,280</div><div class="kpi-label">Persons Trained</div></div>
+        <div class="kpi amber"><div class="kpi-val">4.2/5</div><div class="kpi-label">Avg. Feedback Score</div></div>
+      </div>
+
+      <table class="data-table" style="margin-bottom:1rem;">
+        <thead><tr><th>Training Name</th><th>Venue</th><th>District</th><th>Date</th><th>Participants</th><th>Topic</th><th>Status</th><th>Action</th></tr></thead>
+        <tbody>
+          <tr><td>NTFP Grading & Quality</td><td>VP Hall, Almora</td><td>Almora</td><td>2 Apr 2026</td><td>42 (registered)</td><td>Quality standards, grading</td><td><span class="status-pill sp-blue">Upcoming</span></td><td><button class="btn btn-sm btn-outline" onclick="showToast('Registering participants for Almora training...')">Register</button></td></tr>
+          <tr><td>Honey Processing Workshop</td><td>FRC Pithoragarh</td><td>Pithoragarh</td><td>5 Apr 2026</td><td>38 (registered)</td><td>Processing, packaging</td><td><span class="status-pill sp-blue">Upcoming</span></td><td><button class="btn btn-sm btn-outline" onclick="showToast('Viewing Pithoragarh training details...')">View</button></td></tr>
+          <tr><td>SHG Account Management</td><td>DFO Office</td><td>Chamoli</td><td>28 Mar 2026</td><td>56</td><td>Book keeping, finance</td><td><span class="status-pill sp-green">Completed</span></td><td><button class="btn btn-sm btn-outline" onclick="showToast('Downloading training report...')">Report</button></td></tr>
+          <tr><td>E-Market Linkage Training</td><td>ITDA Centre</td><td>Dehradun</td><td>22 Mar 2026</td><td>84</td><td>Online sales, digital payments</td><td><span class="status-pill sp-green">Completed</span></td><td><button class="btn btn-sm btn-outline" onclick="showToast('Viewing feedback summary...')">Feedback</button></td></tr>
+        </tbody>
+      </table>
+
+      <!-- Participant Registration -->
+      <div class="info-card">
+        <div class="ic-title">📝 Participant Registration</div>
+        <div class="form-grid" style="margin-top:.5rem;">
+          <div class="form-group"><label class="form-label">Training Programme</label><select class="form-input"><option>NTFP Grading & Quality — 2 Apr</option><option>Honey Processing — 5 Apr</option></select></div>
+          <div class="form-group"><label class="form-label">Participant Name</label><input class="form-input" placeholder="Full name"></div>
+          <div class="form-group"><label class="form-label">Mobile No.</label><input class="form-input" placeholder="+91 XXXXX XXXXX"></div>
+          <div class="form-group"><label class="form-label">District</label><select class="form-input"><option>Almora</option><option>Pithoragarh</option><option>Chamoli</option><option>Uttarkashi</option><option>Bageshwar</option></select></div>
+          <div class="form-group"><label class="form-label">SHG / Group Name</label><input class="form-input" placeholder="SHG name (if applicable)"></div>
+          <div class="form-group"><label class="form-label">Aadhaar No.</label><input class="form-input" placeholder="XXXX-XXXX-XXXX"></div>
+        </div>
+        <div class="form-actions" style="margin-top:.8rem;">
+          <button class="btn btn-primary btn-sm" onclick="showToast('✅ Participant registered! Confirmation SMS sent.')">Register Participant</button>
+          <button class="btn btn-outline btn-sm" onclick="showToast('Downloading participant list...')">⬇ Participant List</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ TAB: BENEFICIARY PROFILES ══ -->
+    <div id="ntfp-beneficiary" class="ntfp-tab" style="display:none">
+      <div class="dash-hd">
+        <div style="font-size:1.1rem;font-weight:600;color:var(--cr);">👥 GPS-Enabled Beneficiary Profiling</div>
+        <div style="display:flex;gap:.5rem;">
+          <button class="btn btn-outline btn-sm" onclick="showToast('Exporting beneficiary database...')">⬇ Export</button>
+          <button class="btn btn-primary btn-sm" onclick="showToast('New beneficiary registration form...')">+ Add Beneficiary</button>
+        </div>
+      </div>
+      <div class="kpi-row">
+        <div class="kpi green"><div class="kpi-val">48,000</div><div class="kpi-label">Total Beneficiaries</div></div>
+        <div class="kpi gold"><div class="kpi-val">31,200</div><div class="kpi-label">Women Beneficiaries</div></div>
+        <div class="kpi blue"><div class="kpi-val">4,821</div><div class="kpi-label">GPS Profiled</div></div>
+        <div class="kpi amber"><div class="kpi-val">43,178</div><div class="kpi-label">Aadhaar Linked</div></div>
+      </div>
+      <div class="search-bar" style="margin-bottom:1rem;max-width:480px;"><span class="search-ico">🔍</span><input class="search-inp" placeholder="Search beneficiary by name, Aadhaar, SHG, district..."></div>
+      <table class="data-table">
+        <thead><tr><th>Beneficiary ID</th><th>Name</th><th>District</th><th>SHG</th><th>NTFP Activity</th><th>Collection (kg/yr)</th><th>Income (₹)</th><th>GPS Profile</th></tr></thead>
+        <tbody>
+          <tr><td>BNF/ALM/2024/0421</td><td>Kamla Devi</td><td>Almora</td><td>Parvati Mahila SHG</td><td>Chyura Collection</td><td>480 kg</td><td>₹26,400</td><td><span class="status-pill sp-green">✓ Mapped</span></td></tr>
+          <tr><td>BNF/PTH/2024/0218</td><td>Sita Bora</td><td>Pithoragarh</td><td>Nanda Devi SHG</td><td>Wild Honey</td><td>48 kg</td><td>₹23,040</td><td><span class="status-pill sp-green">✓ Mapped</span></td></tr>
+          <tr><td>BNF/CHL/2024/0842</td><td>Ramesh Negi</td><td>Chamoli</td><td>Individual</td><td>Pine Resin</td><td>1,240 kg</td><td>₹52,080</td><td><span class="status-pill sp-amber">Pending</span></td></tr>
+          <tr><td>BNF/UTK/2024/0124</td><td>Meena Rawat</td><td>Uttarkashi</td><td>Ganga SHG</td><td>Ringal Bamboo</td><td>640 kg</td><td>₹17,920</td><td><span class="status-pill sp-green">✓ Mapped</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ══ TAB: MARKET PRICES ══ -->
+    <div id="ntfp-market" class="ntfp-tab" style="display:none">
+      <div class="dash-hd"><div style="font-size:1.1rem;font-weight:600;color:var(--cr);">📈 Live Market Prices & Intelligence</div><button class="btn btn-primary btn-sm" onclick="showToast('Updating market prices...')">🔄 Update Prices</button></div>
+      <div class="charts-grid">
+        <div class="chart-card full"><div class="cc-hd"><div class="cc-title">📊 MSP vs Market Price Comparison (₹/kg)</div></div><canvas id="ntfp-priceChart"></canvas></div>
+      </div>
+      <table class="data-table">
+        <thead><tr><th>NTFP Species</th><th>Local Name</th><th>MSP (₹/kg)</th><th>Mandi Price</th><th>eNAM Price</th><th>Season</th><th>Availability</th><th>Trend</th></tr></thead>
+        <tbody>
+          <tr><td>Chyura (Butter Tree)</td><td>च्यूरा</td><td>₹55</td><td>₹62</td><td>₹68</td><td>Apr-Jun</td><td><span class="status-pill sp-green">In Season</span></td><td>↑ ₹8</td></tr>
+          <tr><td>Timru (Wild Thyme)</td><td>तिमरु</td><td>₹380</td><td>₹420</td><td>₹445</td><td>Oct-Dec</td><td><span class="status-pill sp-amber">Off Season</span></td><td>↑ ₹40</td></tr>
+          <tr><td>Ringal Bamboo</td><td>रिंगाल</td><td>₹28</td><td>₹35</td><td>₹38</td><td>Year-round</td><td><span class="status-pill sp-green">Available</span></td><td>↑ ₹3</td></tr>
+          <tr><td>Pine Resin</td><td>चीड़ राल</td><td>₹42</td><td>₹48</td><td>₹52</td><td>Mar-May</td><td><span class="status-pill sp-green">Peak Season</span></td><td>→ Stable</td></tr>
+          <tr><td>Wild Forest Honey</td><td>वन मधु</td><td>₹480</td><td>₹620</td><td>₹680</td><td>Apr-Aug</td><td><span class="status-pill sp-amber">Pre-Season</span></td><td>↑ ₹85</td></tr>
+          <tr><td>Banj Oak Leaves</td><td>बाँज पत्ती</td><td>₹12</td><td>₹15</td><td>₹16</td><td>Year-round</td><td><span class="status-pill sp-green">Available</span></td><td>→ Stable</td></tr>
+          <tr><td>Kafal (Bayberry)</td><td>काफल</td><td>₹120</td><td>₹180</td><td>₹210</td><td>Apr-May</td><td><span class="status-pill sp-blue">Upcoming</span></td><td>↑ ₹30</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ══ TAB: PERMITS & DEPOT ══ -->
+    <div id="ntfp-permits" class="ntfp-tab" style="display:none">
+      <div class="dash-hd"><div style="font-size:1.1rem;font-weight:600;color:var(--cr);">📋 Permits, Royalty & Depot Management</div><button class="btn btn-primary btn-sm" onclick="showToast('New permit application form...')">+ Apply Permit</button></div>
+      <div class="kpi-row">
+        <div class="kpi green"><div class="kpi-val">2,841</div><div class="kpi-label">Active Permits</div></div>
+        <div class="kpi gold"><div class="kpi-val">₹18.4L</div><div class="kpi-label">Royalty Collected</div></div>
+        <div class="kpi amber"><div class="kpi-val">124</div><div class="kpi-label">Pending Applications</div></div>
+        <div class="kpi blue"><div class="kpi-val">28</div><div class="kpi-label">NTFP Depots</div></div>
+      </div>
+      <div class="form-grid" style="margin-bottom:1.2rem;">
+        <div class="form-group"><label class="form-label">Applicant Name</label><input class="form-input" placeholder="Full name"></div>
+        <div class="form-group"><label class="form-label">Aadhaar No.</label><input class="form-input" placeholder="XXXX-XXXX-XXXX"></div>
+        <div class="form-group"><label class="form-label">NTFP Species</label><select class="form-input"><option>Select Species</option><option>Pine Resin</option><option>Ringal Bamboo</option><option>Chyura</option><option>Honey</option><option>Timru</option></select></div>
+        <div class="form-group"><label class="form-label">Quantity (Quintals)</label><input class="form-input" type="number" placeholder="e.g. 10"></div>
+        <div class="form-group"><label class="form-label">Collection Division</label><select class="form-input"><option>Dehradun</option><option>Almora</option><option>Chamoli</option><option>Uttarkashi</option><option>Pithoragarh</option></select></div>
+        <div class="form-group"><label class="form-label">Collection Period</label><input class="form-input" type="date"></div>
+      </div>
+      <div class="form-actions" style="margin-bottom:1.5rem;">
+        <button class="btn btn-primary btn-sm" onclick="showToast('✅ Permit application submitted! Ref: NTFP/2026/'+Math.floor(Math.random()*9000+1000))">Submit Application</button>
+        <button class="btn btn-outline btn-sm" onclick="showToast('Tracking permit status...')">Track Status</button>
+        <button class="btn btn-outline btn-sm" onclick="showToast('Loading royalty calculator...')">💰 Calculate Royalty</button>
+      </div>
+      <div id="ntfp-depotMap2" style="height:300px;border-radius:6px;overflow:hidden;border:1px solid rgba(90,200,110,.2);margin-bottom:1rem;"></div>
+    </div>
+
+    <!-- ══ TAB: REPORTS ══ -->
+    <div id="ntfp-reports" class="ntfp-tab" style="display:none">
+      <div style="font-size:1.1rem;font-weight:600;color:var(--cr);margin-bottom:1rem;">📄 Reports, Analytics & Export</div>
+      <div class="info-card" style="margin-bottom:1rem;">
+        <div class="ic-title">🔧 Custom Report Builder</div>
+        <div class="form-grid" style="margin-top:.5rem;">
+          <div class="form-group"><label class="form-label">Report Type</label>
+            <select class="form-input"><option>NTFP Production Summary</option><option>Species-wise Revenue</option><option>Beneficiary Impact Assessment</option><option>Training Coverage</option><option>SHG Performance</option><option>Market Price Analysis</option><option>Permit & Royalty Report</option></select>
+          </div>
+          <div class="form-group"><label class="form-label">District</label><select class="form-input"><option>All Districts</option><option>Almora</option><option>Pithoragarh</option><option>Chamoli</option><option>Uttarkashi</option><option>Bageshwar</option></select></div>
+          <div class="form-group"><label class="form-label">Period</label><select class="form-input"><option>Current Season</option><option>FY 2025-26</option><option>FY 2024-25</option><option>Custom Range</option></select></div>
+          <div class="form-group"><label class="form-label">Export Format</label><select class="form-input"><option>PDF</option><option>Excel (.xlsx)</option><option>CSV</option><option>Shapefile (GIS)</option></select></div>
+        </div>
+        <div class="form-actions" style="margin-top:.8rem;">
+          <button class="btn btn-primary btn-sm" onclick="showToast('✅ Generating NTFP custom report...')">📊 Generate Report</button>
+          <button class="btn btn-outline btn-sm" onclick="showToast('Preview window opening...')">👁 Preview</button>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:.6rem;">
+        <div class="info-card" style="display:flex;align-items:center;justify-content:space-between;padding:.8rem 1.2rem;cursor:pointer;">
+          <div><div style="font-size:.78rem;font-weight:600;color:var(--cr);">🌿 Annual NTFP Production Report 2025-26</div><div style="font-size:.65rem;color:var(--ms);">All Districts · All Species · PDF · 4.2 MB</div></div>
+          <button class="btn btn-primary btn-sm" onclick="showToast('Downloading NTFP Annual Report...')">⬇ Download</button>
+        </div>
+        <div class="info-card" style="display:flex;align-items:center;justify-content:space-between;padding:.8rem 1.2rem;cursor:pointer;">
+          <div><div style="font-size:.78rem;font-weight:600;color:var(--cr);">🧑‍🌾 Beneficiary Impact Assessment Report</div><div style="font-size:.65rem;color:var(--ms);">48,000 households · Income analysis · Excel</div></div>
+          <button class="btn btn-primary btn-sm" onclick="showToast('Downloading Impact Assessment Report...')">⬇ Download</button>
+        </div>
+        <div class="info-card" style="display:flex;align-items:center;justify-content:space-between;padding:.8rem 1.2rem;cursor:pointer;">
+          <div><div style="font-size:.78rem;font-weight:600;color:var(--cr);">🎓 Training Coverage Analysis Report</div><div style="font-size:.65rem;color:var(--ms);">842 trainings · 14,280 persons · PDF</div></div>
+          <button class="btn btn-primary btn-sm" onclick="showToast('Downloading Training Coverage Report...')">⬇ Download</button>
+        </div>
+        <div class="info-card" style="display:flex;align-items:center;justify-content:space-between;padding:.8rem 1.2rem;cursor:pointer;">
+          <div><div style="font-size:.78rem;font-weight:600;color:var(--cr);">💰 Permit & Royalty Collection Report Q4</div><div style="font-size:.65rem;color:var(--ms);">All divisions · ₹18.4L royalty · Excel</div></div>
+          <button class="btn btn-primary btn-sm" onclick="showToast('Downloading Royalty Report...')">⬇ Download</button>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end mod-main -->
+</div><!-- end mod-page-layout -->
+</div><!-- end page-ntfp -->
+
 <!-- ══════════════════════════════════════════════════
-     PAGE: VAN PANCHAYAT
+     PAGE: VAN PANCHAYAT MANAGEMENT SYSTEM
 ══════════════════════════════════════════════════ -->
 <div class="page" id="page-vanpanchayat">
-  <div class="topbar">
-    <div class="topbar-brand" onclick="showPage('home')">🌲 UFD Portal</div>
-    <div class="topbar-nav"><button class="tnav" onclick="showPage('home')">← Home</button><button class="tnav act">🌳 Van Panchayat</button></div>
-    <div class="topbar-right"><button class="lang-btn" onclick="toggleLang()">🌐 हिंदी / EN</button><button class="login-btn" onclick="openModal('loginModal')">🔐 Login</button></div>
+<div class="topbar">
+  <div class="topbar-brand" onclick="showPage('home')">🌲 UFD Portal</div>
+  <div class="topbar-nav">
+    <button class="tnav" onclick="showPage('home')">← Home</button>
+    <button class="tnav act">🌳 Van Panchayat</button>
+    <button class="tnav" onclick="vpTab('directory',this)">📁 Directory</button>
+    <button class="tnav" onclick="vpTab('boundary',this)">🗺 Boundary Mapping</button>
+    <button class="tnav" onclick="vpTab('activities',this)">🏗 Activities</button>
+    <button class="tnav" onclick="vpTab('funds',this)">💰 Fund Tracking</button>
+    <button class="tnav" onclick="vpTab('meetings',this)">📋 Meetings</button>
   </div>
-  <div class="mod-page-layout">
-    <div class="mod-sidebar">
-      <div class="ds-title">VAN PANCHAYAT</div>
-      <button class="ds-lnk act" onclick="switchModTab('vp','directory',this)">📁 VP Directory</button>
-      <button class="ds-lnk" onclick="switchModTab('vp','elections',this)">🗳️ Elections</button>
-      <button class="ds-lnk" onclick="switchModTab('vp','accounts',this)">💵 Accounts</button>
-      <button class="ds-lnk" onclick="switchModTab('vp','plans',this)">📊 Micro Plans</button>
-    </div>
-    <div class="mod-main">
-      <div class="breadcrumb"><span onclick="showPage('home')" style="cursor:pointer;">Home</span> <span>›</span> Van Panchayats</div>
-      <div class="mod-page-title">🌳 Van Panchayats & Community Forestry</div>
-      <div class="mod-page-sub">12,089 Van Panchayats across 13 districts of Uttarakhand</div>
-      <div id="vp-directory" class="modtab-content">
-        <div class="kpi-row">
-          <div class="kpi green"><div class="kpi-val">12,089</div><div class="kpi-label">Total Van Panchayats</div></div>
-          <div class="kpi blue"><div class="kpi-val">5,20,000</div><div class="kpi-label">Ha VP Forest</div></div>
-          <div class="kpi gold"><div class="kpi-val">8,94,000</div><div class="kpi-label">Beneficiary Families</div></div>
-          <div class="kpi amber"><div class="kpi-val">245</div><div class="kpi-label">Elections Due 2026</div></div>
-        </div>
-        <div class="search-bar" style="margin-bottom:1rem;max-width:400px;"><span class="search-ico">🔍</span><input class="search-inp" placeholder="Search Van Panchayat by name, village, district…"></div>
-        <table class="data-table"><thead><tr><th>VP Name</th><th>Village</th><th>District</th><th>Area (Ha)</th><th>Sarpanch</th><th>Status</th><th>Action</th></tr></thead>
-        <tbody>
-          <tr><td>Khirsu Van Panchayat</td><td>Khirsu</td><td>Pauri Garhwal</td><td>142.5</td><td>Smt. Kamla Devi</td><td><span class="status-pill sp-green">Active</span></td><td><button class="btn btn-sm btn-outline" onclick="showToast('Opening VP profile: Khirsu...')">View</button></td></tr>
-          <tr><td>Dhari Van Panchayat</td><td>Dhari</td><td>Nainital</td><td>89.2</td><td>Sh. Harish Mehra</td><td><span class="status-pill sp-green">Active</span></td><td><button class="btn btn-sm btn-outline" onclick="showToast('Opening VP profile: Dhari...')">View</button></td></tr>
-          <tr><td>Kulsari Van Panchayat</td><td>Kulsari</td><td>Chamoli</td><td>215.8</td><td>Election Pending</td><td><span class="status-pill sp-amber">Election Due</span></td><td><button class="btn btn-sm btn-outline" onclick="showToast('Initiating election process...')">Initiate Election</button></td></tr>
-          <tr><td>Pipalkoti Van Panchayat</td><td>Pipalkoti</td><td>Chamoli</td><td>178.3</td><td>Sh. Dinesh Negi</td><td><span class="status-pill sp-green">Active</span></td><td><button class="btn btn-sm btn-outline" onclick="showToast('Opening VP profile: Pipalkoti...')">View</button></td></tr>
-          <tr><td>Munsiyari Van Panchayat</td><td>Munsiyari</td><td>Pithoragarh</td><td>324.1</td><td>Smt. Rekha Bora</td><td><span class="status-pill sp-green">Active</span></td><td><button class="btn btn-sm btn-outline" onclick="showToast('Opening VP profile: Munsiyari...')">View</button></td></tr>
-        </tbody></table>
-      </div>
-      <div id="vp-elections" class="modtab-content" style="display:none">
-        <div class="dash-hd"><div style="font-weight:600;color:var(--cr);">Election Management</div><button class="btn btn-primary btn-sm" onclick="showToast('Election notification process started...')">Issue Notification</button></div>
-        <div class="kpi-row">
-          <div class="kpi amber"><div class="kpi-val">245</div><div class="kpi-label">Elections Due</div></div>
-          <div class="kpi green"><div class="kpi-val">48</div><div class="kpi-label">Completed (2026)</div></div>
-          <div class="kpi blue"><div class="kpi-val">12</div><div class="kpi-label">In Process</div></div>
-        </div>
-        <table class="data-table"><thead><tr><th>VP Name</th><th>District</th><th>Term Expired</th><th>Notification Date</th><th>Election Date</th><th>Status</th></tr></thead>
-        <tbody>
-          <tr><td>Kulsari VP</td><td>Chamoli</td><td>Dec 2025</td><td>20 Mar 2026</td><td>15 Apr 2026</td><td><span class="status-pill sp-amber">Notified</span></td></tr>
-          <tr><td>Saroli VP</td><td>Tehri</td><td>Nov 2025</td><td>10 Mar 2026</td><td>5 Apr 2026</td><td><span class="status-pill sp-blue">Nominations Filed</span></td></tr>
-          <tr><td>Agunda VP</td><td>Pauri</td><td>Jan 2026</td><td>—</td><td>—</td><td><span class="status-pill sp-red">Pending Notification</span></td></tr>
-        </tbody></table>
-      </div>
-      <div id="vp-accounts" class="modtab-content" style="display:none">
-        <div class="kpi-row">
-          <div class="kpi gold"><div class="kpi-val">₹48Cr</div><div class="kpi-label">Total VP Fund</div></div>
-          <div class="kpi green"><div class="kpi-val">₹28Cr</div><div class="kpi-label">Income (Avg.)</div></div>
-          <div class="kpi blue"><div class="kpi-val">₹22Cr</div><div class="kpi-label">Expenditure</div></div>
-          <div class="kpi amber"><div class="kpi-val">342</div><div class="kpi-label">Audit Pending VPs</div></div>
-        </div>
-        <table class="data-table"><thead><tr><th>VP Name</th><th>District</th><th>Opening Balance</th><th>Income</th><th>Expenditure</th><th>Closing Balance</th><th>Audit</th></tr></thead>
-        <tbody>
-          <tr><td>Khirsu VP</td><td>Pauri</td><td>₹2,42,000</td><td>₹1,85,000</td><td>₹1,20,000</td><td>₹3,07,000</td><td><span class="status-pill sp-green">Audited</span></td></tr>
-          <tr><td>Dhari VP</td><td>Nainital</td><td>₹1,84,000</td><td>₹92,000</td><td>₹78,000</td><td>₹1,98,000</td><td><span class="status-pill sp-amber">Pending</span></td></tr>
-        </tbody></table>
-      </div>
-      <div id="vp-plans" class="modtab-content" style="display:none">
-        <div class="dash-hd"><div style="font-weight:600;color:var(--cr);">Community Forest Micro-Plans</div><button class="btn btn-primary btn-sm" onclick="showToast('New micro-plan template loading...')">+ Create Plan</button></div>
-        <table class="data-table"><thead><tr><th>VP Name</th><th>Plan Period</th><th>Key Activities</th><th>Budget</th><th>Status</th><th>Action</th></tr></thead>
-        <tbody>
-          <tr><td>Khirsu VP</td><td>2024-29</td><td>Plantation, NTFP, Eco-Tourism</td><td>₹8.4L</td><td><span class="status-pill sp-green">Approved</span></td><td><button class="btn btn-sm btn-outline" onclick="showToast('Downloading Khirsu micro-plan...')">⬇ Download</button></td></tr>
-          <tr><td>Munsiyari VP</td><td>2023-28</td><td>Alpine Pasture, Medicinal Plants</td><td>₹12.2L</td><td><span class="status-pill sp-green">Active</span></td><td><button class="btn btn-sm btn-outline" onclick="showToast('Downloading Munsiyari micro-plan...')">⬇ Download</button></td></tr>
-          <tr><td>Pipalkoti VP</td><td>2025-30</td><td>Watershed, Bio-diversity</td><td>₹6.8L</td><td><span class="status-pill sp-amber">Under Review</span></td><td><button class="btn btn-sm btn-outline" onclick="showToast('Opening review form...')">Review</button></td></tr>
-        </tbody></table>
-      </div>
-    </div>
+  <div class="topbar-right">
+    <button class="lang-btn" onclick="toggleLang()">🌐 हिंदी / EN</button>
+    <button class="login-btn" onclick="openModal('loginModal')">🔐 Login</button>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════════════
-     PAGE: ECO TOURISM
-══════════════════════════════════════════════════ -->
+<div class="mod-page-layout">
+  <div class="mod-sidebar">
+    <div class="ds-title">VAN PANCHAYAT</div>
+    <div class="ds-title" style="color:rgba(168,213,226,.5);margin-top:.3rem;">📁 INFORMATION</div>
+    <button class="ds-lnk act" id="vp-sb-directory" onclick="vpTab('directory',this)">📁 VP Directory</button>
+    <button class="ds-lnk" id="vp-sb-profile" onclick="vpTab('profile',this)">📋 VP Profile</button>
+    <button class="ds-lnk" id="vp-sb-elections" onclick="vpTab('elections',this)">🗳️ Elections</button>
+    <div class="ds-sep"></div>
+    <div class="ds-title" style="color:rgba(168,213,226,.5);">🗺 MAPPING</div>
+    <button class="ds-lnk" id="vp-sb-boundary" onclick="vpTab('boundary',this)">📐 Boundary Mapping</button>
+    <button class="ds-lnk" id="vp-sb-survey" onclick="vpTab('survey',this)">📱 Mobile Survey Tool</button>
+    <div class="ds-sep"></div>
+    <div class="ds-title" style="color:rgba(168,213,226,.5);">🏗 ACTIVITIES</div>
+    <button class="ds-lnk" id="vp-sb-activities" onclick="vpTab('activities',this)">📊 Activity Planning</button>
+    <button class="ds-lnk" id="vp-sb-progress" onclick="vpTab('progress',this)">📈 Progress Monitoring</button>
+    <div class="ds-sep"></div>
+    <div class="ds-title" style="color:rgba(168,213,226,.5);">💰 FINANCE</div>
+    <button class="ds-lnk" id="vp-sb-funds" onclick="vpTab('funds',this)">💰 Fund Utilization</button>
+    <button class="ds-lnk" id="vp-sb-accounts" onclick="vpTab('accounts',this)">📒 VP Accounts</button>
+    <div class="ds-sep"></div>
+    <div class="ds-title" style="color:rgba(168,213,226,.5);">📋 GOVERNANCE</div>
+    <button class="ds-lnk" id="vp-sb-meetings" onclick="vpTab('meetings',this)">📋 Meeting Minutes</button>
+    <button class="ds-lnk" id="vp-sb-microplan" onclick="vpTab('microplan',this)">📊 Micro Plans</button>
+    <button class="ds-lnk" id="vp-sb-vpreports" onclick="vpTab('vpreports',this)">📄 Reports</button>
+  </div>
+
+  <div class="mod-main" style="background:rgba(6,18,9,.4);">
+    <div class="breadcrumb"><span onclick="showPage('home')" style="cursor:pointer;">Home</span> <span>›</span> Van Panchayat Information Management System</div>
+    <div class="mod-page-title">🌳 Van Panchayat Management System</div>
+    <div class="mod-page-sub">12,089 Van Panchayats · Registration · Boundary Mapping · Activity Tracking · Fund Management · Uttarakhand</div>
+
+    <!-- ══ TAB: VP DIRECTORY ══ -->
+    <div id="vp-directory" class="vp-tab">
+      <div class="kpi-row">
+        <div class="kpi green"><div class="kpi-ico">🌳</div><div class="kpi-val">12,089</div><div class="kpi-label">Total Van Panchayats</div><div class="kpi-trend">All 13 districts</div></div>
+        <div class="kpi gold"><div class="kpi-ico">🌿</div><div class="kpi-val">5,20,000</div><div class="kpi-label">Ha VP Forest Area</div><div class="kpi-trend trend-up">↑ 2,400 Ha new</div></div>
+        <div class="kpi blue"><div class="kpi-ico">👨‍👩‍👧</div><div class="kpi-val">8,94,000</div><div class="kpi-label">Beneficiary Families</div><div class="kpi-trend trend-up">↑ 12,000 new</div></div>
+        <div class="kpi amber"><div class="kpi-ico">🗳️</div><div class="kpi-val">245</div><div class="kpi-label">Elections Due 2026</div><div class="kpi-trend">Action needed</div></div>
+        <div class="kpi green"><div class="kpi-ico">📐</div><div class="kpi-val">8,421</div><div class="kpi-label">Boundaries Mapped</div><div class="kpi-trend">69.7% coverage</div></div>
+        <div class="kpi red"><div class="kpi-ico">⚠</div><div class="kpi-val">3,668</div><div class="kpi-label">Mapping Pending</div><div class="kpi-trend" style="color:var(--am)">Priority action</div></div>
+      </div>
+
+      <div class="charts-grid">
+        <div class="chart-card">
+          <div class="cc-hd"><div class="cc-title">📊 VP Distribution by District</div></div>
+          <canvas id="vp-distChart"></canvas>
+        </div>
+        <div class="chart-card">
+          <div class="cc-hd"><div class="cc-title">📈 Fund Utilization by Source</div></div>
+          <canvas id="vp-fundChart"></canvas>
+        </div>
+      </div>
+
+      <div class="dash-hd" style="margin-bottom:.8rem;">
+        <div style="font-weight:600;color:var(--cr);">Van Panchayat Registry</div>
+        <div style="display:flex;gap:.5rem;flex-wrap:wrap;">
+          <select class="form-input" style="padding:.35rem .6rem;font-size:.72rem;width:auto;"><option>All Districts</option><option>Almora</option><option>Pauri</option><option>Chamoli</option><option>Pithoragarh</option><option>Nainital</option></select>
+          <select class="form-input" style="padding:.35rem .6rem;font-size:.72rem;width:auto;"><option>All Status</option><option>Active</option><option>Election Due</option><option>Dissolved</option></select>
+          <button class="btn btn-primary btn-sm" onclick="showToast('New VP registration form...')">+ Register VP</button>
+          <button class="btn btn-outline btn-sm" onclick="showToast('Exporting VP list...')">⬇ Export</button>
+        </div>
+      </div>
+      <div class="search-bar" style="margin-bottom:1rem;max-width:450px;"><span class="search-ico">🔍</span><input class="search-inp" placeholder="Search by VP name, village, district, sarpanch..."></div>
+      <table class="data-table">
+        <thead><tr><th>VP ID</th><th>VP Name</th><th>Village</th><th>District</th><th>Area (Ha)</th><th>Sarpanch</th><th>Members</th><th>Boundary</th><th>Status</th><th>Action</th></tr></thead>
+        <tbody>
+          <tr><td>VP/ALM/0421</td><td>Khirsu Van Panchayat</td><td>Khirsu</td><td>Pauri</td><td>142.5</td><td>Smt. Kamla Devi</td><td>9</td><td><span class="status-pill sp-green">✓ Mapped</span></td><td><span class="status-pill sp-green">Active</span></td><td><button class="btn btn-sm btn-outline" onclick="vpTab('profile',null)">View</button></td></tr>
+          <tr><td>VP/NTL/0284</td><td>Dhari Van Panchayat</td><td>Dhari</td><td>Nainital</td><td>89.2</td><td>Sh. Harish Mehra</td><td>7</td><td><span class="status-pill sp-green">✓ Mapped</span></td><td><span class="status-pill sp-green">Active</span></td><td><button class="btn btn-sm btn-outline" onclick="vpTab('profile',null)">View</button></td></tr>
+          <tr><td>VP/CHL/0842</td><td>Kulsari Van Panchayat</td><td>Kulsari</td><td>Chamoli</td><td>215.8</td><td>Election Pending</td><td>0</td><td><span class="status-pill sp-amber">Pending</span></td><td><span class="status-pill sp-amber">Election Due</span></td><td><button class="btn btn-sm btn-outline" onclick="showToast('Initiating election for Kulsari VP...')">Elect</button></td></tr>
+          <tr><td>VP/PTH/0621</td><td>Munsiyari Van Panchayat</td><td>Munsiyari</td><td>Pithoragarh</td><td>324.1</td><td>Smt. Rekha Bora</td><td>11</td><td><span class="status-pill sp-green">✓ Mapped</span></td><td><span class="status-pill sp-green">Active</span></td><td><button class="btn btn-sm btn-outline" onclick="vpTab('profile',null)">View</button></td></tr>
+          <tr><td>VP/BGW/0142</td><td>Saroli Van Panchayat</td><td>Saroli</td><td>Bageshwar</td><td>178.3</td><td>Sh. Dinesh Negi</td><td>9</td><td><span class="status-pill sp-red">Not Mapped</span></td><td><span class="status-pill sp-green">Active</span></td><td><button class="btn btn-sm btn-outline" onclick="vpTab('survey',null)">Map Now</button></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ══ TAB: VP PROFILE ══ -->
+    <div id="vp-profile" class="vp-tab" style="display:none">
+      <div class="dash-hd">
+        <div><div style="font-size:1.1rem;font-weight:600;color:var(--cr);">📋 Van Panchayat Profile — Khirsu VP</div><div style="font-size:.72rem;color:var(--ms);">VP/ALM/0421 · Pauri Garhwal · Constituted: 1998</div></div>
+        <div style="display:flex;gap:.5rem;">
+          <button class="btn btn-outline btn-sm" onclick="showToast('Downloading Niyampustika...')">📗 Niyampustika</button>
+          <button class="btn btn-primary btn-sm" onclick="showToast('Downloading VP profile PDF...')">⬇ Download</button>
+        </div>
+      </div>
+      <div class="tab-row">
+        <button class="tab act" onclick="switchVPProfileTab('info',this)">📋 Basic Info</button>
+        <button class="tab" onclick="switchVPProfileTab('members',this)">👥 Members</button>
+        <button class="tab" onclick="switchVPProfileTab('area',this)">🌿 Area Details</button>
+        <button class="tab" onclick="switchVPProfileTab('funding',this)">💰 Funding</button>
+      </div>
+      <div id="vpp-info" class="vp-profile-tab">
+        <div class="grid-2">
+          <div class="info-card"><div class="ic-title">🌳 Van Panchayat Details</div>
+            <div class="ic-row"><span class="ic-key">VP Name</span><span class="ic-val">Khirsu Van Panchayat</span></div>
+            <div class="ic-row"><span class="ic-key">Revenue Village</span><span class="ic-val">Khirsu</span></div>
+            <div class="ic-row"><span class="ic-key">Gram Sabha</span><span class="ic-val">Khirsu Gram Sabha</span></div>
+            <div class="ic-row"><span class="ic-key">District</span><span class="ic-val">Pauri Garhwal</span></div>
+            <div class="ic-row"><span class="ic-key">Range</span><span class="ic-val">Pauri Range</span></div>
+            <div class="ic-row"><span class="ic-key">Division</span><span class="ic-val">Pauri Forest Division</span></div>
+            <div class="ic-row"><span class="ic-key">Constituted On</span><span class="ic-val">12 Mar 1998</span></div>
+            <div class="ic-row"><span class="ic-key">Total VP Area</span><span class="ic-val">142.5 Ha</span></div>
+            <div class="ic-row"><span class="ic-key">No. of Members</span><span class="ic-val">9 (incl. Sarpanch)</span></div>
+            <div class="ic-row"><span class="ic-key">Beneficiary HH</span><span class="ic-val">284 families</span></div>
+          </div>
+          <div class="info-card"><div class="ic-title">🏛 Current Elected Body</div>
+            <div class="ic-row"><span class="ic-key">Sarpanch</span><span class="ic-val">Smt. Kamla Devi</span></div>
+            <div class="ic-row"><span class="ic-key">Elected On</span><span class="ic-val">15 Feb 2023</span></div>
+            <div class="ic-row"><span class="ic-key">Term Ends</span><span class="ic-val">14 Feb 2028</span></div>
+            <div class="ic-row"><span class="ic-key">Sarpanch Mobile</span><span class="ic-val">+91 94XXXXXX21</span></div>
+            <div class="ic-row"><span class="ic-key">Women Members</span><span class="ic-val">5 of 9 (56%)</span></div>
+            <div class="ic-row"><span class="ic-key">SC/ST Members</span><span class="ic-val">2</span></div>
+            <div class="ic-row"><span class="ic-key">Last Meeting</span><span class="ic-val">10 Mar 2026</span></div>
+            <div class="ic-row"><span class="ic-key">Niyampustika</span><span class="ic-val" style="color:var(--cn)">✓ Updated 2024</span></div>
+          </div>
+        </div>
+      </div>
+      <div id="vpp-members" class="vp-profile-tab" style="display:none">
+        <table class="data-table">
+          <thead><tr><th>Name</th><th>Role</th><th>Gender</th><th>Category</th><th>Mobile</th><th>Term Start</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>Smt. Kamla Devi</td><td>Sarpanch</td><td>Female</td><td>OBC</td><td>94XXXXXX21</td><td>Feb 2023</td><td><span class="status-pill sp-green">Active</span></td></tr>
+            <tr><td>Sh. Mohan Singh</td><td>Up-Sarpanch</td><td>Male</td><td>General</td><td>98XXXXXX42</td><td>Feb 2023</td><td><span class="status-pill sp-green">Active</span></td></tr>
+            <tr><td>Smt. Geeta Rawat</td><td>Member</td><td>Female</td><td>SC</td><td>97XXXXXX18</td><td>Feb 2023</td><td><span class="status-pill sp-green">Active</span></td></tr>
+            <tr><td>Sh. Ramesh Negi</td><td>Member</td><td>Male</td><td>General</td><td>80XXXXXX84</td><td>Feb 2023</td><td><span class="status-pill sp-green">Active</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div id="vpp-area" class="vp-profile-tab" style="display:none">
+        <div class="grid-2">
+          <div class="info-card"><div class="ic-title">🌿 Area Composition</div>
+            <div class="ic-row"><span class="ic-key">Total VP Area</span><span class="ic-val">142.5 Ha</span></div>
+            <div class="ic-row"><span class="ic-key">Dense Forest</span><span class="ic-val">84.2 Ha</span></div>
+            <div class="ic-row"><span class="ic-key">Open Forest</span><span class="ic-val">38.6 Ha</span></div>
+            <div class="ic-row"><span class="ic-key">Grassland (Bugyal)</span><span class="ic-val">12.4 Ha</span></div>
+            <div class="ic-row"><span class="ic-key">Water Bodies</span><span class="ic-val">3.2 Ha</span></div>
+            <div class="ic-row"><span class="ic-key">Barren Land</span><span class="ic-val">4.1 Ha</span></div>
+            <div class="ic-row"><span class="ic-key">Boundary Surveyed</span><span class="ic-val" style="color:var(--cn)">✓ Feb 2024</span></div>
+            <div class="ic-row"><span class="ic-key">Survey Method</span><span class="ic-val">GPS Mobile Survey</span></div>
+          </div>
+          <div class="info-card"><div class="ic-title">🌲 Species Composition</div>
+            <div class="ic-row"><span class="ic-key">Oak (Banj)</span><span class="ic-val">42%</span></div>
+            <div class="ic-row"><span class="ic-key">Rhododendron</span><span class="ic-val">18%</span></div>
+            <div class="ic-row"><span class="ic-key">Pine (Chir)</span><span class="ic-val">22%</span></div>
+            <div class="ic-row"><span class="ic-key">Mixed Broadleaf</span><span class="ic-val">14%</span></div>
+            <div class="ic-row"><span class="ic-key">Bamboo/Ringal</span><span class="ic-val">4%</span></div>
+          </div>
+        </div>
+      </div>
+      <div id="vpp-funding" class="vp-profile-tab" style="display:none">
+        <table class="data-table">
+          <thead><tr><th>Source</th><th>Scheme</th><th>Amount (₹)</th><th>Year</th><th>Utilization</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>CAMPA</td><td>Plantation Works</td><td>₹2,40,000</td><td>2025-26</td><td>₹1,82,000 (76%)</td><td><span class="status-pill sp-green">Active</span></td></tr>
+            <tr><td>VP Fund</td><td>NTFP Revenue Share</td><td>₹85,000</td><td>2025-26</td><td>₹62,000 (73%)</td><td><span class="status-pill sp-green">Active</span></td></tr>
+            <tr><td>MGNREGS</td><td>Waterbody Restoration</td><td>₹1,20,000</td><td>2025-26</td><td>₹1,20,000 (100%)</td><td><span class="status-pill sp-blue">Completed</span></td></tr>
+            <tr><td>Green India Mission</td><td>Eco-restoration</td><td>₹80,000</td><td>2024-25</td><td>₹80,000 (100%)</td><td><span class="status-pill sp-blue">Completed</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ══ TAB: BOUNDARY MAPPING ══ -->
+    <div id="vp-boundary" class="vp-tab" style="display:none">
+      <div class="dash-hd">
+        <div style="font-size:1.1rem;font-weight:600;color:var(--cr);">📐 Treatment Area Boundary Mapping</div>
+        <div style="display:flex;gap:.5rem;">
+          <button class="btn btn-outline btn-sm" onclick="showToast('Downloading shapefiles...')">⬇ Shapefile</button>
+          <button class="btn btn-outline btn-sm" onclick="showToast('Running overlap detection...')">⬡ Overlap Check</button>
+          <button class="btn btn-primary btn-sm" onclick="vpTab('survey',null)">📱 Start Survey</button>
+        </div>
+      </div>
+      <div class="kpi-row">
+        <div class="kpi green"><div class="kpi-val">8,421</div><div class="kpi-label">Boundaries Mapped</div></div>
+        <div class="kpi red"><div class="kpi-val">3,668</div><div class="kpi-label">Pending Mapping</div></div>
+        <div class="kpi amber"><div class="kpi-val">142</div><div class="kpi-label">Overlap Issues</div></div>
+        <div class="kpi gold"><div class="kpi-val">4,82,000</div><div class="kpi-label">Ha Area Validated</div></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 280px;gap:1rem;">
+        <div id="vp-boundaryMap" style="height:420px;border-radius:6px;overflow:hidden;border:1px solid rgba(90,200,110,.2);"></div>
+        <div style="display:flex;flex-direction:column;gap:.8rem;">
+          <div class="info-card">
+            <div class="ic-title">🔍 Spatial Analysis</div>
+            <div style="display:flex;flex-direction:column;gap:.5rem;">
+              <button class="btn btn-outline btn-sm" style="justify-content:flex-start;" onclick="showToast('Measuring selected area...')">📏 Measure Area</button>
+              <button class="btn btn-outline btn-sm" style="justify-content:flex-start;" onclick="showToast('Running overlap detection with forest boundaries...')">⬡ Detect Overlaps</button>
+              <button class="btn btn-outline btn-sm" style="justify-content:flex-start;" onclick="showToast('Calculating treatment areas...')">🌿 Treatment Calc</button>
+              <button class="btn btn-outline btn-sm" style="justify-content:flex-start;" onclick="showToast('Generating boundary report...')">📄 Boundary Report</button>
+              <button class="btn btn-outline btn-sm" style="justify-content:flex-start;" onclick="showToast('Exporting to KML format...')">⬇ Export KML</button>
+              <button class="btn btn-outline btn-sm" style="justify-content:flex-start;" onclick="showToast('Printing map...')">🖨 Print Map</button>
+            </div>
+          </div>
+          <div class="info-card">
+            <div class="ic-title">⚠️ Overlap Issues</div>
+            <div class="ic-row"><span class="ic-key">With Revenue Land</span><span class="ic-val" style="color:var(--am)">48 cases</span></div>
+            <div class="ic-row"><span class="ic-key">With RF Boundary</span><span class="ic-val" style="color:var(--rd)">32 cases</span></div>
+            <div class="ic-row"><span class="ic-key">Between VPs</span><span class="ic-val" style="color:var(--am)">62 cases</span></div>
+            <button class="btn btn-danger btn-sm" style="margin-top:.5rem;justify-content:center;" onclick="showToast('Opening overlap resolution workflow...')">Resolve Overlaps</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ TAB: MOBILE SURVEY ══ -->
+    <div id="vp-survey" class="vp-tab" style="display:none">
+      <div style="display:grid;grid-template-columns:320px 1fr;gap:1.5rem;">
+        <div class="info-card" style="border-color:rgba(90,200,110,.3);">
+          <div class="ic-title">📱 GPS Boundary Survey Tool</div>
+          <div style="background:rgba(10,31,13,.7);border-radius:10px;padding:1.2rem;margin-top:.8rem;border:1px solid rgba(90,200,110,.18);">
+            <div style="text-align:center;margin-bottom:.8rem;">
+              <div style="font-size:.65rem;color:var(--ms);text-transform:uppercase;letter-spacing:.1em;">VP Boundary Survey App</div>
+            </div>
+            <div style="background:rgba(45,122,58,.2);border:1px solid rgba(90,200,110,.25);border-radius:6px;padding:.7rem;margin-bottom:.7rem;text-align:center;">
+              <div style="font-size:.65rem;color:var(--cn);">📍 GPS Active · Accuracy ±2m</div>
+              <div style="font-size:.58rem;color:var(--ms);">30.3165°N, 78.0322°E</div>
+              <div style="font-size:.58rem;color:var(--gd);margin-top:.2rem;">Points collected: <strong>14</strong></div>
+            </div>
+            <div class="form-group" style="margin-bottom:.6rem;"><label class="form-label" style="font-size:.62rem;">Select Van Panchayat</label><select class="form-input" style="font-size:.72rem;padding:.4rem .6rem;"><option>Khirsu VP</option><option>Saroli VP</option><option>Kulsari VP</option></select></div>
+            <div class="form-group" style="margin-bottom:.6rem;"><label class="form-label" style="font-size:.62rem;">Survey Type</label><select class="form-input" style="font-size:.72rem;padding:.4rem .6rem;"><option>Outer Boundary</option><option>Treatment Area</option><option>Activity Zone</option></select></div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:.4rem;margin-bottom:.8rem;">
+              <button class="btn btn-primary" style="justify-content:center;font-size:.68rem;padding:.5rem;" onclick="showToast('📍 GPS point #15 marked at 30.3166°N, 78.0323°E')">📍 Mark Point</button>
+              <button class="btn btn-outline" style="justify-content:center;font-size:.68rem;padding:.5rem;" onclick="showToast('⚫ Last point deleted')">⬅ Undo</button>
+              <button class="btn btn-outline" style="justify-content:center;font-size:.68rem;padding:.5rem;" onclick="showToast('📸 Photo captured and geo-tagged')">📸 Photo</button>
+              <button class="btn btn-outline" style="justify-content:center;font-size:.68rem;padding:.5rem;" onclick="showToast('Area calculated: 142.8 Ha ✓')">📐 Calculate</button>
+            </div>
+            <button class="btn btn-primary" style="width:100%;justify-content:center;font-size:.74rem;" onclick="showToast('✅ Boundary survey submitted! Area: 142.8 Ha · 15 GPS points · Ref: BND/2026/841')">💾 Submit Survey</button>
+            <button class="btn btn-outline" style="width:100%;justify-content:center;margin-top:.4rem;font-size:.68rem;" onclick="showToast('Survey saved offline — will sync automatically')">📴 Save Offline</button>
+          </div>
+          <div class="info-card" style="margin-top:.8rem;border:none;padding:.5rem 0;">
+            <div class="ic-title" style="font-size:.72rem;">Offline Capability</div>
+            <div class="ic-row"><span class="ic-key" style="font-size:.68rem;">Cached Maps</span><span class="ic-val" style="font-size:.68rem;">13 districts ✓</span></div>
+            <div class="ic-row"><span class="ic-key" style="font-size:.68rem;">Pending Sync</span><span class="ic-val" style="font-size:.68rem;color:var(--am)">3 surveys</span></div>
+          </div>
+        </div>
+        <div>
+          <div class="info-card" style="margin-bottom:1rem;">
+            <div class="ic-title">📊 Recent Survey Submissions</div>
+            <table class="data-table">
+              <thead><tr><th>Survey ID</th><th>VP Name</th><th>District</th><th>Area (Ha)</th><th>GPS Points</th><th>Photos</th><th>Surveyor</th><th>Status</th></tr></thead>
+              <tbody>
+                <tr><td>BND/2026/838</td><td>Khirsu VP</td><td>Pauri</td><td>142.5</td><td>48</td><td>8</td><td>Sh. R. Singh</td><td><span class="status-pill sp-green">Validated</span></td></tr>
+                <tr><td>BND/2026/835</td><td>Dhari VP</td><td>Nainital</td><td>89.2</td><td>32</td><td>5</td><td>Sh. M. Negi</td><td><span class="status-pill sp-green">Validated</span></td></tr>
+                <tr><td>BND/2026/831</td><td>Agunda VP</td><td>Pauri</td><td>198.4</td><td>62</td><td>12</td><td>Smt. K. Rawat</td><td><span class="status-pill sp-amber">Overlap — Review</span></td></tr>
+                <tr><td>BND/2026/828</td><td>Pipalkoti VP</td><td>Chamoli</td><td>178.3</td><td>54</td><td>9</td><td>Sh. D. Kumar</td><td><span class="status-pill sp-amber">Pending Approval</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ TAB: ACTIVITIES ══ -->
+    <div id="vp-activities" class="vp-tab" style="display:none">
+      <div class="dash-hd">
+        <div style="font-size:1.1rem;font-weight:600;color:var(--cr);">🏗 Activity Planning & Scheduling</div>
+        <button class="btn btn-primary btn-sm" onclick="showToast('New activity planning form...')">+ Add Activity</button>
+      </div>
+      <div class="kpi-row">
+        <div class="kpi green"><div class="kpi-val">4,284</div><div class="kpi-label">Activities Planned</div></div>
+        <div class="kpi blue"><div class="kpi-val">2,841</div><div class="kpi-label">In Progress</div></div>
+        <div class="kpi gold"><div class="kpi-val">1,248</div><div class="kpi-label">Completed</div></div>
+        <div class="kpi amber"><div class="kpi-val">₹48Cr</div><div class="kpi-label">Activity Budget</div></div>
+      </div>
+      <table class="data-table">
+        <thead><tr><th>Activity</th><th>Type</th><th>VP Name</th><th>District</th><th>Area (Ha)</th><th>Budget (₹)</th><th>Physical %</th><th>Financial %</th><th>Status</th><th>Before/After</th></tr></thead>
+        <tbody>
+          <tr><td>Oak Plantation</td><td>🌱 Plantation</td><td>Khirsu VP</td><td>Pauri</td><td>12.4</td><td>₹2,40,000</td>
+            <td><div class="progress-bar-wrap" style="width:80px"><div class="progress-bar" style="width:78%"></div></div></td>
+            <td><div class="progress-bar-wrap" style="width:80px"><div class="progress-bar gold" style="width:72%"></div></div></td>
+            <td><span class="status-pill sp-green">Active</span></td>
+            <td><button class="btn btn-sm btn-outline" onclick="showToast('Loading before-after photos for Khirsu Oak Plantation...')">📸 Photos</button></td>
+          </tr>
+          <tr><td>Soil & Moisture Conservation</td><td>💧 SMC</td><td>Munsiyari VP</td><td>Pithoragarh</td><td>28.6</td><td>₹3,60,000</td>
+            <td><div class="progress-bar-wrap" style="width:80px"><div class="progress-bar" style="width:92%"></div></div></td>
+            <td><div class="progress-bar-wrap" style="width:80px"><div class="progress-bar gold" style="width:88%"></div></div></td>
+            <td><span class="status-pill sp-blue">Near Complete</span></td>
+            <td><button class="btn btn-sm btn-outline" onclick="showToast('Loading before-after photos for Munsiyari SMC...')">📸 Photos</button></td>
+          </tr>
+          <tr><td>NTFP Development</td><td>🌿 NTFP</td><td>Dhari VP</td><td>Nainital</td><td>8.2</td><td>₹1,20,000</td>
+            <td><div class="progress-bar-wrap" style="width:80px"><div class="progress-bar" style="width:45%"></div></div></td>
+            <td><div class="progress-bar-wrap" style="width:80px"><div class="progress-bar gold" style="width:38%"></div></div></td>
+            <td><span class="status-pill sp-amber">In Progress</span></td>
+            <td><button class="btn btn-sm btn-outline" onclick="showToast('Loading before-after photos for Dhari NTFP...')">📸 Photos</button></td>
+          </tr>
+          <tr><td>Check Dam Construction</td><td>🏗 Infrastructure</td><td>Saroli VP</td><td>Bageshwar</td><td>—</td><td>₹80,000</td>
+            <td><div class="progress-bar-wrap" style="width:80px"><div class="progress-bar red" style="width:24%"></div></div></td>
+            <td><div class="progress-bar-wrap" style="width:80px"><div class="progress-bar red" style="width:18%"></div></div></td>
+            <td><span class="status-pill sp-red">Behind Schedule</span></td>
+            <td><button class="btn btn-sm btn-outline" onclick="showToast('Loading photos for Saroli Check Dam...')">📸 Photos</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ══ TAB: PROGRESS MONITORING ══ -->
+    <div id="vp-progress" class="vp-tab" style="display:none">
+      <div style="font-size:1.1rem;font-weight:600;color:var(--cr);margin-bottom:1rem;">📈 Progress Monitoring Dashboard</div>
+      <div class="charts-grid">
+        <div class="chart-card"><div class="cc-hd"><div class="cc-title">🏗 Physical Progress by Activity Type</div></div><canvas id="vp-physProgressChart"></canvas></div>
+        <div class="chart-card"><div class="cc-hd"><div class="cc-title">💰 Financial Expenditure Trend</div></div><canvas id="vp-finProgressChart"></canvas></div>
+      </div>
+      <div class="info-card">
+        <div class="ic-title" style="display:flex;justify-content:space-between;">
+          <span>📊 Impact Assessment Visualization</span>
+          <button class="btn btn-outline btn-sm" onclick="showToast('Generating impact assessment report...')">📄 Full Report</button>
+        </div>
+        <div class="grid-3" style="margin-top:.8rem;">
+          <div style="background:rgba(45,122,58,.12);border:1px solid rgba(90,200,110,.2);border-radius:6px;padding:.8rem;text-align:center;">
+            <div style="font-size:1.6rem;font-family:var(--serif);color:var(--cn);font-weight:700;">78%</div>
+            <div style="font-size:.65rem;color:var(--ms);margin-top:.2rem;">Plantation Survival Rate</div>
+            <div style="font-size:.62rem;color:var(--cn);">↑ 4% from last year</div>
+          </div>
+          <div style="background:rgba(168,213,226,.08);border:1px solid rgba(168,213,226,.2);border-radius:6px;padding:.8rem;text-align:center;">
+            <div style="font-size:1.6rem;font-family:var(--serif);color:var(--sk);font-weight:700;">42%</div>
+            <div style="font-size:.65rem;color:var(--ms);margin-top:.2rem;">Water Table Improvement</div>
+            <div style="font-size:.62rem;color:var(--sk);">SMC intervention sites</div>
+          </div>
+          <div style="background:rgba(201,162,39,.08);border:1px solid rgba(201,162,39,.2);border-radius:6px;padding:.8rem;text-align:center;">
+            <div style="font-size:1.6rem;font-family:var(--serif);color:var(--gd);font-weight:700;">₹840</div>
+            <div style="font-size:.65rem;color:var(--ms);margin-top:.2rem;">Avg. Income Increase/HH</div>
+            <div style="font-size:.62rem;color:var(--gd);">From NTFP activities</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ TAB: FUND UTILIZATION ══ -->
+    <div id="vp-funds" class="vp-tab" style="display:none">
+      <div class="dash-hd">
+        <div style="font-size:1.1rem;font-weight:600;color:var(--cr);">💰 Physical & Financial Fund Utilization</div>
+        <div style="display:flex;gap:.5rem;">
+          <button class="btn btn-outline btn-sm" onclick="showToast('Downloading UC statement...')">📄 Utilization Certificate</button>
+          <button class="btn btn-outline btn-sm" onclick="showToast('Exporting fund utilization to Excel...')">⬇ Export</button>
+        </div>
+      </div>
+      <div class="kpi-row">
+        <div class="kpi gold"><div class="kpi-val">₹48Cr</div><div class="kpi-label">Total VP Fund Pool</div></div>
+        <div class="kpi green"><div class="kpi-val">₹28Cr</div><div class="kpi-label">Income (FY)</div></div>
+        <div class="kpi blue"><div class="kpi-val">₹22Cr</div><div class="kpi-label">Expenditure (FY)</div></div>
+        <div class="kpi amber"><div class="kpi-val">342</div><div class="kpi-label">Audit Pending VPs</div></div>
+      </div>
+      <div class="charts-grid">
+        <div class="chart-card"><div class="cc-hd"><div class="cc-title">💰 Funding Source Distribution</div></div><canvas id="vp-fundSourceChart"></canvas></div>
+        <div class="chart-card"><div class="cc-hd"><div class="cc-title">📊 Expenditure by Activity Category</div></div><canvas id="vp-expCatChart"></canvas></div>
+      </div>
+      <table class="data-table">
+        <thead><tr><th>VP Name</th><th>District</th><th>Opening Bal.</th><th>Income</th><th>Expenditure</th><th>Closing Bal.</th><th>UC Status</th><th>Action</th></tr></thead>
+        <tbody>
+          <tr><td>Khirsu VP</td><td>Pauri</td><td>₹2,42,000</td><td>₹1,85,000</td><td>₹1,20,000</td><td>₹3,07,000</td><td><span class="status-pill sp-green">Submitted</span></td><td><button class="btn btn-sm btn-outline" onclick="showToast('Viewing Khirsu accounts...')">View</button></td></tr>
+          <tr><td>Dhari VP</td><td>Nainital</td><td>₹1,84,000</td><td>₹92,000</td><td>₹78,000</td><td>₹1,98,000</td><td><span class="status-pill sp-amber">Pending</span></td><td><button class="btn btn-sm btn-outline" onclick="showToast('Sending reminder to Dhari VP...')">Remind</button></td></tr>
+          <tr><td>Munsiyari VP</td><td>Pithoragarh</td><td>₹4,82,000</td><td>₹3,24,000</td><td>₹2,84,000</td><td>₹5,22,000</td><td><span class="status-pill sp-green">Submitted</span></td><td><button class="btn btn-sm btn-outline" onclick="showToast('Viewing Munsiyari accounts...')">View</button></td></tr>
+          <tr><td>Saroli VP</td><td>Bageshwar</td><td>₹1,20,000</td><td>₹48,000</td><td>₹24,000</td><td>₹1,44,000</td><td><span class="status-pill sp-red">Overdue</span></td><td><button class="btn btn-sm btn-outline" onclick="showToast('Escalating Saroli UC to DFO...')">Escalate</button></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ══ TAB: MEETING MINUTES ══ -->
+    <div id="vp-meetings" class="vp-tab" style="display:none">
+      <div class="dash-hd">
+        <div style="font-size:1.1rem;font-weight:600;color:var(--cr);">📋 Meeting Minutes Repository</div>
+        <button class="btn btn-primary btn-sm" onclick="showToast('New meeting record form...')">+ Record Meeting</button>
+      </div>
+      <div class="kpi-row">
+        <div class="kpi green"><div class="kpi-val">9,824</div><div class="kpi-label">Meetings Recorded (FY)</div></div>
+        <div class="kpi amber"><div class="kpi-val">2,248</div><div class="kpi-label">Meetings Pending Entry</div></div>
+        <div class="kpi blue"><div class="kpi-val">94%</div><div class="kpi-label">Quorum Compliance</div></div>
+      </div>
+      <div class="notice-grid">
+        <div class="info-card">
+          <div class="ic-title">📅 Add Meeting Record</div>
+          <div class="form-group" style="margin-bottom:.7rem;"><label class="form-label">Van Panchayat</label><select class="form-input"><option>Khirsu VP</option><option>Dhari VP</option><option>Munsiyari VP</option><option>Saroli VP</option></select></div>
+          <div class="form-group" style="margin-bottom:.7rem;"><label class="form-label">Meeting Date</label><input class="form-input" type="date"></div>
+          <div class="form-group" style="margin-bottom:.7rem;"><label class="form-label">Meeting Type</label><select class="form-input"><option>Regular Monthly</option><option>Special Meeting</option><option>Annual General Meeting</option><option>Emergency</option></select></div>
+          <div class="form-group" style="margin-bottom:.7rem;"><label class="form-label">Members Present</label><input class="form-input" type="number" placeholder="e.g. 7 of 9"></div>
+          <div class="form-group" style="margin-bottom:.7rem;"><label class="form-label">Agenda / Resolutions</label><textarea class="form-input" rows="4" placeholder="Key decisions and resolutions..." style="resize:vertical;"></textarea></div>
+          <button class="btn btn-primary btn-sm" onclick="showToast('✅ Meeting minutes recorded successfully!')">Save Meeting Record</button>
+        </div>
+        <div class="info-card">
+          <div class="ic-title">📂 Recent Meeting Records</div>
+          <table class="data-table">
+            <thead><tr><th>VP Name</th><th>Date</th><th>Type</th><th>Attendance</th><th>Action</th></tr></thead>
+            <tbody>
+              <tr><td>Khirsu VP</td><td>10 Mar 2026</td><td>Regular</td><td>8/9</td><td><button class="btn btn-sm btn-outline" onclick="showToast('Loading Khirsu meeting minutes...')">View</button></td></tr>
+              <tr><td>Munsiyari VP</td><td>08 Mar 2026</td><td>Special</td><td>11/11</td><td><button class="btn btn-sm btn-outline" onclick="showToast('Loading Munsiyari meeting minutes...')">View</button></td></tr>
+              <tr><td>Dhari VP</td><td>05 Mar 2026</td><td>AGM</td><td>7/7</td><td><button class="btn btn-sm btn-outline" onclick="showToast('Loading Dhari AGM minutes...')">View</button></td></tr>
+              <tr><td>Saroli VP</td><td>01 Mar 2026</td><td>Regular</td><td>6/9</td><td><button class="btn btn-sm btn-outline" onclick="showToast('Loading Saroli meeting minutes...')">View</button></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ TAB: MICRO PLANS ══ -->
+    <div id="vp-microplan" class="vp-tab" style="display:none">
+      <div class="dash-hd">
+        <div style="font-size:1.1rem;font-weight:600;color:var(--cr);">📊 Community Forest Micro-Plans</div>
+        <button class="btn btn-primary btn-sm" onclick="showToast('New micro-plan template loading...')">+ Create Plan</button>
+      </div>
+      <div class="kpi-row">
+        <div class="kpi green"><div class="kpi-val">8,421</div><div class="kpi-label">Plans Prepared</div></div>
+        <div class="kpi amber"><div class="kpi-val">3,668</div><div class="kpi-label">Plans Pending</div></div>
+        <div class="kpi blue"><div class="kpi-val">5,824</div><div class="kpi-label">Plans Approved</div></div>
+        <div class="kpi gold"><div class="kpi-val">2,597</div><div class="kpi-label">Under Implementation</div></div>
+      </div>
+      <table class="data-table">
+        <thead><tr><th>VP Name</th><th>District</th><th>Plan Period</th><th>Key Activities</th><th>Budget (₹L)</th><th>Status</th><th>Action</th></tr></thead>
+        <tbody>
+          <tr><td>Khirsu VP</td><td>Pauri</td><td>2024-29</td><td>Plantation, NTFP, SMC</td><td>₹8.4L</td><td><span class="status-pill sp-green">Approved</span></td><td><button class="btn btn-sm btn-outline" onclick="showToast('Downloading Khirsu micro-plan...')">⬇ Download</button></td></tr>
+          <tr><td>Munsiyari VP</td><td>Pithoragarh</td><td>2023-28</td><td>Alpine Pasture, Medicinal Plants</td><td>₹12.2L</td><td><span class="status-pill sp-green">Active</span></td><td><button class="btn btn-sm btn-outline" onclick="showToast('Downloading Munsiyari micro-plan...')">⬇ Download</button></td></tr>
+          <tr><td>Saroli VP</td><td>Bageshwar</td><td>2025-30</td><td>Watershed, Biodiversity</td><td>₹6.8L</td><td><span class="status-pill sp-amber">Under Review</span></td><td><button class="btn btn-sm btn-outline" onclick="showToast('Opening review form for Saroli plan...')">Review</button></td></tr>
+          <tr><td>Kulsari VP</td><td>Chamoli</td><td>—</td><td>Election pending — plan on hold</td><td>—</td><td><span class="status-pill sp-red">On Hold</span></td><td><button class="btn btn-sm btn-outline" onclick="showToast('Election required before micro-plan...')">Initiate</button></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ══ TAB: VP REPORTS ══ -->
+    <div id="vp-vpreports" class="vp-tab" style="display:none">
+      <div style="font-size:1.1rem;font-weight:600;color:var(--cr);margin-bottom:1rem;">📄 Van Panchayat Reports & Export</div>
+      <div class="info-card" style="margin-bottom:1rem;">
+        <div class="ic-title">🔧 Custom Report Builder</div>
+        <div class="form-grid" style="margin-top:.5rem;">
+          <div class="form-group"><label class="form-label">Report Type</label>
+            <select class="form-input"><option>VP Summary Report</option><option>Boundary Survey Status</option><option>Activity Progress</option><option>Fund Utilization</option><option>Meeting Compliance</option><option>Election Status</option><option>Impact Assessment</option></select>
+          </div>
+          <div class="form-group"><label class="form-label">District</label><select class="form-input"><option>All Districts</option><option>Almora</option><option>Pauri</option><option>Chamoli</option><option>Pithoragarh</option></select></div>
+          <div class="form-group"><label class="form-label">Period</label><select class="form-input"><option>FY 2025-26</option><option>FY 2024-25</option><option>Custom</option></select></div>
+          <div class="form-group"><label class="form-label">Format</label><select class="form-input"><option>PDF</option><option>Excel</option><option>CSV</option></select></div>
+        </div>
+        <div class="form-actions" style="margin-top:.8rem;">
+          <button class="btn btn-primary btn-sm" onclick="showToast('✅ Generating VP custom report...')">📊 Generate</button>
+          <button class="btn btn-outline btn-sm" onclick="showToast('Preview loading...')">👁 Preview</button>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:.6rem;">
+        <div class="info-card" style="display:flex;align-items:center;justify-content:space-between;padding:.8rem 1.2rem;">
+          <div><div style="font-size:.78rem;font-weight:600;color:var(--cr);">🌳 VP Status Report — All Districts 2025-26</div><div style="font-size:.65rem;color:var(--ms);">12,089 VPs · Constitution, Elections, Area · PDF</div></div>
+          <button class="btn btn-primary btn-sm" onclick="showToast('Downloading VP Status Report...')">⬇ Download</button>
+        </div>
+        <div class="info-card" style="display:flex;align-items:center;justify-content:space-between;padding:.8rem 1.2rem;">
+          <div><div style="font-size:.78rem;font-weight:600;color:var(--cr);">📐 Boundary Mapping Progress Report</div><div style="font-size:.65rem;color:var(--ms);">8,421 mapped · 3,668 pending · GIS export</div></div>
+          <button class="btn btn-primary btn-sm" onclick="showToast('Downloading Boundary Report...')">⬇ Download</button>
+        </div>
+        <div class="info-card" style="display:flex;align-items:center;justify-content:space-between;padding:.8rem 1.2rem;">
+          <div><div style="font-size:.78rem;font-weight:600;color:var(--cr);">💰 VP Fund Utilization & UC Status Report</div><div style="font-size:.65rem;color:var(--ms);">All funding sources · Q4 FY 2025-26 · Excel</div></div>
+          <button class="btn btn-primary btn-sm" onclick="showToast('Downloading Fund Utilization Report...')">⬇ Download</button>
+        </div>
+        <div class="info-card" style="display:flex;align-items:center;justify-content:space-between;padding:.8rem 1.2rem;">
+          <div><div style="font-size:.78rem;font-weight:600;color:var(--cr);">📈 Activity Progress & Impact Assessment</div><div style="font-size:.65rem;color:var(--ms);">Physical & financial · Before-after analysis · PDF</div></div>
+          <button class="btn btn-primary btn-sm" onclick="showToast('Downloading Impact Report...')">⬇ Download</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ TAB: ACCOUNTS ══ -->
+    <div id="vp-accounts" class="vp-tab" style="display:none">
+      <div style="font-size:1.1rem;font-weight:600;color:var(--cr);margin-bottom:1rem;">📒 Van Panchayat Financial Accounts</div>
+      <div class="kpi-row">
+        <div class="kpi gold"><div class="kpi-val">₹48Cr</div><div class="kpi-label">Total Fund</div></div>
+        <div class="kpi green"><div class="kpi-val">₹28Cr</div><div class="kpi-label">Income (FY)</div></div>
+        <div class="kpi blue"><div class="kpi-val">₹22Cr</div><div class="kpi-label">Expenditure</div></div>
+        <div class="kpi amber"><div class="kpi-val">342</div><div class="kpi-label">Audit Pending</div></div>
+      </div>
+      <div class="info-card">
+        <div class="ic-title" style="display:flex;justify-content:space-between;">
+          <span>📊 Income Sources Breakdown</span>
+          <button class="btn btn-outline btn-sm" onclick="showToast('Exporting VP accounts to Excel...')">⬇ Export</button>
+        </div>
+        <div class="ic-row"><span class="ic-key">NTFP Revenue Share</span><span class="ic-val">₹8.4Cr (30%)</span></div>
+        <div class="ic-row"><span class="ic-key">CAMPA Allocation</span><span class="ic-val">₹12.2Cr (44%)</span></div>
+        <div class="ic-row"><span class="ic-key">MGNREGS Convergence</span><span class="ic-val">₹4.8Cr (17%)</span></div>
+        <div class="ic-row"><span class="ic-key">Green India Mission</span><span class="ic-val">₹2.6Cr (9%)</span></div>
+        <div style="margin-top:1rem;"><button class="btn btn-primary btn-sm" onclick="showToast('Opening audit trail...')">🔍 View Audit Trail</button><button class="btn btn-outline btn-sm" style="margin-left:.5rem;" onclick="showToast('Generating UC statements...')">📄 Generate UCs</button></div>
+      </div>
+    </div>
+
+    <!-- VP ELECTIONS tab -->
+    <div id="vp-elections" class="vp-tab" style="display:none">
+      <div class="dash-hd"><div style="font-size:1.1rem;font-weight:600;color:var(--cr);">🗳️ Van Panchayat Election Management</div><button class="btn btn-primary btn-sm" onclick="showToast('Issuing election notification...')">Issue Notification</button></div>
+      <div class="kpi-row">
+        <div class="kpi amber"><div class="kpi-val">245</div><div class="kpi-label">Elections Due 2026</div></div>
+        <div class="kpi green"><div class="kpi-val">48</div><div class="kpi-label">Completed (2026)</div></div>
+        <div class="kpi blue"><div class="kpi-val">12</div><div class="kpi-label">In Process</div></div>
+        <div class="kpi red"><div class="kpi-val">185</div><div class="kpi-label">Notification Pending</div></div>
+      </div>
+      <table class="data-table">
+        <thead><tr><th>VP Name</th><th>District</th><th>Term Expired</th><th>Notification Date</th><th>Election Date</th><th>Status</th><th>Action</th></tr></thead>
+        <tbody>
+          <tr><td>Kulsari VP</td><td>Chamoli</td><td>Dec 2025</td><td>20 Mar 2026</td><td>15 Apr 2026</td><td><span class="status-pill sp-amber">Notified</span></td><td><button class="btn btn-sm btn-outline" onclick="showToast('Viewing Kulsari election schedule...')">View</button></td></tr>
+          <tr><td>Saroli VP</td><td>Tehri</td><td>Nov 2025</td><td>10 Mar 2026</td><td>5 Apr 2026</td><td><span class="status-pill sp-blue">Nominations Filed</span></td><td><button class="btn btn-sm btn-outline" onclick="showToast('Viewing nominations for Saroli VP...')">Nominations</button></td></tr>
+          <tr><td>Agunda VP</td><td>Pauri</td><td>Jan 2026</td><td>—</td><td>—</td><td><span class="status-pill sp-red">Pending Notification</span></td><td><button class="btn btn-sm btn-outline" onclick="showToast('Issuing notification for Agunda VP...')">Notify</button></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div><!-- end mod-main -->
+</div><!-- end mod-page-layout -->
+</div><!-- end page-vanpanchayat -->
+
+
 <div class="page" id="page-ecotourism">
   <div class="topbar">
     <div class="topbar-brand" onclick="showPage('home')">🌲 UFD Portal</div>
@@ -2008,6 +2893,8 @@ function showPage(name) {
   if (name === 'dashboard') { setTimeout(initCharts, 200); }
   if (name === 'campa') setTimeout(initCampaCharts, 200);
   if (name === 'hrd') setTimeout(function(){ hrdTab('attendance', null); }, 150);
+  if (name === 'ntfp') setTimeout(function(){ ntfpTab('mapping', null); }, 150);
+  if (name === 'vanpanchayat') setTimeout(function(){ vpTab('directory', null); }, 150);
   if (name === 'ecotourism') setTimeout(initEcoCharts, 200);
 }
 
@@ -2334,6 +3221,198 @@ function initHrdRetirementChart() {
       {label:'Forest Guard',data:[24,42,58,48,64],backgroundColor:'rgba(74,173,90,.65)'},
       {label:'Contractual',data:[12,18,24,20,28],backgroundColor:'rgba(232,154,60,.6)'}
     ]
+  });
+}
+
+
+// ══ NTFP TAB SWITCH ══
+function ntfpTab(name, btn) {
+  document.querySelectorAll('#page-ntfp .ntfp-tab').forEach(t => t.style.display='none');
+  const tab = document.getElementById('ntfp-'+name);
+  if(tab) tab.style.display = 'block';
+  document.querySelectorAll('#page-ntfp .ds-lnk').forEach(b => b.classList.remove('act'));
+  const sb = document.getElementById('ntfp-sb-'+name);
+  if(sb) sb.classList.add('act');
+  if(btn && btn.classList && btn.classList.contains('tnav')) {
+    document.querySelectorAll('#page-ntfp .tnav').forEach(b => b.classList.remove('act'));
+    btn.classList.add('act');
+  }
+  const chartMap = {
+    'mapping': initNtfpMappingCharts,
+    'gis': initNtfpGISCharts,
+    'livelihood': initNtfpLivCharts,
+    'market': initNtfpMarketCharts
+  };
+  if(chartMap[name]) setTimeout(chartMap[name], 120);
+  if(name==='gis') setTimeout(initNtfpGISMap, 150);
+  if(name==='hotspot') setTimeout(initNtfpHotspotMap, 150);
+  if(name==='permits') setTimeout(initDepotMap2, 150);
+  if(name==='mapping') setTimeout(initNtfpProdMap, 150);
+}
+
+// ══ VP TAB SWITCH ══
+function vpTab(name, btn) {
+  document.querySelectorAll('#page-vanpanchayat .vp-tab').forEach(t => t.style.display='none');
+  const tab = document.getElementById('vp-'+name);
+  if(tab) tab.style.display = 'block';
+  document.querySelectorAll('#page-vanpanchayat .ds-lnk').forEach(b => b.classList.remove('act'));
+  const sb = document.getElementById('vp-sb-'+name);
+  if(sb) sb.classList.add('act');
+  if(btn && btn.classList && btn.classList.contains('tnav')) {
+    document.querySelectorAll('#page-vanpanchayat .tnav').forEach(b => b.classList.remove('act'));
+    btn.classList.add('act');
+  }
+  const chartMap = {
+    'directory': initVPDirCharts,
+    'funds': initVPFundCharts,
+    'progress': initVPProgressCharts
+  };
+  if(chartMap[name]) setTimeout(chartMap[name], 120);
+  if(name==='boundary') setTimeout(initVPBoundaryMap, 150);
+}
+
+function switchVPProfileTab(name, btn) {
+  document.querySelectorAll('.vp-profile-tab').forEach(t => t.style.display='none');
+  const t = document.getElementById('vpp-'+name);
+  if(t) t.style.display = 'block';
+  if(btn) {
+    btn.closest('.tab-row').querySelectorAll('.tab').forEach(b => b.classList.remove('act'));
+    btn.classList.add('act');
+  }
+}
+
+// ══ NTFP MAPS ══
+function initNtfpProdMap() {
+  const el = document.getElementById('ntfp-prodMap');
+  if(!el || el._leaflet_id) return;
+  const m = L.map('ntfp-prodMap').setView([30.0, 79.2], 7);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap',maxZoom:17}).addTo(m);
+  const zones = [
+    [29.62,79.67,'Almora — Chyura, Timru','#4aad5a',12],
+    [30.6,79.97,'Pithoragarh — Honey, Ringal','#4aad5a',10],
+    [30.08,79.24,'Chamoli — Pine Resin, Herbs','#4aad5a',14],
+    [30.73,78.44,'Uttarkashi — Banj Oak','#c9a227',9],
+    [29.85,78.77,'Pauri — Timru, Grass','#c9a227',8],
+    [29.85,79.92,'Bageshwar — Ringal, Honey','#c9a227',8],
+    [30.48,79.07,'Rudraprayag — Mixed NTFP','#e89a3c',7],
+    [29.5,80.2,'Champawat — Potential','#e05c5c',6]
+  ];
+  zones.forEach(([lat,lng,name,col,r]) => L.circleMarker([lat,lng],{radius:r,color:col,fillColor:col,fillOpacity:.7}).addTo(m).bindPopup('<b>🌿 '+name+'</b>'));
+}
+
+function initNtfpGISMap() {
+  const el = document.getElementById('ntfp-gisMap');
+  if(!el || el._leaflet_id) return;
+  const m = L.map('ntfp-gisMap').setView([30.0,79.2],7);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap'}).addTo(m);
+  [[29.62,79.67,'Almora — Revenue: ₹182L'],[30.6,79.97,'Pithoragarh — ₹148L'],[30.08,79.24,'Chamoli — ₹198L'],[30.73,78.44,'Uttarkashi — ₹112L']].forEach(([lat,lng,name]) => L.circleMarker([lat,lng],{radius:10,color:'#4aad5a',fillColor:'#4aad5a',fillOpacity:.65}).addTo(m).bindPopup(name));
+}
+
+function initNtfpHotspotMap() {
+  const el = document.getElementById('ntfp-hotspotMap');
+  if(!el || el._leaflet_id) return;
+  const m = L.map('ntfp-hotspotMap').setView([30.0,79.2],7);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap'}).addTo(m);
+  [[29.38,79.69,'🔥 Binsar Cluster — HIGH','#e05c5c',12],[30.6,79.97,'🔥 Munsiyari Belt — HIGH','#e05c5c',11],[30.48,79.22,'🟡 Kedarnath Buffer — MEDIUM','#e89a3c',9],[30.08,79.24,'🔥 Nandakini Valley — HIGH','#e05c5c',11],[29.85,79.92,'🔵 Saryu Basin — POTENTIAL','#a8d5e2',8]].forEach(([lat,lng,name,col,r]) => L.circleMarker([lat,lng],{radius:r,color:col,fillColor:col,fillOpacity:.75}).addTo(m).bindPopup('<b>'+name+'</b>'));
+}
+
+function initDepotMap2() {
+  const el = document.getElementById('ntfp-depotMap2');
+  if(!el || el._leaflet_id) return;
+  const m = L.map('ntfp-depotMap2').setView([30.0,79.0],7);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap'}).addTo(m);
+  [[30.32,78.03,'Dehradun NTFP Depot'],[29.62,79.67,'Almora Central Depot'],[29.18,79.5,'Ramnagar FDC Depot'],[30.73,78.44,'Uttarkashi Depot'],[30.6,79.97,'Munsiyari Collection Centre']].forEach(([lat,lng,name]) => L.marker([lat,lng]).addTo(m).bindPopup('<b>📦 '+name+'</b>'));
+}
+
+// ══ VP MAPS ══
+function initVPBoundaryMap() {
+  const el = document.getElementById('vp-boundaryMap');
+  if(!el || el._leaflet_id) return;
+  const m = L.map('vp-boundaryMap').setView([30.0,79.2],7);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap'}).addTo(m);
+  [[29.85,79.46,'Khirsu VP — 142.5 Ha ✓','#4aad5a'],[30.08,79.24,'Kulsari VP — Pending 🗳','#e89a3c'],[30.1,80.0,'Munsiyari VP — 324.1 Ha ✓','#4aad5a'],[29.62,79.67,'Dhari VP — 89.2 Ha ✓','#4aad5a'],[29.85,79.92,'Saroli VP — Not Mapped ⚠','#e05c5c']].forEach(([lat,lng,name,col]) => L.circleMarker([lat,lng],{radius:9,color:col,fillColor:col,fillOpacity:.7}).addTo(m).bindPopup('<b>🌳 '+name+'</b>'));
+}
+
+// ══ NTFP CHARTS ══
+function initNtfpMappingCharts() {
+  mkChart('ntfp-speciesChart','bar',{
+    labels:['Pine Resin','Chyura','Ringal','Honey','Timru','Banj Leaf','Kafal','Herbs'],
+    datasets:[{label:'Production (Quintals)',data:[5124,4821,3842,1284,2840,1820,420,980],backgroundColor:'rgba(74,173,90,.72)',borderColor:'#4aad5a',borderWidth:1}]
+  });
+  mkChart('ntfp-seasonChart','line',{
+    labels:['2020-21','2021-22','2022-23','2023-24','2024-25','2025-26'],
+    datasets:[
+      {label:'Spring',data:[8200,8900,9400,10200,11400,12800],borderColor:'#4aad5a',fill:false,tension:.4},
+      {label:'Summer',data:[12400,13100,14200,15800,17200,19400],borderColor:'#c9a227',fill:false,tension:.4},
+      {label:'Autumn',data:[6800,7200,7800,8400,9200,10100],borderColor:'#e89a3c',fill:false,tension:.4},
+      {label:'Winter',data:[2400,2600,2800,3100,3400,3800],borderColor:'#a8d5e2',fill:false,tension:.4}
+    ]
+  });
+}
+
+function initNtfpGISCharts() {
+  mkChart('ntfp-distRevChart','bar',{
+    labels:['Almora','Pithoragarh','Chamoli','Uttarkashi','Pauri','Bageshwar','Rudraprayag','Others'],
+    datasets:[{label:'Revenue (₹ Lakhs)',data:[182,148,198,112,84,68,42,46],backgroundColor:'rgba(74,173,90,.7)',borderColor:'#4aad5a',borderWidth:1}]
+  });
+  mkChart('ntfp-trainCovChart','doughnut',{
+    labels:['Trained','Untrained'],
+    datasets:[{data:[14280,33720],backgroundColor:['#4aad5a','rgba(45,122,58,.25)'],borderWidth:0}]
+  });
+}
+
+function initNtfpLivCharts() {
+  mkChart('ntfp-collQtyChart','bar',{
+    labels:['Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec','Jan','Feb','Mar'],
+    datasets:[{label:'Collection (Quintals)',data:[1840,2240,3420,4820,5240,3820,2140,1240,840,1420,2240,3120],backgroundColor:'rgba(139,200,143,.7)',borderColor:'#8bc88f',borderWidth:1}]
+  });
+}
+
+function initNtfpMarketCharts() {
+  mkChart('ntfp-priceChart','bar',{
+    labels:['Chyura','Timru','Ringal','Pine Resin','Honey','Banj Leaf','Kafal'],
+    datasets:[
+      {label:'MSP (₹/kg)',data:[55,380,28,42,480,12,120],backgroundColor:'rgba(201,162,39,.5)'},
+      {label:'Mandi Price',data:[62,420,35,48,620,15,180],backgroundColor:'rgba(74,173,90,.65)'},
+      {label:'eNAM Price',data:[68,445,38,52,680,16,210],backgroundColor:'rgba(168,213,226,.65)'}
+    ]
+  });
+}
+
+// ══ VP CHARTS ══
+function initVPDirCharts() {
+  mkChart('vp-distChart','bar',{
+    labels:['Almora','Pauri','Chamoli','Pithoragarh','Nainital','Uttarkashi','Tehri','Bageshwar','Dehradun','Haridwar','Rudraprayag','US Nagar','Champawat'],
+    datasets:[{label:'Van Panchayats',data:[1842,1624,1248,984,842,728,698,612,284,142,424,412,249],backgroundColor:'rgba(74,173,90,.68)',borderColor:'#4aad5a',borderWidth:1}]
+  });
+  mkChart('vp-fundChart','doughnut',{
+    labels:['CAMPA','NTFP Revenue','MGNREGS','Green India Mission','State Fund'],
+    datasets:[{data:[44,30,17,6,3],backgroundColor:['#4aad5a','#c9a227','#a8d5e2','#e89a3c','#8bc88f'],borderWidth:0}]
+  });
+}
+
+function initVPFundCharts() {
+  mkChart('vp-fundSourceChart','doughnut',{
+    labels:['CAMPA','NTFP Revenue','MGNREGS','GIM','State'],
+    datasets:[{data:[12.2,8.4,4.8,2.6,1.2],backgroundColor:['#4aad5a','#c9a227','#a8d5e2','#e89a3c','#8bc88f'],borderWidth:0}]
+  });
+  mkChart('vp-expCatChart','bar',{
+    labels:['Plantation','SMC Works','NTFP Dev.','Infrastructure','Admin','Training'],
+    datasets:[{label:'Expenditure (₹Cr)',data:[9.4,5.2,3.8,1.8,1.2,0.6],backgroundColor:'rgba(74,173,90,.7)',borderColor:'#4aad5a',borderWidth:1}]
+  });
+}
+
+function initVPProgressCharts() {
+  mkChart('vp-physProgressChart','bar',{
+    labels:['Plantation','SMC Works','NTFP Dev.','Check Dams','Fencing','Training'],
+    datasets:[
+      {label:'Target',data:[100,100,100,100,100,100],backgroundColor:'rgba(201,162,39,.35)'},
+      {label:'Achieved (%)',data:[78,92,45,24,68,84],backgroundColor:'rgba(74,173,90,.72)'}
+    ]
+  });
+  mkChart('vp-finProgressChart','line',{
+    labels:['Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec','Jan','Feb','Mar'],
+    datasets:[{label:'Cumulative Expenditure (₹Cr)',data:[0.8,2.1,3.8,5.4,7.2,9.8,12.4,14.8,16.2,18.4,20.1,22.0],borderColor:'#c9a227',backgroundColor:'rgba(201,162,39,.1)',fill:true,tension:.4}]
   });
 }
 
