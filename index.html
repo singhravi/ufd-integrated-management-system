@@ -2213,7 +2213,628 @@ select.form-input option{background:var(--fd3);color:var(--cr);}
 </div>
 
 <!-- ══ STUB PAGES for remaining modules ══ -->
-<div class="page" id="page-schemes"><div class="topbar"><div class="topbar-brand" onclick="showPage('home')">🌲 UFD Portal</div><div class="topbar-nav"><button class="tnav" onclick="showPage('home')">← Home</button><button class="tnav act">📋 Schemes</button></div><div class="topbar-right"><button class="lang-btn" onclick="toggleLang()">🌐 हिंदी / EN</button></div></div><div style="padding:2rem;"><div class="mod-page-title">📋 Forestry Schemes & Programmes</div><div class="mod-page-sub" style="margin-bottom:1.5rem;">State & Central Government Schemes FY 2025-26</div><div class="kpi-row"><div class="kpi green"><div class="kpi-val">24</div><div class="kpi-label">Active Schemes</div></div><div class="kpi gold"><div class="kpi-val">₹482Cr</div><div class="kpi-label">Total Outlay</div></div><div class="kpi blue"><div class="kpi-val">67%</div><div class="kpi-label">Fund Utilized</div></div><div class="kpi amber"><div class="kpi-val">1.8L</div><div class="kpi-label">Beneficiaries</div></div></div><table class="data-table"><thead><tr><th>Scheme Name</th><th>Type</th><th>Outlay (₹ Cr)</th><th>Utilized</th><th>Beneficiaries</th><th>Status</th></tr></thead><tbody><tr><td>Green India Mission</td><td>Central</td><td>84.2</td><td>62%</td><td>24,800</td><td><span class="status-pill sp-green">Active</span></td></tr><tr><td>National Afforestation Programme</td><td>Central</td><td>42.8</td><td>78%</td><td>12,400</td><td><span class="status-pill sp-green">Active</span></td></tr><tr><td>Harela Mahotsav Plantation</td><td>State</td><td>18.4</td><td>95%</td><td>80,000</td><td><span class="status-pill sp-blue">Completed</span></td></tr><tr><td>Mera Jungle Mera Dhan</td><td>State</td><td>12.0</td><td>45%</td><td>8,200</td><td><span class="status-pill sp-amber">In Progress</span></td></tr><tr><td>CAMPA Plantation Works</td><td>CAMPA</td><td>124.0</td><td>14%</td><td>48,000</td><td><span class="status-pill sp-green">Active</span></td></tr></tbody></table></div></div>
+<div class="page" id="page-schemes">
+<div class="topbar">
+  <div class="topbar-brand" onclick="showPage('home')">🌲 UFD Portal</div>
+  <div class="topbar-nav">
+    <button class="tnav" onclick="showPage('home')">← Home</button>
+    <button class="tnav act">📋 Schemes MIS</button>
+    <button class="tnav" onclick="schTab('dashboard',this)">📊 Dashboard</button>
+    <button class="tnav" onclick="schTab('schemes',this)">📋 Schemes</button>
+    <button class="tnav" onclick="schTab('progress',this)">📈 Progress</button>
+    <button class="tnav" onclick="schTab('activities',this)">🏗 Activities</button>
+    <button class="tnav" onclick="schTab('workflow',this)">✅ Approvals</button>
+    <button class="tnav" onclick="schTab('gis',this)">🗺 GIS</button>
+    <button class="tnav" onclick="schTab('reports',this)">📄 Reports</button>
+    <button class="tnav" onclick="schTab('training',this)">🎓 Training</button>
+    <button class="tnav" onclick="schTab('support',this)">🛠 Support</button>
+  </div>
+  <div class="topbar-right">
+    <button class="lang-btn" onclick="toggleLang()">🌐 हिंदी / EN</button>
+    <button class="login-btn" onclick="openModal('loginModal')">🔐 Login</button>
+  </div>
+</div>
+
+<div class="mod-page-layout">
+  <!-- SIDEBAR -->
+  <div class="mod-sidebar">
+    <div class="ds-title">SCHEMES MIS</div>
+    <div class="ds-title" style="color:rgba(168,213,226,.5);margin-top:.3rem;">📊 OVERVIEW</div>
+    <button class="ds-lnk act" id="sch-sb-dashboard" onclick="schTab('dashboard',this)">📊 MIS Dashboard</button>
+    <button class="ds-lnk" id="sch-sb-schemes" onclick="schTab('schemes',this)">📋 Scheme Registry</button>
+    <div class="ds-sep"></div>
+    <div class="ds-title" style="color:rgba(168,213,226,.5);">📈 TRACKING</div>
+    <button class="ds-lnk" id="sch-sb-progress" onclick="schTab('progress',this)">📈 Physical & Financial</button>
+    <button class="ds-lnk" id="sch-sb-activities" onclick="schTab('activities',this)">🏗 Activity & Asset</button>
+    <button class="ds-lnk" id="sch-sb-workflow" onclick="schTab('workflow',this)">✅ Workflow Approvals</button>
+    <div class="ds-sep"></div>
+    <div class="ds-title" style="color:rgba(168,213,226,.5);">🗺 SPATIAL</div>
+    <button class="ds-lnk" id="sch-sb-gis" onclick="schTab('gis',this)">🗺 GIS Visualization</button>
+    <div class="ds-sep"></div>
+    <div class="ds-title" style="color:rgba(168,213,226,.5);">📄 REPORTING</div>
+    <button class="ds-lnk" id="sch-sb-reports" onclick="schTab('reports',this)">📄 Reports & Export</button>
+    <div class="ds-sep"></div>
+    <div class="ds-title" style="color:rgba(168,213,226,.5);">🎓 CAPACITY</div>
+    <button class="ds-lnk" id="sch-sb-training" onclick="schTab('training',this)">🎓 Training & Manuals</button>
+    <button class="ds-lnk" id="sch-sb-support" onclick="schTab('support',this)">🛠 Support & Warranty</button>
+  </div>
+
+  <!-- MAIN -->
+  <div class="mod-main" style="background:rgba(6,18,9,.4);">
+    <div class="breadcrumb"><span onclick="showPage('home')" style="cursor:pointer;">Home</span> <span>›</span> Forestry Schemes & Programmes MIS</div>
+    <div class="mod-page-title">📋 Forestry Schemes & Programmes MIS</div>
+    <div class="mod-page-sub">Web-based · GIS-enabled · Role-based · Modular Architecture · Uttarakhand Forest Department</div>
+
+    <!-- ══ TAB: MIS DASHBOARD ══ -->
+    <div id="sch-dashboard" class="sch-tab">
+      <!-- Role selector -->
+      <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.2rem;background:rgba(12,28,14,.6);border:1px solid rgba(90,200,110,.12);border-radius:6px;padding:.8rem 1.2rem;flex-wrap:wrap;">
+        <span style="font-size:.72rem;color:var(--ms);font-weight:600;">👤 Dashboard Role:</span>
+        <div style="display:flex;gap:.4rem;flex-wrap:wrap;">
+          <button class="filter-btn active" onclick="setSchRole('state',this)">State Level</button>
+          <button class="filter-btn" onclick="setSchRole('circle',this)">Circle / CCF</button>
+          <button class="filter-btn" onclick="setSchRole('division',this)">Division / DFO</button>
+          <button class="filter-btn" onclick="setSchRole('range',this)">Range Officer</button>
+        </div>
+        <span id="sch-role-label" style="font-size:.7rem;color:var(--gd);margin-left:auto;">State Level View — All Divisions</span>
+      </div>
+
+      <div class="kpi-row">
+        <div class="kpi green"><div class="kpi-ico">📋</div><div class="kpi-val">24</div><div class="kpi-label">Active Schemes</div><div class="kpi-trend trend-up">GoI + State + CAMPA</div></div>
+        <div class="kpi gold"><div class="kpi-ico">💰</div><div class="kpi-val">₹482Cr</div><div class="kpi-label">Total Outlay (FY)</div><div class="kpi-trend trend-up">↑ ₹48Cr from last FY</div></div>
+        <div class="kpi blue"><div class="kpi-ico">📊</div><div class="kpi-val">67%</div><div class="kpi-label">Fund Utilization</div><div class="kpi-trend trend-up">₹323Cr released</div></div>
+        <div class="kpi amber"><div class="kpi-ico">🏗</div><div class="kpi-val">1,284</div><div class="kpi-label">Active Activities</div><div class="kpi-trend">Across all schemes</div></div>
+        <div class="kpi green"><div class="kpi-ico">👥</div><div class="kpi-val">1.8L</div><div class="kpi-label">Beneficiaries</div><div class="kpi-trend trend-up">↑ 12,000 new</div></div>
+        <div class="kpi red"><div class="kpi-ico">⏳</div><div class="kpi-val">84</div><div class="kpi-label">Pending Approvals</div><div class="kpi-trend" style="color:var(--am)">Awaiting action</div></div>
+      </div>
+
+      <div class="charts-grid">
+        <div class="chart-card">
+          <div class="cc-hd"><div class="cc-title">💰 Fund Utilization by Scheme Type</div><span class="cc-badge">FY 2025-26</span></div>
+          <canvas id="sch-utilChart"></canvas>
+        </div>
+        <div class="chart-card">
+          <div class="cc-hd"><div class="cc-title">📈 Monthly Release vs Expenditure (₹ Cr)</div><span class="cc-badge">State Level</span></div>
+          <canvas id="sch-releaseChart"></canvas>
+        </div>
+        <div class="chart-card">
+          <div class="cc-hd"><div class="cc-title">🏗 Physical Progress by Scheme</div><span class="cc-badge">% Achievement</span></div>
+          <canvas id="sch-physChart"></canvas>
+        </div>
+        <div class="chart-card">
+          <div class="cc-hd"><div class="cc-title">📊 Division-wise Fund Utilization (%)</div><span class="cc-badge">All Divisions</span></div>
+          <canvas id="sch-divUtilChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Scheme-wise summary cards -->
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:.8rem;margin-top:.5rem;">
+        <div class="info-card" style="border-color:rgba(74,173,90,.25);cursor:pointer;" onclick="schTab('schemes',null)">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+            <div>
+              <div style="font-size:.75rem;font-weight:600;color:var(--cr);">Green India Mission</div>
+              <div style="font-size:.62rem;color:var(--ms);">GoI · Central Scheme</div>
+            </div><span class="status-pill sp-green">Active</span>
+          </div>
+          <div style="margin-top:.6rem;"><div style="display:flex;justify-content:space-between;font-size:.68rem;color:var(--ms);margin-bottom:.3rem;"><span>Utilization</span><span style="color:var(--cn)">62%</span></div><div class="progress-bar-wrap"><div class="progress-bar" style="width:62%"></div></div></div>
+          <div style="font-size:.65rem;color:var(--ms);margin-top:.4rem;">₹84.2 Cr outlay · 24,800 beneficiaries</div>
+        </div>
+        <div class="info-card" style="border-color:rgba(168,213,226,.2);cursor:pointer;" onclick="schTab('schemes',null)">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+            <div>
+              <div style="font-size:.75rem;font-weight:600;color:var(--cr);">Nat. Afforestation Programme</div>
+              <div style="font-size:.62rem;color:var(--ms);">GoI · CSS</div>
+            </div><span class="status-pill sp-green">Active</span>
+          </div>
+          <div style="margin-top:.6rem;"><div style="display:flex;justify-content:space-between;font-size:.68rem;color:var(--ms);margin-bottom:.3rem;"><span>Utilization</span><span style="color:var(--cn)">78%</span></div><div class="progress-bar-wrap"><div class="progress-bar" style="width:78%"></div></div></div>
+          <div style="font-size:.65rem;color:var(--ms);margin-top:.4rem;">₹42.8 Cr outlay · 12,400 beneficiaries</div>
+        </div>
+        <div class="info-card" style="border-color:rgba(201,162,39,.2);cursor:pointer;" onclick="schTab('schemes',null)">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+            <div>
+              <div style="font-size:.75rem;font-weight:600;color:var(--cr);">CAMPA Plantation Works</div>
+              <div style="font-size:.62rem;color:var(--ms);">CAMPA · State</div>
+            </div><span class="status-pill sp-green">Active</span>
+          </div>
+          <div style="margin-top:.6rem;"><div style="display:flex;justify-content:space-between;font-size:.68rem;color:var(--ms);margin-bottom:.3rem;"><span>Utilization</span><span style="color:var(--am)">14%</span></div><div class="progress-bar-wrap"><div class="progress-bar gold" style="width:14%"></div></div></div>
+          <div style="font-size:.65rem;color:var(--ms);margin-top:.4rem;">₹124 Cr outlay · 48,000 beneficiaries</div>
+        </div>
+        <div class="info-card" style="border-color:rgba(232,154,60,.2);cursor:pointer;" onclick="schTab('schemes',null)">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+            <div>
+              <div style="font-size:.75rem;font-weight:600;color:var(--cr);">Harela Mahotsav Plantation</div>
+              <div style="font-size:.62rem;color:var(--ms);">State Scheme</div>
+            </div><span class="status-pill sp-blue">Completed</span>
+          </div>
+          <div style="margin-top:.6rem;"><div style="display:flex;justify-content:space-between;font-size:.68rem;color:var(--ms);margin-bottom:.3rem;"><span>Utilization</span><span style="color:var(--cn)">95%</span></div><div class="progress-bar-wrap"><div class="progress-bar" style="width:95%"></div></div></div>
+          <div style="font-size:.65rem;color:var(--ms);margin-top:.4rem;">₹18.4 Cr outlay · 80,000 beneficiaries</div>
+        </div>
+        <div class="info-card" style="border-color:rgba(94,201,110,.15);cursor:pointer;" onclick="schTab('schemes',null)">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+            <div>
+              <div style="font-size:.75rem;font-weight:600;color:var(--cr);">Mera Jungle Mera Dhan</div>
+              <div style="font-size:.62rem;color:var(--ms);">State Scheme</div>
+            </div><span class="status-pill sp-amber">In Progress</span>
+          </div>
+          <div style="margin-top:.6rem;"><div style="display:flex;justify-content:space-between;font-size:.68rem;color:var(--ms);margin-bottom:.3rem;"><span>Utilization</span><span style="color:var(--am)">45%</span></div><div class="progress-bar-wrap"><div class="progress-bar" style="width:45%"></div></div></div>
+          <div style="font-size:.65rem;color:var(--ms);margin-top:.4rem;">₹12 Cr outlay · 8,200 beneficiaries</div>
+        </div>
+        <div class="info-card" style="border-color:rgba(168,213,226,.15);cursor:pointer;" onclick="schTab('schemes',null)">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+            <div>
+              <div style="font-size:.75rem;font-weight:600;color:var(--cr);">Integrated Forest Dev.</div>
+              <div style="font-size:.62rem;color:var(--ms);">GoI · CSS</div>
+            </div><span class="status-pill sp-green">Active</span>
+          </div>
+          <div style="margin-top:.6rem;"><div style="display:flex;justify-content:space-between;font-size:.68rem;color:var(--ms);margin-bottom:.3rem;"><span>Utilization</span><span style="color:var(--cn)">71%</span></div><div class="progress-bar-wrap"><div class="progress-bar" style="width:71%"></div></div></div>
+          <div style="font-size:.65rem;color:var(--ms);margin-top:.4rem;">₹28.6 Cr outlay · 9,400 beneficiaries</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ TAB: SCHEME REGISTRY ══ -->
+    <div id="sch-schemes" class="sch-tab" style="display:none">
+      <div class="dash-hd">
+        <div style="font-size:1.1rem;font-weight:600;color:var(--cr);">📋 Scheme & Programme Registry</div>
+        <div style="display:flex;gap:.5rem;flex-wrap:wrap;">
+          <select class="form-input" style="padding:.35rem .6rem;font-size:.72rem;width:auto;" onchange="showToast('Filtering: '+this.value)">
+            <option>All Types</option><option>Central (GoI)</option><option>State (GoUK)</option><option>CAMPA</option><option>CSS</option><option>External Aid</option>
+          </select>
+          <select class="form-input" style="padding:.35rem .6rem;font-size:.72rem;width:auto;">
+            <option>All Status</option><option>Active</option><option>Completed</option><option>Suspended</option><option>Proposed</option>
+          </select>
+          <button class="btn btn-primary btn-sm" onclick="openModal('schemeRegModal')">+ Register Scheme</button>
+          <button class="btn btn-outline btn-sm" onclick="exportSchemeList()">⬇ Export Excel</button>
+        </div>
+      </div>
+      <table class="data-table">
+        <thead><tr><th>Scheme ID</th><th>Scheme Name</th><th>Type</th><th>Nodal Agency</th><th>Outlay (₹Cr)</th><th>Released</th><th>Utilized</th><th>Beneficiaries</th><th>Start</th><th>End</th><th>Status</th><th>Action</th></tr></thead>
+        <tbody>
+          <tr><td>SCH/GIM/2021</td><td>Green India Mission</td><td>GoI-CSS</td><td>MoEFCC</td><td>84.2</td><td>₹62Cr</td><td>₹52Cr (62%)</td><td>24,800</td><td>Apr 2021</td><td>Mar 2026</td><td><span class="status-pill sp-green">Active</span></td><td><button class="btn btn-sm btn-outline" onclick="schTab('progress',null);showToast('Viewing GIM progress...')">Details</button></td></tr>
+          <tr><td>SCH/NAP/2020</td><td>National Afforestation Programme</td><td>GoI-CSS</td><td>NAEB/MoEFCC</td><td>42.8</td><td>₹38Cr</td><td>₹33Cr (78%)</td><td>12,400</td><td>Apr 2020</td><td>Mar 2025</td><td><span class="status-pill sp-green">Active</span></td><td><button class="btn btn-sm btn-outline" onclick="schTab('progress',null)">Details</button></td></tr>
+          <tr><td>SCH/CAMPA/2025</td><td>CAMPA Plantation Works</td><td>CAMPA</td><td>PCCF HQ</td><td>124.0</td><td>₹48Cr</td><td>₹17Cr (14%)</td><td>48,000</td><td>Apr 2025</td><td>Mar 2026</td><td><span class="status-pill sp-amber">Slow</span></td><td><button class="btn btn-sm btn-outline" onclick="schTab('progress',null)">Details</button></td></tr>
+          <tr><td>SCH/HMP/2025</td><td>Harela Mahotsav Plantation</td><td>State</td><td>DoF UK</td><td>18.4</td><td>₹18Cr</td><td>₹17.5Cr (95%)</td><td>80,000</td><td>Jul 2025</td><td>Sep 2025</td><td><span class="status-pill sp-blue">Completed</span></td><td><button class="btn btn-sm btn-outline" onclick="schTab('progress',null)">Details</button></td></tr>
+          <tr><td>SCH/MJMD/2024</td><td>Mera Jungle Mera Dhan</td><td>State</td><td>DoF UK</td><td>12.0</td><td>₹8Cr</td><td>₹5.4Cr (45%)</td><td>8,200</td><td>Apr 2024</td><td>Mar 2027</td><td><span class="status-pill sp-amber">In Progress</span></td><td><button class="btn btn-sm btn-outline" onclick="schTab('progress',null)">Details</button></td></tr>
+          <tr><td>SCH/IFD/2022</td><td>Integrated Forest Development</td><td>GoI-CSS</td><td>MoEFCC</td><td>28.6</td><td>₹24Cr</td><td>₹20Cr (71%)</td><td>9,400</td><td>Apr 2022</td><td>Mar 2027</td><td><span class="status-pill sp-green">Active</span></td><td><button class="btn btn-sm btn-outline" onclick="schTab('progress',null)">Details</button></td></tr>
+          <tr><td>SCH/MGNR/2025</td><td>MGNREGS Forest Works</td><td>GoI-CSS</td><td>DoRD + DoF</td><td>84.0</td><td>₹72Cr</td><td>₹68Cr (81%)</td><td>42,000</td><td>Apr 2025</td><td>Mar 2026</td><td><span class="status-pill sp-green">Active</span></td><td><button class="btn btn-sm btn-outline" onclick="schTab('progress',null)">Details</button></td></tr>
+          <tr><td>SCH/PMGSY/2024</td><td>Forest Village Development</td><td>State</td><td>DoF UK</td><td>22.4</td><td>₹14Cr</td><td>₹9Cr (40%)</td><td>6,800</td><td>Oct 2024</td><td>Sep 2026</td><td><span class="status-pill sp-amber">In Progress</span></td><td><button class="btn btn-sm btn-outline" onclick="schTab('progress',null)">Details</button></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ══ TAB: PHYSICAL & FINANCIAL PROGRESS ══ -->
+    <div id="sch-progress" class="sch-tab" style="display:none">
+      <div class="dash-hd">
+        <div style="font-size:1.1rem;font-weight:600;color:var(--cr);">📈 Physical & Financial Progress Tracking</div>
+        <div style="display:flex;gap:.5rem;flex-wrap:wrap;">
+          <select class="form-input" style="padding:.35rem .6rem;font-size:.72rem;width:auto;" onchange="showToast('Scheme: '+this.value)">
+            <option>All Schemes</option><option>Green India Mission</option><option>CAMPA</option><option>NAP</option><option>Harela Mahotsav</option><option>MGNREGS</option>
+          </select>
+          <select class="form-input" style="padding:.35rem .6rem;font-size:.72rem;width:auto;">
+            <option>All Divisions</option><option>Dehradun</option><option>Haridwar</option><option>Nainital</option><option>Almora</option><option>Chamoli</option>
+          </select>
+          <button class="btn btn-outline btn-sm" onclick="exportProgressData()">⬇ Export</button>
+        </div>
+      </div>
+
+      <div class="kpi-row">
+        <div class="kpi green"><div class="kpi-val">72%</div><div class="kpi-label">Avg Physical Progress</div><div class="kpi-trend trend-up">↑ 8% from Q3</div></div>
+        <div class="kpi gold"><div class="kpi-val">67%</div><div class="kpi-label">Financial Utilization</div><div class="kpi-trend">₹323Cr of ₹482Cr</div></div>
+        <div class="kpi blue"><div class="kpi-val">18</div><div class="kpi-label">On-Track Schemes</div></div>
+        <div class="kpi amber"><div class="kpi-val">4</div><div class="kpi-label">Lagging Schemes</div></div>
+        <div class="kpi red"><div class="kpi-val">2</div><div class="kpi-label">Critical Attention</div></div>
+      </div>
+
+      <div class="charts-grid">
+        <div class="chart-card full">
+          <div class="cc-hd"><div class="cc-title">📊 Scheme-wise Physical vs Financial Progress (%)</div><span class="cc-badge">FY 2025-26</span></div>
+          <canvas id="sch-physFinChart"></canvas>
+        </div>
+      </div>
+
+      <div class="info-card">
+        <div class="ic-title" style="display:flex;justify-content:space-between;align-items:center;">
+          <span>📋 Detailed Progress Register</span>
+          <div style="display:flex;gap:.5rem;">
+            <button class="btn btn-outline btn-sm" onclick="showToast('Generating UC for selected scheme...')">📄 Generate UC</button>
+            <button class="btn btn-outline btn-sm" onclick="showToast('Exporting to Excel...')">⬇ Excel</button>
+          </div>
+        </div>
+        <table class="data-table">
+          <thead><tr><th>Scheme</th><th>Division</th><th>Sanctioned (₹Cr)</th><th>Released</th><th>Expended</th><th>Financial%</th><th>Target (Ha/Unit)</th><th>Achieved</th><th>Physical%</th><th>Remarks</th></tr></thead>
+          <tbody>
+            <tr><td>GIM</td><td>Dehradun</td><td>12.4</td><td>10.8</td><td>8.4</td><td><span style="color:var(--cn)">68%</span></td><td>1,240 Ha</td><td>862 Ha</td><td><span style="color:var(--cn)">70%</span></td><td><span class="status-pill sp-green">On Track</span></td></tr>
+            <tr><td>GIM</td><td>Almora</td><td>10.2</td><td>9.4</td><td>8.2</td><td><span style="color:var(--cn)">80%</span></td><td>980 Ha</td><td>890 Ha</td><td><span style="color:var(--cn)">91%</span></td><td><span class="status-pill sp-green">On Track</span></td></tr>
+            <tr><td>CAMPA</td><td>Chamoli</td><td>18.4</td><td>8.2</td><td>2.8</td><td><span style="color:var(--rd)">15%</span></td><td>2,400 Ha</td><td>480 Ha</td><td><span style="color:var(--rd)">20%</span></td><td><span class="status-pill sp-red">Critical</span></td></tr>
+            <tr><td>NAP</td><td>Haridwar</td><td>8.4</td><td>8.0</td><td>7.2</td><td><span style="color:var(--cn)">86%</span></td><td>820 Ha</td><td>724 Ha</td><td><span style="color:var(--cn)">88%</span></td><td><span class="status-pill sp-green">On Track</span></td></tr>
+            <tr><td>MJMD</td><td>Pithoragarh</td><td>4.2</td><td>3.0</td><td>1.8</td><td><span style="color:var(--am)">43%</span></td><td>840 units</td><td>380 units</td><td><span style="color:var(--am)">45%</span></td><td><span class="status-pill sp-amber">Lagging</span></td></tr>
+            <tr><td>MGNREGS</td><td>Nainital</td><td>14.2</td><td>14.0</td><td>12.8</td><td><span style="color:var(--cn)">90%</span></td><td>4,200 person-days</td><td>3,948</td><td><span style="color:var(--cn)">94%</span></td><td><span class="status-pill sp-green">On Track</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ══ TAB: ACTIVITY & ASSET MONITORING ══ -->
+    <div id="sch-activities" class="sch-tab" style="display:none">
+      <div class="dash-hd">
+        <div style="font-size:1.1rem;font-weight:600;color:var(--cr);">🏗 Activity & Asset Monitoring</div>
+        <button class="btn btn-primary btn-sm" onclick="showToast('New activity entry form...')">+ Add Activity</button>
+      </div>
+      <div class="kpi-row">
+        <div class="kpi green"><div class="kpi-val">1,284</div><div class="kpi-label">Total Activities</div></div>
+        <div class="kpi blue"><div class="kpi-val">842</div><div class="kpi-label">In Progress</div></div>
+        <div class="kpi gold"><div class="kpi-val">384</div><div class="kpi-label">Completed</div></div>
+        <div class="kpi red"><div class="kpi-val">58</div><div class="kpi-label">Behind Schedule</div></div>
+        <div class="kpi amber"><div class="kpi-val">2,841</div><div class="kpi-label">Assets Created</div></div>
+      </div>
+
+      <!-- Activity category tabs -->
+      <div class="tab-row">
+        <button class="tab act" onclick="switchSchActTab('plantation',this)">🌱 Plantation</button>
+        <button class="tab" onclick="switchSchActTab('nursery',this)">🏡 Nursery</button>
+        <button class="tab" onclick="switchSchActTab('infra',this)">🏗 Infrastructure</button>
+        <button class="tab" onclick="switchSchActTab('smc',this)">💧 SMC Works</button>
+        <button class="tab" onclick="switchSchActTab('assets',this)">🗂 Asset Registry</button>
+      </div>
+
+      <div id="scha-plantation" class="sch-act-tab">
+        <table class="data-table">
+          <thead><tr><th>Activity ID</th><th>Scheme</th><th>Division</th><th>Species</th><th>Area (Ha)</th><th>Target Saplings</th><th>Planted</th><th>Survival%</th><th>Physical%</th><th>Financial%</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>ACT/GIM/DEH/001</td><td>GIM</td><td>Dehradun</td><td>Oak, Rhododendron</td><td>124</td><td>1,24,000</td><td>1,08,000</td><td>82%</td><td><div class="progress-bar-wrap" style="width:80px"><div class="progress-bar" style="width:87%"></div></div></td><td><div class="progress-bar-wrap" style="width:80px"><div class="progress-bar gold" style="width:80%"></div></div></td><td><span class="status-pill sp-green">On Track</span></td></tr>
+            <tr><td>ACT/CAMPA/CHL/014</td><td>CAMPA</td><td>Chamoli</td><td>Mixed Broadleaf</td><td>248</td><td>2,48,000</td><td>49,600</td><td>74%</td><td><div class="progress-bar-wrap" style="width:80px"><div class="progress-bar red" style="width:20%"></div></div></td><td><div class="progress-bar-wrap" style="width:80px"><div class="progress-bar red" style="width:15%"></div></div></td><td><span class="status-pill sp-red">Critical</span></td></tr>
+            <tr><td>ACT/NAP/HRW/007</td><td>NAP</td><td>Haridwar</td><td>Sal, Shisham</td><td>82</td><td>82,000</td><td>72,160</td><td>79%</td><td><div class="progress-bar-wrap" style="width:80px"><div class="progress-bar" style="width:88%"></div></div></td><td><div class="progress-bar-wrap" style="width:80px"><div class="progress-bar gold" style="width:86%"></div></div></td><td><span class="status-pill sp-green">On Track</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div id="scha-nursery" class="sch-act-tab" style="display:none">
+        <table class="data-table">
+          <thead><tr><th>Nursery ID</th><th>Scheme</th><th>Division</th><th>Area (Ha)</th><th>Species</th><th>Target (Saplings)</th><th>Produced</th><th>Ready for Use</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>NUR/GIM/DEH/001</td><td>GIM</td><td>Dehradun</td><td>0.8</td><td>Oak, Rhododendron</td><td>50,000</td><td>48,200</td><td>42,000</td><td><span class="status-pill sp-green">Operational</span></td></tr>
+            <tr><td>NUR/CAMPA/ALM/003</td><td>CAMPA</td><td>Almora</td><td>1.2</td><td>Oak, Bamboo, Pine</td><td>80,000</td><td>72,400</td><td>68,000</td><td><span class="status-pill sp-green">Operational</span></td></tr>
+            <tr><td>NUR/NAP/CHL/002</td><td>NAP</td><td>Chamoli</td><td>0.6</td><td>Mixed Broadleaf</td><td>40,000</td><td>28,000</td><td>24,000</td><td><span class="status-pill sp-amber">Partial</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div id="scha-infra" class="sch-act-tab" style="display:none">
+        <table class="data-table">
+          <thead><tr><th>Asset ID</th><th>Scheme</th><th>Type</th><th>Division</th><th>Location</th><th>Cost (₹L)</th><th>Completion</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>INF/GIM/001</td><td>GIM</td><td>Forest Road</td><td>Uttarkashi</td><td>Bhatwari Range</td><td>₹84L</td><td>100%</td><td><span class="status-pill sp-blue">Completed</span></td></tr>
+            <tr><td>INF/CAMPA/012</td><td>CAMPA</td><td>Check Dam</td><td>Chamoli</td><td>Birahi Beat</td><td>₹28L</td><td>45%</td><td><span class="status-pill sp-amber">In Progress</span></td></tr>
+            <tr><td>INF/NAP/007</td><td>NAP</td><td>Watchtower</td><td>Almora</td><td>Ranikhet</td><td>₹18L</td><td>100%</td><td><span class="status-pill sp-blue">Completed</span></td></tr>
+            <tr><td>INF/MJMD/004</td><td>MJMD</td><td>FRC Building</td><td>Pithoragarh</td><td>Munsiyari</td><td>₹42L</td><td>72%</td><td><span class="status-pill sp-green">On Track</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div id="scha-smc" class="sch-act-tab" style="display:none">
+        <table class="data-table">
+          <thead><tr><th>Activity ID</th><th>Scheme</th><th>Work Type</th><th>Division</th><th>Target (Units)</th><th>Completed</th><th>Progress</th><th>Cost (₹L)</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>SMC/GIM/ALM/001</td><td>GIM</td><td>Contour Trenching</td><td>Almora</td><td>480 km</td><td>412 km</td><td><div class="progress-bar-wrap" style="width:80px"><div class="progress-bar" style="width:86%"></div></div></td><td>₹24L</td><td><span class="status-pill sp-green">On Track</span></td></tr>
+            <tr><td>SMC/CAMPA/PTH/008</td><td>CAMPA</td><td>Check Dams</td><td>Pithoragarh</td><td>42 units</td><td>28 units</td><td><div class="progress-bar-wrap" style="width:80px"><div class="progress-bar gold" style="width:67%"></div></div></td><td>₹38L</td><td><span class="status-pill sp-amber">Lagging</span></td></tr>
+            <tr><td>SMC/NAP/CHL/005</td><td>NAP</td><td>Nala Bunding</td><td>Chamoli</td><td>18 km</td><td>18 km</td><td><div class="progress-bar-wrap" style="width:80px"><div class="progress-bar" style="width:100%"></div></div></td><td>₹12L</td><td><span class="status-pill sp-blue">Completed</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div id="scha-assets" class="sch-act-tab" style="display:none">
+        <div class="dash-hd" style="margin-bottom:.8rem;"><div style="font-weight:600;color:var(--cr);">🗂 Asset Registry — All Schemes</div><button class="btn btn-outline btn-sm" onclick="exportAssetRegister()">⬇ Export</button></div>
+        <div class="kpi-row">
+          <div class="kpi green"><div class="kpi-val">2,841</div><div class="kpi-label">Total Assets Created</div></div>
+          <div class="kpi gold"><div class="kpi-val">₹284Cr</div><div class="kpi-label">Asset Value</div></div>
+          <div class="kpi blue"><div class="kpi-val">1,284</div><div class="kpi-label">Geo-tagged Assets</div></div>
+          <div class="kpi amber"><div class="kpi-val">342</div><div class="kpi-label">Maintenance Due</div></div>
+        </div>
+        <table class="data-table">
+          <thead><tr><th>Asset Type</th><th>Count</th><th>Total Value</th><th>Geo-tagged</th><th>In Use</th><th>Maintenance</th></tr></thead>
+          <tbody>
+            <tr><td>Forest Roads</td><td>284 km</td><td>₹142Cr</td><td>284 km (100%)</td><td>Good Condition</td><td>48 km due</td></tr>
+            <tr><td>Check Dams / Bunds</td><td>842 units</td><td>₹42Cr</td><td>798 units (95%)</td><td>Operational</td><td>124 units</td></tr>
+            <tr><td>Nurseries</td><td>847 units</td><td>₹28Cr</td><td>847 units (100%)</td><td>Active</td><td>82 units</td></tr>
+            <tr><td>Watchtowers</td><td>248 units</td><td>₹18Cr</td><td>248 units (100%)</td><td>Operational</td><td>42 units</td></tr>
+            <tr><td>FRC / FRH Buildings</td><td>384 units</td><td>₹48Cr</td><td>312 units (81%)</td><td>Active</td><td>28 units</td></tr>
+            <tr><td>Water Harvesting Structures</td><td>236 units</td><td>₹6Cr</td><td>198 units (84%)</td><td>Functional</td><td>18 units</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ══ TAB: WORKFLOW APPROVALS ══ -->
+    <div id="sch-workflow" class="sch-tab" style="display:none">
+      <div class="dash-hd">
+        <div style="font-size:1.1rem;font-weight:600;color:var(--cr);">✅ Workflow-Based Approvals</div>
+        <div style="display:flex;gap:.5rem;">
+          <button class="btn btn-outline btn-sm" onclick="showToast('Bulk approval processing...')">✓ Bulk Approve</button>
+          <button class="btn btn-primary btn-sm" onclick="showToast('New approval request form...')">+ New Request</button>
+        </div>
+      </div>
+
+      <!-- Workflow stages diagram -->
+      <div class="info-card" style="margin-bottom:1.2rem;">
+        <div class="ic-title">🔄 Standard Approval Workflow</div>
+        <div style="display:flex;align-items:center;gap:0;margin-top:.8rem;overflow-x:auto;padding-bottom:.5rem;">
+          <div style="text-align:center;padding:.6rem .9rem;background:rgba(74,173,90,.15);border:1px solid rgba(90,200,110,.3);border-radius:6px;min-width:100px;">
+            <div style="font-size:1.1rem;">📝</div><div style="font-size:.62rem;color:var(--cn);font-weight:600;margin-top:.2rem;">DFO Submits</div><div style="font-size:.55rem;color:var(--ms)">Division Level</div>
+          </div>
+          <div style="font-size:1rem;color:var(--ms);padding:0 .3rem;">→</div>
+          <div style="text-align:center;padding:.6rem .9rem;background:rgba(168,213,226,.1);border:1px solid rgba(168,213,226,.3);border-radius:6px;min-width:100px;">
+            <div style="font-size:1.1rem;">🔍</div><div style="font-size:.62rem;color:var(--sk);font-weight:600;margin-top:.2rem;">CCF Reviews</div><div style="font-size:.55rem;color:var(--ms)">Circle Level</div>
+          </div>
+          <div style="font-size:1rem;color:var(--ms);padding:0 .3rem;">→</div>
+          <div style="text-align:center;padding:.6rem .9rem;background:rgba(201,162,39,.12);border:1px solid rgba(201,162,39,.3);border-radius:6px;min-width:100px;">
+            <div style="font-size:1.1rem;">🏛</div><div style="font-size:.62rem;color:var(--gd);font-weight:600;margin-top:.2rem;">PCCF Approves</div><div style="font-size:.55rem;color:var(--ms)">State HQ</div>
+          </div>
+          <div style="font-size:1rem;color:var(--ms);padding:0 .3rem;">→</div>
+          <div style="text-align:center;padding:.6rem .9rem;background:rgba(232,154,60,.1);border:1px solid rgba(232,154,60,.3);border-radius:6px;min-width:100px;">
+            <div style="font-size:1.1rem;">🌐</div><div style="font-size:.62rem;color:var(--am);font-weight:600;margin-top:.2rem;">GoI Concurrence</div><div style="font-size:.55rem;color:var(--ms)">Central (if reqd.)</div>
+          </div>
+          <div style="font-size:1rem;color:var(--ms);padding:0 .3rem;">→</div>
+          <div style="text-align:center;padding:.6rem .9rem;background:rgba(74,173,90,.2);border:1px solid rgba(74,173,90,.4);border-radius:6px;min-width:100px;">
+            <div style="font-size:1.1rem;">✅</div><div style="font-size:.62rem;color:var(--cn);font-weight:600;margin-top:.2rem;">Fund Release</div><div style="font-size:.55rem;color:var(--ms)">Finance Dept.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="kpi-row">
+        <div class="kpi amber"><div class="kpi-val">42</div><div class="kpi-label">Awaiting DFO Action</div></div>
+        <div class="kpi blue"><div class="kpi-val">28</div><div class="kpi-label">Awaiting CCF Review</div></div>
+        <div class="kpi gold"><div class="kpi-val">14</div><div class="kpi-label">Awaiting PCCF</div></div>
+        <div class="kpi green"><div class="kpi-val">284</div><div class="kpi-label">Approved (FY)</div></div>
+        <div class="kpi red"><div class="kpi-val">18</div><div class="kpi-label">Rejected</div></div>
+      </div>
+
+      <table class="data-table">
+        <thead><tr><th>Request ID</th><th>Scheme</th><th>Division</th><th>Type</th><th>Amount (₹L)</th><th>Submitted By</th><th>Current Stage</th><th>Days Pending</th><th>Action</th></tr></thead>
+        <tbody>
+          <tr><td>WF/2026/0842</td><td>GIM</td><td>Dehradun</td><td>UC Submission</td><td>₹84L</td><td>DFO Sh. R.K. Singh</td><td><span class="status-pill sp-amber">CCF Review</span></td><td style="color:var(--am)">8 days</td>
+            <td style="display:flex;gap:.3rem;"><button class="btn btn-sm" style="background:rgba(74,173,90,.3);color:var(--cn);border:none;cursor:pointer;font-family:var(--sans);border-radius:3px;padding:2px 7px;" onclick="showToast('✅ WF/2026/0842 approved and forwarded to PCCF')">Approve</button><button class="btn btn-sm" style="background:rgba(224,92,92,.25);color:var(--rd);border:none;cursor:pointer;font-family:var(--sans);border-radius:3px;padding:2px 7px;" onclick="showToast('Rejection form opening...')">Reject</button></td>
+          </tr>
+          <tr><td>WF/2026/0828</td><td>CAMPA</td><td>Chamoli</td><td>Activity Addition</td><td>₹42L</td><td>DFO Sh. S. Rawat</td><td><span class="status-pill sp-amber">CCF Review</span></td><td style="color:var(--rd)">15 days</td>
+            <td style="display:flex;gap:.3rem;"><button class="btn btn-sm" style="background:rgba(74,173,90,.3);color:var(--cn);border:none;cursor:pointer;font-family:var(--sans);border-radius:3px;padding:2px 7px;" onclick="showToast('✅ WF/2026/0828 approved')">Approve</button><button class="btn btn-sm" style="background:rgba(224,92,92,.25);color:var(--rd);border:none;cursor:pointer;font-family:var(--sans);border-radius:3px;padding:2px 7px;" onclick="showToast('Rejection reason form...')">Reject</button></td>
+          </tr>
+          <tr><td>WF/2026/0814</td><td>NAP</td><td>Almora</td><td>Fund Revalidation</td><td>₹18L</td><td>DFO Ms. K. Bisht</td><td><span class="status-pill sp-gold" style="background:rgba(201,162,39,.2);color:var(--gd);">PCCF Review</span></td><td style="color:var(--am)">5 days</td>
+            <td style="display:flex;gap:.3rem;"><button class="btn btn-sm" style="background:rgba(74,173,90,.3);color:var(--cn);border:none;cursor:pointer;font-family:var(--sans);border-radius:3px;padding:2px 7px;" onclick="showToast('✅ WF/2026/0814 approved by PCCF')">Approve</button><button class="btn btn-sm" style="background:rgba(224,92,92,.25);color:var(--rd);border:none;cursor:pointer;font-family:var(--sans);border-radius:3px;padding:2px 7px;" onclick="showToast('Rejection form...')">Reject</button></td>
+          </tr>
+          <tr><td>WF/2026/0798</td><td>MGNREGS</td><td>Haridwar</td><td>Work Order</td><td>₹12L</td><td>DFO Sh. A. Sharma</td><td><span class="status-pill sp-green">Approved</span></td><td style="color:var(--cn)">Closed</td>
+            <td><button class="btn btn-sm btn-outline" onclick="showToast('Downloading approval order WF/2026/0798...')">📄 Download</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ══ TAB: GIS VISUALIZATION ══ -->
+    <div id="sch-gis" class="sch-tab" style="display:none">
+      <div class="dash-hd">
+        <div style="font-size:1.1rem;font-weight:600;color:var(--cr);">🗺 GIS-Enabled Spatial Visualization</div>
+        <div style="display:flex;gap:.5rem;">
+          <select class="form-input" style="padding:.35rem .6rem;font-size:.72rem;width:auto;" onchange="showToast('Layer: '+this.value)">
+            <option>Scheme Activity Coverage</option><option>Physical Progress Heat Map</option><option>Fund Utilization Map</option><option>Asset Distribution</option><option>Beneficiary Locations</option>
+          </select>
+          <button class="btn btn-outline btn-sm" onclick="showToast('Exporting GIS layer as shapefile...')">⬇ Shapefile</button>
+          <button class="btn btn-outline btn-sm" onclick="showToast('Printing GIS map...')">🖨 Print</button>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 280px;gap:1rem;">
+        <div id="sch-gisMap" style="height:440px;border-radius:6px;overflow:hidden;border:1px solid rgba(90,200,110,.2);"></div>
+        <div style="display:flex;flex-direction:column;gap:.8rem;">
+          <div class="info-card">
+            <div class="ic-title">🔍 Spatial Analysis</div>
+            <div style="display:flex;flex-direction:column;gap:.5rem;margin-top:.3rem;">
+              <button class="btn btn-outline btn-sm" style="justify-content:flex-start;" onclick="showToast('Generating scheme coverage analysis...')">📊 Coverage Analysis</button>
+              <button class="btn btn-outline btn-sm" style="justify-content:flex-start;" onclick="showToast('Identifying underserved areas...')">🔴 Gap Identification</button>
+              <button class="btn btn-outline btn-sm" style="justify-content:flex-start;" onclick="showToast('Running convergence analysis...')">🔗 Convergence Map</button>
+              <button class="btn btn-outline btn-sm" style="justify-content:flex-start;" onclick="showToast('Loading year-on-year comparison...')">📈 YoY Comparison</button>
+              <button class="btn btn-outline btn-sm" style="justify-content:flex-start;" onclick="showToast('Generating impact zone map...')">🌿 Impact Zones</button>
+            </div>
+          </div>
+          <div class="info-card">
+            <div class="ic-title">📊 Map Statistics</div>
+            <div class="ic-row"><span class="ic-key">Schemes Mapped</span><span class="ic-val">24</span></div>
+            <div class="ic-row"><span class="ic-key">Area Covered</span><span class="ic-val">84,200 Ha</span></div>
+            <div class="ic-row"><span class="ic-key">Districts</span><span class="ic-val">All 13</span></div>
+            <div class="ic-row"><span class="ic-key">Activities Geo-tagged</span><span class="ic-val">1,248 / 1,284</span></div>
+            <div class="ic-row"><span class="ic-key">Assets Mapped</span><span class="ic-val">2,681 / 2,841</span></div>
+          </div>
+          <div class="map-legend">
+            <div class="map-panel-title" style="font-size:.65rem;color:var(--cn);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.4rem;">Legend</div>
+            <div class="leg-item"><div class="leg-dot" style="background:#4aad5a;"></div> High Coverage</div>
+            <div class="leg-item"><div class="leg-dot" style="background:#c9a227;"></div> Moderate Coverage</div>
+            <div class="leg-item"><div class="leg-dot" style="background:#e05c5c;"></div> Low / Gap Area</div>
+            <div class="leg-item"><div class="leg-dot" style="background:#a8d5e2;"></div> Asset Location</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ TAB: REPORTS ══ -->
+    <div id="sch-reports" class="sch-tab" style="display:none">
+      <div style="font-size:1.1rem;font-weight:600;color:var(--cr);margin-bottom:1rem;">📄 Standard & Customizable MIS Reports</div>
+      <div class="info-card" style="margin-bottom:1rem;">
+        <div class="ic-title">🔧 Custom Report Builder</div>
+        <div class="form-grid" style="margin-top:.5rem;">
+          <div class="form-group"><label class="form-label">Report Type</label>
+            <select class="form-input"><option>Physical Progress Report</option><option>Financial Utilization Report</option><option>Activity-wise Progress</option><option>Asset Register</option><option>Scheme Comparison</option><option>Division-wise Summary</option><option>Beneficiary Report</option><option>UC Compliance Report</option><option>Workflow Status Report</option></select>
+          </div>
+          <div class="form-group"><label class="form-label">Scheme</label>
+            <select class="form-input"><option>All Schemes</option><option>GIM</option><option>NAP</option><option>CAMPA</option><option>Harela Mahotsav</option><option>MGNREGS</option></select>
+          </div>
+          <div class="form-group"><label class="form-label">Division / Level</label>
+            <select class="form-input"><option>State Level</option><option>Circle Level</option><option>Division Level</option><option>Range Level</option></select>
+          </div>
+          <div class="form-group"><label class="form-label">Period</label>
+            <select class="form-input"><option>Current Quarter (Q4)</option><option>FY 2025-26</option><option>FY 2024-25</option><option>Custom Date Range</option></select>
+          </div>
+          <div class="form-group"><label class="form-label">Export Format</label>
+            <select class="form-input"><option>PDF</option><option>Excel (.xlsx)</option><option>CSV</option><option>JSON (API)</option></select>
+          </div>
+          <div class="form-group"><label class="form-label">Include GIS Annexure</label>
+            <select class="form-input"><option>Yes — Include map</option><option>No</option></select>
+          </div>
+        </div>
+        <div class="form-actions" style="margin-top:.8rem;">
+          <button class="btn btn-primary btn-sm" onclick="generateCustomReport()">📊 Generate Report</button>
+          <button class="btn btn-outline btn-sm" onclick="showToast('Opening report preview...')">👁 Preview</button>
+          <button class="btn btn-outline btn-sm" onclick="showToast('Scheduling report for auto-delivery...')">⏰ Schedule</button>
+        </div>
+      </div>
+      <div style="font-size:.8rem;font-weight:600;color:var(--cr);margin-bottom:.8rem;">📂 Standard MIS Reports</div>
+      <div style="display:flex;flex-direction:column;gap:.6rem;">
+        <div class="info-card" style="display:flex;align-items:center;justify-content:space-between;padding:.8rem 1.2rem;cursor:pointer;">
+          <div><div style="font-size:.78rem;font-weight:600;color:var(--cr);">📊 Monthly Physical & Financial Progress — March 2026</div><div style="font-size:.65rem;color:var(--ms);">All Schemes · All Divisions · State Level · Auto-generated · PDF</div></div>
+          <div style="display:flex;gap:.5rem;"><button class="btn btn-outline btn-sm" onclick="showToast('Previewing March 2026 report...')">👁 Preview</button><button class="btn btn-primary btn-sm" onclick="exportReport('monthly_mis_march2026','PDF')">⬇ Download</button></div>
+        </div>
+        <div class="info-card" style="display:flex;align-items:center;justify-content:space-between;padding:.8rem 1.2rem;cursor:pointer;">
+          <div><div style="font-size:.78rem;font-weight:600;color:var(--cr);">💰 Quarterly Fund Utilization Statement — Q4 FY 2025-26</div><div style="font-size:.65rem;color:var(--ms);">Scheme-wise · Division-wise · UC Status · Excel</div></div>
+          <div style="display:flex;gap:.5rem;"><button class="btn btn-outline btn-sm" onclick="showToast('Previewing Q4 fund statement...')">👁 Preview</button><button class="btn btn-primary btn-sm" onclick="exportReport('q4_fund_utilization','Excel')">⬇ Download</button></div>
+        </div>
+        <div class="info-card" style="display:flex;align-items:center;justify-content:space-between;padding:.8rem 1.2rem;cursor:pointer;">
+          <div><div style="font-size:.78rem;font-weight:600;color:var(--cr);">🏗 Activity-wise Progress Report — All Schemes FY 2025-26</div><div style="font-size:.65rem;color:var(--ms);">1,284 activities · Physical + Financial · PDF</div></div>
+          <div style="display:flex;gap:.5rem;"><button class="btn btn-outline btn-sm" onclick="showToast('Previewing activity report...')">👁 Preview</button><button class="btn btn-primary btn-sm" onclick="exportReport('activity_progress_fy2526','PDF')">⬇ Download</button></div>
+        </div>
+        <div class="info-card" style="display:flex;align-items:center;justify-content:space-between;padding:.8rem 1.2rem;cursor:pointer;">
+          <div><div style="font-size:.78rem;font-weight:600;color:var(--cr);">🗂 Asset Register — All Scheme Assets 2025-26</div><div style="font-size:.65rem;color:var(--ms);">2,841 assets · Geo-tagged · Excel</div></div>
+          <div style="display:flex;gap:.5rem;"><button class="btn btn-outline btn-sm" onclick="showToast('Previewing asset register...')">👁 Preview</button><button class="btn btn-primary btn-sm" onclick="exportReport('asset_register_2526','Excel')">⬇ Download</button></div>
+        </div>
+        <div class="info-card" style="display:flex;align-items:center;justify-content:space-between;padding:.8rem 1.2rem;cursor:pointer;">
+          <div><div style="font-size:.78rem;font-weight:600;color:var(--cr);">🔄 Workflow & UC Compliance Status Report</div><div style="font-size:.65rem;color:var(--ms);">Pending approvals · UC due divisions · PDF</div></div>
+          <div style="display:flex;gap:.5rem;"><button class="btn btn-outline btn-sm" onclick="showToast('Previewing compliance report...')">👁 Preview</button><button class="btn btn-primary btn-sm" onclick="exportReport('workflow_compliance','PDF')">⬇ Download</button></div>
+        </div>
+        <div class="info-card" style="display:flex;align-items:center;justify-content:space-between;padding:.8rem 1.2rem;cursor:pointer;">
+          <div><div style="font-size:.78rem;font-weight:600;color:var(--cr);">📈 Annual MIS Report — FY 2025-26</div><div style="font-size:.65rem;color:var(--ms);">Comprehensive · All modules · Suitable for GoI submission · PDF</div></div>
+          <div style="display:flex;gap:.5rem;"><button class="btn btn-outline btn-sm" onclick="showToast('Previewing Annual MIS Report...')">👁 Preview</button><button class="btn btn-primary btn-sm" onclick="exportReport('annual_mis_2526','PDF')">⬇ Download</button></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ TAB: TRAINING & CAPACITY BUILDING ══ -->
+    <div id="sch-training" class="sch-tab" style="display:none">
+      <div class="dash-hd">
+        <div style="font-size:1.1rem;font-weight:600;color:var(--cr);">🎓 Training & Capacity Building</div>
+        <button class="btn btn-primary btn-sm" onclick="showToast('New training session scheduling...')">+ Schedule Training</button>
+      </div>
+      <div class="kpi-row">
+        <div class="kpi green"><div class="kpi-val">48</div><div class="kpi-label">Training Sessions Planned</div></div>
+        <div class="kpi blue"><div class="kpi-val">1,284</div><div class="kpi-label">Users to be Trained</div></div>
+        <div class="kpi gold"><div class="kpi-val">842</div><div class="kpi-label">Trained So Far</div></div>
+        <div class="kpi amber"><div class="kpi-val">4.4/5</div><div class="kpi-label">Avg. Training Score</div></div>
+      </div>
+
+      <div class="notice-grid">
+        <!-- Training Schedule -->
+        <div class="info-card">
+          <div class="ic-title">📅 Training Schedule</div>
+          <table class="data-table">
+            <thead><tr><th>Session</th><th>Audience</th><th>Date</th><th>Mode</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td>End-User: DFO Level</td><td>All DFOs (71)</td><td>1-3 Apr 2026</td><td>Offline</td><td><span class="status-pill sp-blue">Upcoming</span></td></tr>
+              <tr><td>End-User: Range Officers</td><td>ROs, ACFs (284)</td><td>5-8 Apr 2026</td><td>Online</td><td><span class="status-pill sp-blue">Upcoming</span></td></tr>
+              <tr><td>Admin / Super-User</td><td>IT + PCCF Staff (12)</td><td>25-26 Mar 2026</td><td>Offline</td><td><span class="status-pill sp-green">Completed</span></td></tr>
+              <tr><td>Data Entry Operators</td><td>Division DEOs (142)</td><td>10-12 Apr 2026</td><td>Hybrid</td><td><span class="status-pill sp-blue">Upcoming</span></td></tr>
+              <tr><td>Refresher: DFO Level</td><td>All DFOs (71)</td><td>30 May 2026</td><td>Online</td><td><span class="status-pill sp-amber">Planned</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Documentation -->
+        <div class="info-card">
+          <div class="ic-title">📚 User Manuals & Technical Documentation</div>
+          <div style="display:flex;flex-direction:column;gap:.6rem;margin-top:.3rem;">
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:.5rem 0;border-bottom:1px solid rgba(90,200,110,.08);">
+              <div><div style="font-size:.75rem;font-weight:600;color:var(--cr);">End-User Manual (Hindi + English)</div><div style="font-size:.62rem;color:var(--ms);">PDF · 84 pages · All modules</div></div>
+              <button class="btn btn-outline btn-sm" onclick="showToast('Downloading End-User Manual...')">⬇ PDF</button>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:.5rem 0;border-bottom:1px solid rgba(90,200,110,.08);">
+              <div><div style="font-size:.75rem;font-weight:600;color:var(--cr);">Administrator Manual</div><div style="font-size:.62rem;color:var(--ms);">PDF · 42 pages · Setup, RBAC, config</div></div>
+              <button class="btn btn-outline btn-sm" onclick="showToast('Downloading Admin Manual...')">⬇ PDF</button>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:.5rem 0;border-bottom:1px solid rgba(90,200,110,.08);">
+              <div><div style="font-size:.75rem;font-weight:600;color:var(--cr);">Technical Documentation</div><div style="font-size:.62rem;color:var(--ms);">PDF · API spec, DB schema, deployment guide</div></div>
+              <button class="btn btn-outline btn-sm" onclick="showToast('Downloading Technical Docs...')">⬇ PDF</button>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:.5rem 0;border-bottom:1px solid rgba(90,200,110,.08);">
+              <div><div style="font-size:.75rem;font-weight:600;color:var(--cr);">Video Tutorials (Module-wise)</div><div style="font-size:.62rem;color:var(--ms);">MP4 · 12 videos · Hindi language</div></div>
+              <button class="btn btn-outline btn-sm" onclick="showToast('Opening video tutorial library...')">▶ Watch</button>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:.5rem 0;">
+              <div><div style="font-size:.75rem;font-weight:600;color:var(--cr);">Data Entry SOP Guide</div><div style="font-size:.62rem;color:var(--ms);">PDF · Field-level data entry procedures</div></div>
+              <button class="btn btn-outline btn-sm" onclick="showToast('Downloading SOP Guide...')">⬇ PDF</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ TAB: SUPPORT & WARRANTY ══ -->
+    <div id="sch-support" class="sch-tab" style="display:none">
+      <div class="dash-hd">
+        <div style="font-size:1.1rem;font-weight:600;color:var(--cr);">🛠 Support, Warranty & Deployment</div>
+        <button class="btn btn-primary btn-sm" onclick="showToast('Raising new support ticket...')">+ Raise Ticket</button>
+      </div>
+
+      <div class="kpi-row">
+        <div class="kpi green"><div class="kpi-val">98.4%</div><div class="kpi-label">System Uptime</div><div class="kpi-trend trend-up">Last 30 days</div></div>
+        <div class="kpi amber"><div class="kpi-val">12</div><div class="kpi-label">Open Tickets</div><div class="kpi-trend" style="color:var(--am)">Avg 4hr resolution</div></div>
+        <div class="kpi blue"><div class="kpi-val">284</div><div class="kpi-label">Tickets Closed (FY)</div><div class="kpi-trend">99.2% SLA met</div></div>
+        <div class="kpi gold"><div class="kpi-val">24 months</div><div class="kpi-label">Warranty Period</div><div class="kpi-trend">Expires Mar 2028</div></div>
+      </div>
+
+      <div class="notice-grid">
+        <!-- Deployment Info -->
+        <div class="info-card">
+          <div class="ic-title">🖥 Deployment & Infrastructure</div>
+          <div class="ic-row"><span class="ic-key">Deployment Type</span><span class="ic-val">On-Premise (Dept. Server)</span></div>
+          <div class="ic-row"><span class="ic-key">Data Centre</span><span class="ic-val">SDC Uttarakhand, Dehradun</span></div>
+          <div class="ic-row"><span class="ic-key">Server OS</span><span class="ic-val">Ubuntu LTS 22.04</span></div>
+          <div class="ic-row"><span class="ic-key">Database</span><span class="ic-val">PostgreSQL 15 + PostGIS</span></div>
+          <div class="ic-row"><span class="ic-key">Web Server</span><span class="ic-val">Nginx + PM2</span></div>
+          <div class="ic-row"><span class="ic-key">GIS Server</span><span class="ic-val">GeoServer 2.24</span></div>
+          <div class="ic-row"><span class="ic-key">Backup Policy</span><span class="ic-val">Daily automated + DR copy</span></div>
+          <div class="ic-row"><span class="ic-key">SSL/HTTPS</span><span class="ic-val" style="color:var(--cn)">✓ Enabled</span></div>
+          <div class="ic-row"><span class="ic-key">Last Backup</span><span class="ic-val" style="color:var(--cn)">Today 02:00 AM ✓</span></div>
+          <div style="margin-top:.8rem;display:flex;gap:.5rem;">
+            <button class="btn btn-outline btn-sm" onclick="showToast('Opening system health dashboard...')">💻 System Health</button>
+            <button class="btn btn-outline btn-sm" onclick="showToast('Downloading deployment config...')">⬇ Config</button>
+          </div>
+        </div>
+
+        <!-- Support Tickets -->
+        <div class="info-card">
+          <div class="ic-title">🎫 Active Support Tickets</div>
+          <table class="data-table">
+            <thead><tr><th>Ticket ID</th><th>Category</th><th>Raised By</th><th>Priority</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td>TKT-2026-0842</td><td>Bug Fix</td><td>DFO Chamoli</td><td><span class="status-pill sp-red">High</span></td><td><span class="status-pill sp-amber">In Progress</span></td></tr>
+              <tr><td>TKT-2026-0838</td><td>Performance</td><td>PCCF HQ</td><td><span class="status-pill sp-amber">Medium</span></td><td><span class="status-pill sp-blue">Assigned</span></td></tr>
+              <tr><td>TKT-2026-0831</td><td>Data Issue</td><td>DFO Almora</td><td><span class="status-pill sp-green">Low</span></td><td><span class="status-pill sp-green">Resolved</span></td></tr>
+              <tr><td>TKT-2026-0824</td><td>New Feature</td><td>CCF Garhwal</td><td><span class="status-pill sp-amber">Medium</span></td><td><span class="status-pill sp-amber">Under Review</span></td></tr>
+            </tbody>
+          </table>
+          <button class="btn btn-outline btn-sm" style="margin-top:.8rem;" onclick="showToast('Opening full ticket management portal...')">View All Tickets</button>
+        </div>
+      </div>
+
+      <!-- Raise Ticket Form -->
+      <div class="info-card" style="margin-top:1rem;">
+        <div class="ic-title">📝 Raise Support Ticket</div>
+        <div class="form-grid" style="margin-top:.5rem;">
+          <div class="form-group"><label class="form-label">Category</label><select class="form-input"><option>Bug / Error</option><option>Performance Issue</option><option>Data Correction</option><option>Feature Enhancement</option><option>User Access / RBAC</option><option>Report Issue</option><option>General Query</option></select></div>
+          <div class="form-group"><label class="form-label">Priority</label><select class="form-input"><option>High — System unusable</option><option>Medium — Functionality impaired</option><option>Low — Minor issue</option></select></div>
+          <div class="form-group"><label class="form-label">Module Affected</label><select class="form-input"><option>Dashboard</option><option>Scheme Registry</option><option>Progress Tracking</option><option>Workflow/Approvals</option><option>GIS Module</option><option>Reports</option><option>User Management</option></select></div>
+          <div class="form-group"><label class="form-label">Raised By (Division)</label><select class="form-input"><option>PCCF HQ</option><option>Dehradun</option><option>Haridwar</option><option>Nainital</option><option>Almora</option><option>Chamoli</option></select></div>
+          <div class="form-group" style="grid-column:span 2;"><label class="form-label">Issue Description</label><textarea class="form-input" rows="3" placeholder="Describe the issue in detail — steps to reproduce, expected vs actual behaviour..." style="resize:vertical;"></textarea></div>
+        </div>
+        <div class="form-actions" style="margin-top:.8rem;">
+          <button class="btn btn-primary btn-sm" onclick="showToast('✅ Ticket raised! Ref: TKT-2026-'+Math.floor(Math.random()*900+843)+' · Assigned to L1 support team.')">Submit Ticket</button>
+          <button class="btn btn-outline btn-sm" onclick="showToast('Checking SLA timelines...')">📋 SLA Policy</button>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end mod-main -->
+</div><!-- end mod-page-layout -->
+</div><!-- end page-schemes -->
+
 
 <div class="page" id="page-hrd">
 <div class="topbar">
@@ -2874,7 +3495,665 @@ select.form-input option{background:var(--fd3);color:var(--cr);}
 
 <div class="page" id="page-conservation"><div class="topbar"><div class="topbar-brand" onclick="showPage('home')">🌲 UFD Portal</div><div class="topbar-nav"><button class="tnav" onclick="showPage('home')">← Home</button><button class="tnav act">🛡️ Conservation</button></div><div class="topbar-right"><button class="lang-btn" onclick="toggleLang()">🌐 हिंदी / EN</button></div></div><div style="padding:2rem;"><div class="mod-page-title">🛡️ Forest Conservation & Land Transfer</div><div class="mod-page-sub" style="margin-bottom:1.5rem;">FC Act proposals, diversion cases and land survey management</div><div class="kpi-row"><div class="kpi green"><div class="kpi-val">284</div><div class="kpi-label">Active FC Cases</div></div><div class="kpi amber"><div class="kpi-val">142</div><div class="kpi-label">Stage-I Approved</div></div><div class="kpi red"><div class="kpi-val">48</div><div class="kpi-label">Pending Cases</div></div><div class="kpi blue"><div class="kpi-val">94</div><div class="kpi-label">Completed (FY)</div></div></div><table class="data-table" style="margin-top:1rem;"><thead><tr><th>Case No.</th><th>Project Name</th><th>User Agency</th><th>Area (Ha)</th><th>Stage</th><th>Status</th><th>Action</th></tr></thead><tbody><tr><td>FC/UK/2025/1421</td><td>NH-58 Widening</td><td>NHAI</td><td>12.4</td><td>Stage-II</td><td><span class="status-pill sp-green">Approved</span></td><td><button class="btn btn-sm btn-outline" onclick="showToast('Opening FC case FC/UK/2025/1421...')">View</button></td></tr><tr><td>FC/UK/2025/1398</td><td>Hydro Power Project</td><td>UJVNL</td><td>28.7</td><td>Stage-I</td><td><span class="status-pill sp-amber">Under Scrutiny</span></td><td><button class="btn btn-sm btn-outline" onclick="showToast('Opening FC case details...')">Review</button></td></tr><tr><td>FC/UK/2025/1245</td><td>School Building</td><td>Dist. Authority</td><td>0.4</td><td>Stage-II</td><td><span class="status-pill sp-blue">Compliance Due</span></td><td><button class="btn btn-sm btn-outline" onclick="showToast('Checking compliance...')">Compliance</button></td></tr></tbody></table></div></div>
 
-<div class="page" id="page-vigilance"><div class="topbar"><div class="topbar-brand" onclick="showPage('home')">🌲 UFD Portal</div><div class="topbar-nav"><button class="tnav" onclick="showPage('home')">← Home</button><button class="tnav act">⚖️ Vigilance</button></div><div class="topbar-right"><button class="lang-btn" onclick="toggleLang()">🌐 हिंदी / EN</button></div></div><div style="padding:2rem;"><div class="mod-page-title">⚖️ Vigilance & Legal Cell</div><div class="mod-page-sub" style="margin-bottom:1.5rem;">Court cases, departmental enquiries and legal compliance</div><div class="kpi-row"><div class="kpi red"><div class="kpi-val">284</div><div class="kpi-label">Forest Offence Cases</div></div><div class="kpi amber"><div class="kpi-val">48</div><div class="kpi-label">Dept. Enquiries</div></div><div class="kpi blue"><div class="kpi-val">142</div><div class="kpi-label">Court Cases</div></div><div class="kpi green"><div class="kpi-val">₹48L</div><div class="kpi-label">Fines Realized</div></div></div><table class="data-table" style="margin-top:1rem;"><thead><tr><th>Case No.</th><th>Type</th><th>Division</th><th>Court</th><th>Next Hearing</th><th>Status</th></tr></thead><tbody><tr><td>FD/2026/142</td><td>Illegal Felling</td><td>Haridwar</td><td>JM Roorkee</td><td>2 Apr 2026</td><td><span class="status-pill sp-amber">Trial</span></td></tr><tr><td>FD/2026/098</td><td>Wildlife Trade</td><td>Nainital</td><td>Sessions Court</td><td>8 Apr 2026</td><td><span class="status-pill sp-red">Chargesheet Filed</span></td></tr><tr><td>FD/2025/892</td><td>Encroachment</td><td>Dehradun</td><td>HC Nainital</td><td>15 Apr 2026</td><td><span class="status-pill sp-amber">Pending</span></td></tr></tbody></table></div></div>
+<div class="page" id="page-vigilance">
+<div class="topbar">
+  <div class="topbar-brand" onclick="showPage('home')">🌲 UFD Portal</div>
+  <div class="topbar-nav">
+    <button class="tnav" onclick="showPage('home')">← Home</button>
+    <button class="tnav act">⚖️ Vigilance & Legal</button>
+    <button class="tnav" onclick="vigTab('dashboard',this)">📊 Dashboard</button>
+    <button class="tnav" onclick="vigTab('vigilance',this)">🔍 Vigilance Cases</button>
+    <button class="tnav" onclick="vigTab('disciplinary',this)">📋 Disciplinary</button>
+    <button class="tnav" onclick="vigTab('court',this)">🏛 Court Cases</button>
+    <button class="tnav" onclick="vigTab('workflow',this)">✅ Approvals</button>
+    <button class="tnav" onclick="vigTab('documents',this)">📁 Documents</button>
+    <button class="tnav" onclick="vigTab('reports',this)">📄 Reports</button>
+  </div>
+  <div class="topbar-right">
+    <button class="lang-btn" onclick="toggleLang()">🌐 हिंदी / EN</button>
+    <button class="login-btn" onclick="openModal('loginModal')">🔐 Login</button>
+  </div>
+</div>
+
+<div class="mod-page-layout">
+  <!-- SIDEBAR -->
+  <div class="mod-sidebar">
+    <div class="ds-title">VIGILANCE & LEGAL</div>
+    <div class="ds-title" style="color:rgba(168,213,226,.5);margin-top:.3rem;">📊 OVERVIEW</div>
+    <button class="ds-lnk act" id="vig-sb-dashboard" onclick="vigTab('dashboard',this)">📊 Dashboard</button>
+    <div class="ds-sep"></div>
+    <div class="ds-title" style="color:rgba(168,213,226,.5);">🔍 VIGILANCE</div>
+    <button class="ds-lnk" id="vig-sb-vigilance" onclick="vigTab('vigilance',this)">🔍 Vigilance Cases</button>
+    <button class="ds-lnk" id="vig-sb-register" onclick="vigTab('register',this)">➕ Register Case</button>
+    <div class="ds-sep"></div>
+    <div class="ds-title" style="color:rgba(168,213,226,.5);">📋 DISCIPLINARY</div>
+    <button class="ds-lnk" id="vig-sb-disciplinary" onclick="vigTab('disciplinary',this)">📋 Proceedings</button>
+    <button class="ds-lnk" id="vig-sb-enquiry" onclick="vigTab('enquiry',this)">📝 Enquiry Management</button>
+    <div class="ds-sep"></div>
+    <div class="ds-title" style="color:rgba(168,213,226,.5);">🏛 LEGAL</div>
+    <button class="ds-lnk" id="vig-sb-court" onclick="vigTab('court',this)">🏛 Court Cases</button>
+    <button class="ds-lnk" id="vig-sb-hearings" onclick="vigTab('hearings',this)">📅 Hearing Calendar</button>
+    <div class="ds-sep"></div>
+    <div class="ds-title" style="color:rgba(168,213,226,.5);">⚙️ MANAGEMENT</div>
+    <button class="ds-lnk" id="vig-sb-workflow" onclick="vigTab('workflow',this)">✅ Approvals & Escalation</button>
+    <button class="ds-lnk" id="vig-sb-documents" onclick="vigTab('documents',this)">📁 Document Management</button>
+    <button class="ds-lnk" id="vig-sb-pendency" onclick="vigTab('pendency',this)">⏱ Pendency Monitor</button>
+    <button class="ds-lnk" id="vig-sb-reports" onclick="vigTab('reports',this)">📄 Reports & MIS</button>
+  </div>
+
+  <!-- MAIN -->
+  <div class="mod-main" style="background:rgba(6,18,9,.4);">
+    <div class="breadcrumb"><span onclick="showPage('home')" style="cursor:pointer;">Home</span> <span>›</span> Vigilance & Legal Cell Management System</div>
+    <div class="mod-page-title">⚖️ Vigilance & Legal Cell Management System</div>
+    <div class="mod-page-sub">Case Registration · Disciplinary Proceedings · Court Tracking · Workflow · Document Management · Uttarakhand Forest Department</div>
+
+    <!-- ══ DASHBOARD ══ -->
+    <div id="vig-dashboard" class="vig-tab">
+      <!-- Role selector -->
+      <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.2rem;background:rgba(12,28,14,.6);border:1px solid rgba(90,200,110,.12);border-radius:6px;padding:.8rem 1.2rem;flex-wrap:wrap;">
+        <span style="font-size:.72rem;color:var(--ms);font-weight:600;">👤 Dashboard Role:</span>
+        <div style="display:flex;gap:.4rem;flex-wrap:wrap;">
+          <button class="filter-btn active" onclick="setVigRole('pccf',this)">PCCF / State</button>
+          <button class="filter-btn" onclick="setVigRole('ccf',this)">CCF / Circle</button>
+          <button class="filter-btn" onclick="setVigRole('dfo',this)">DFO / Division</button>
+          <button class="filter-btn" onclick="setVigRole('legal',this)">Legal Cell</button>
+        </div>
+        <span id="vig-role-label" style="font-size:.7rem;color:var(--gd);margin-left:auto;">PCCF Level — All Cases State-wide</span>
+      </div>
+
+      <div class="kpi-row">
+        <div class="kpi red"><div class="kpi-ico">🔍</div><div class="kpi-val">284</div><div class="kpi-label">Vigilance Cases (Active)</div><div class="kpi-trend trend-dn">↑ 12 new this month</div></div>
+        <div class="kpi amber"><div class="kpi-ico">📋</div><div class="kpi-val">48</div><div class="kpi-label">Disciplinary Proceedings</div><div class="kpi-trend" style="color:var(--am)">6 suspended staff</div></div>
+        <div class="kpi blue"><div class="kpi-ico">🏛</div><div class="kpi-val">142</div><div class="kpi-label">Court Cases</div><div class="kpi-trend">28 next 30 days</div></div>
+        <div class="kpi green"><div class="kpi-ico">✅</div><div class="kpi-val">₹48L</div><div class="kpi-label">Fines Realized (FY)</div><div class="kpi-trend trend-up">↑ 18% YoY</div></div>
+        <div class="kpi red"><div class="kpi-ico">⏱</div><div class="kpi-val">84</div><div class="kpi-label">Overdue Hearings</div><div class="kpi-trend" style="color:var(--rd)">Action needed</div></div>
+        <div class="kpi gold"><div class="kpi-ico">📁</div><div class="kpi-val">1,284</div><div class="kpi-label">Documents Uploaded</div><div class="kpi-trend">Secure vault</div></div>
+      </div>
+
+      <div class="charts-grid">
+        <div class="chart-card">
+          <div class="cc-hd"><div class="cc-title">📊 Cases by Category</div><span class="cc-badge">Active</span></div>
+          <canvas id="vig-catChart"></canvas>
+        </div>
+        <div class="chart-card">
+          <div class="cc-hd"><div class="cc-title">📈 Monthly Case Registration Trend</div><span class="cc-badge">FY 2025-26</span></div>
+          <canvas id="vig-trendChart"></canvas>
+        </div>
+        <div class="chart-card">
+          <div class="cc-hd"><div class="cc-title">🏛 Court Case Status Breakdown</div><span class="cc-badge">All Courts</span></div>
+          <canvas id="vig-courtChart"></canvas>
+        </div>
+        <div class="chart-card">
+          <div class="cc-hd"><div class="cc-title">📅 Hearing Calendar — Next 30 Days</div><span class="cc-badge">Upcoming</span></div>
+          <canvas id="vig-hearingChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Alerts -->
+      <div class="info-card" style="border-color:rgba(224,92,92,.25);background:rgba(224,92,92,.04);">
+        <div class="ic-title" style="color:var(--rd);">🚨 Critical Alerts & Compliance Flags</div>
+        <table class="data-table">
+          <thead><tr><th>Alert Type</th><th>Case/Ref</th><th>Description</th><th>Due Date</th><th>Officer Responsible</th><th>Action</th></tr></thead>
+          <tbody>
+            <tr><td><span class="status-pill sp-red">Overdue Court Date</span></td><td>FD/2025/892</td><td>Encroachment — HC Nainital, next date not fixed for 45+ days</td><td style="color:var(--rd)">Overdue</td><td>DFO Dehradun</td><td><button class="btn btn-sm btn-outline" onclick="showToast('Sending urgent reminder to DFO Dehradun...')">Escalate</button></td></tr>
+            <tr><td><span class="status-pill sp-red">Enquiry Delayed</span></td><td>DISC/2026/031</td><td>Disciplinary enquiry — 90+ days without progress report</td><td style="color:var(--rd)">Overdue</td><td>EO Sh. V. Singh</td><td><button class="btn btn-sm btn-outline" onclick="showToast('Issuing show-cause to EO Sh. V. Singh...')">Notice</button></td></tr>
+            <tr><td><span class="status-pill sp-amber">Pending Order</span></td><td>DISC/2025/198</td><td>Enquiry report submitted — final order not issued for 30 days</td><td style="color:var(--am)">28 Mar</td><td>PCCF Office</td><td><button class="btn btn-sm btn-outline" onclick="showToast('Opening case for final order...')">Issue Order</button></td></tr>
+            <tr><td><span class="status-pill sp-amber">Witness Not Examined</span></td><td>FD/2026/142</td><td>Court date on 2 Apr — prosecution witnesses not listed</td><td style="color:var(--am)">2 Apr</td><td>Govt. Counsel</td><td><button class="btn btn-sm btn-outline" onclick="showToast('Notifying government counsel...')">Alert Counsel</button></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ══ VIGILANCE CASES ══ -->
+    <div id="vig-vigilance" class="vig-tab" style="display:none">
+      <div class="dash-hd">
+        <div style="font-size:1.1rem;font-weight:600;color:var(--cr);">🔍 Vigilance Case Registry</div>
+        <div style="display:flex;gap:.5rem;flex-wrap:wrap;">
+          <select class="form-input" style="padding:.35rem .6rem;font-size:.72rem;width:auto;">
+            <option>All Categories</option><option>Illegal Felling</option><option>Encroachment</option><option>Poaching</option><option>NTFP Theft</option><option>Corruption</option><option>Disproportionate Assets</option>
+          </select>
+          <select class="form-input" style="padding:.35rem .6rem;font-size:.72rem;width:auto;">
+            <option>All Divisions</option><option>Dehradun</option><option>Haridwar</option><option>Nainital</option><option>Almora</option><option>Chamoli</option>
+          </select>
+          <select class="form-input" style="padding:.35rem .6rem;font-size:.72rem;width:auto;">
+            <option>All Status</option><option>Under Investigation</option><option>Charge Sheet Filed</option><option>Pending Trial</option><option>Compounded</option><option>Closed</option>
+          </select>
+          <button class="btn btn-primary btn-sm" onclick="vigTab('register',null)">+ Register Case</button>
+          <button class="btn btn-outline btn-sm" onclick="showToast('Exporting case list...')">⬇ Export</button>
+        </div>
+      </div>
+
+      <div class="kpi-row">
+        <div class="kpi red"><div class="kpi-val">284</div><div class="kpi-label">Active Cases</div></div>
+        <div class="kpi amber"><div class="kpi-val">142</div><div class="kpi-label">FIRs Filed</div></div>
+        <div class="kpi blue"><div class="kpi-val">98</div><div class="kpi-label">Under Investigation</div></div>
+        <div class="kpi green"><div class="kpi-val">₹48L</div><div class="kpi-label">Fines Collected</div></div>
+        <div class="kpi gold"><div class="kpi-val">76%</div><div class="kpi-label">Conviction Rate</div></div>
+      </div>
+
+      <div class="search-bar" style="margin-bottom:1rem;max-width:480px;"><span class="search-ico">🔍</span><input class="search-inp" placeholder="Search by case no., accused, division, offence type..."></div>
+
+      <table class="data-table">
+        <thead><tr><th>Case No.</th><th>Category</th><th>Offence</th><th>Division</th><th>Accused</th><th>FIR No.</th><th>Investigation Officer</th><th>Date</th><th>Stage</th><th>Status</th><th>Action</th></tr></thead>
+        <tbody>
+          <tr><td>VIG/2026/0284</td><td>🌲 Forest</td><td>Illegal Felling</td><td>Haridwar</td><td>3 persons</td><td>FIR/2026/142</td><td>RO Sh. M. Negi</td><td>12 Mar</td><td>Investigation</td><td><span class="status-pill sp-amber">Under Investigation</span></td><td><button class="btn btn-sm btn-outline" onclick="vigCaseDetail('VIG/2026/0284')">View</button></td></tr>
+          <tr><td>VIG/2026/0281</td><td>🐯 Wildlife</td><td>Poaching</td><td>Nainital</td><td>2 persons</td><td>FIR/2026/139</td><td>DFO Ms. P. Joshi</td><td>10 Mar</td><td>Chargesheet</td><td><span class="status-pill sp-red">Chargesheet Filed</span></td><td><button class="btn btn-sm btn-outline" onclick="vigCaseDetail('VIG/2026/0281')">View</button></td></tr>
+          <tr><td>VIG/2026/0264</td><td>🏚 Land</td><td>Encroachment</td><td>Almora</td><td>1 person</td><td>—</td><td>ACF Sh. V. Bisht</td><td>2 Mar</td><td>Notice Issued</td><td><span class="status-pill sp-amber">Notice Issued</span></td><td><button class="btn btn-sm btn-outline" onclick="vigCaseDetail('VIG/2026/0264')">View</button></td></tr>
+          <tr><td>VIG/2026/0241</td><td>💰 Corruption</td><td>Bribery Allegation</td><td>Dehradun</td><td>1 Forest Guard</td><td>—</td><td>ACF (Vigilance)</td><td>20 Feb</td><td>Preliminary Enquiry</td><td><span class="status-pill sp-blue">Preliminary Enquiry</span></td><td><button class="btn btn-sm btn-outline" onclick="vigCaseDetail('VIG/2026/0241')">View</button></td></tr>
+          <tr><td>VIG/2025/0892</td><td>🌿 NTFP</td><td>NTFP Theft</td><td>Chamoli</td><td>4 persons</td><td>FIR/2025/892</td><td>RO Sh. S. Rawat</td><td>15 Nov</td><td>Trial</td><td><span class="status-pill sp-green">Convicted</span></td><td><button class="btn btn-sm btn-outline" onclick="vigCaseDetail('VIG/2025/0892')">View</button></td></tr>
+          <tr><td>VIG/2025/0841</td><td>💰 DA</td><td>Disproportionate Assets</td><td>HQ</td><td>1 Officer</td><td>—</td><td>SP Vigilance</td><td>8 Oct</td><td>Departmental Enquiry</td><td><span class="status-pill sp-amber">DE Ongoing</span></td><td><button class="btn btn-sm btn-outline" onclick="vigCaseDetail('VIG/2025/0841')">View</button></td></tr>
+          <tr><td>VIG/2025/0784</td><td>🌲 Forest</td><td>Transit Pass Fraud</td><td>Uttarkashi</td><td>2 persons</td><td>FIR/2025/784</td><td>DFO Sh. R.K. Singh</td><td>5 Sep</td><td>Compounding</td><td><span class="status-pill sp-blue">Compounded</span></td><td><button class="btn btn-sm btn-outline" onclick="vigCaseDetail('VIG/2025/0784')">View</button></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ══ REGISTER CASE ══ -->
+    <div id="vig-register" class="vig-tab" style="display:none">
+      <div style="font-size:1.1rem;font-weight:600;color:var(--cr);margin-bottom:1.2rem;">➕ Register New Vigilance / Offence Case</div>
+      <div class="tab-row">
+        <button class="tab act" onclick="switchVigRegTab('basic',this)">1. Case Details</button>
+        <button class="tab" onclick="switchVigRegTab('accused',this)">2. Accused Info</button>
+        <button class="tab" onclick="switchVigRegTab('evidence',this)">3. Evidence & Docs</button>
+        <button class="tab" onclick="switchVigRegTab('submit',this)">4. Submit</button>
+      </div>
+
+      <div id="vr-basic" class="vig-reg-tab">
+        <div class="form-grid">
+          <div class="form-group"><label class="form-label">Case Category *</label>
+            <select class="form-input"><option>Select Category</option><option>Illegal Felling / Timber Theft</option><option>Encroachment of Forest Land</option><option>Wildlife Poaching / Trade</option><option>NTFP Theft</option><option>Forest Fire (Arson)</option><option>Corruption / Bribery</option><option>Disproportionate Assets</option><option>Dereliction of Duty</option><option>Transit Pass Fraud</option><option>Other Forest Offence</option></select>
+          </div>
+          <div class="form-group"><label class="form-label">FIR / Complaint No.</label><input class="form-input" placeholder="e.g. FIR/2026/XXX or COMP/2026/XXX"></div>
+          <div class="form-group"><label class="form-label">Date of Offence *</label><input class="form-input" type="date"></div>
+          <div class="form-group"><label class="form-label">Date of Registration *</label><input class="form-input" type="date"></div>
+          <div class="form-group"><label class="form-label">Division *</label>
+            <select class="form-input"><option>Select Division</option><option>Dehradun</option><option>Haridwar</option><option>Nainital</option><option>Almora</option><option>Chamoli</option><option>Uttarkashi</option><option>Pithoragarh</option><option>Tehri</option><option>Pauri</option></select>
+          </div>
+          <div class="form-group"><label class="form-label">Range / Beat</label><input class="form-input" placeholder="Range name and beat number"></div>
+          <div class="form-group"><label class="form-label">Investigating Officer *</label><input class="form-input" placeholder="Name and designation"></div>
+          <div class="form-group"><label class="form-label">Police Station</label><input class="form-input" placeholder="Jurisdictional police station"></div>
+          <div class="form-group" style="grid-column:span 2;"><label class="form-label">Brief Description of Offence *</label><textarea class="form-input" rows="4" placeholder="Describe the nature, circumstances and facts of the offence..." style="resize:vertical;"></textarea></div>
+          <div class="form-group"><label class="form-label">Species / Material Involved</label><input class="form-input" placeholder="e.g. Sal timber 2.4 MT, 3 leopard skins"></div>
+          <div class="form-group"><label class="form-label">Estimated Value of Seizure (₹)</label><input class="form-input" type="number" placeholder="0"></div>
+        </div>
+        <div class="form-actions"><button class="btn btn-primary btn-sm" onclick="switchVigRegTab('accused', document.querySelectorAll('#vig-register .tab')[1])">Next: Accused Info →</button></div>
+      </div>
+
+      <div id="vr-accused" class="vig-reg-tab" style="display:none">
+        <div id="accused-list">
+          <div class="info-card" style="margin-bottom:.8rem;" id="accused-1">
+            <div class="ic-title" style="display:flex;justify-content:space-between;"><span>Accused #1</span><button class="btn btn-sm btn-outline" onclick="showToast('Additional accused row added')">+ Add Another</button></div>
+            <div class="form-grid" style="margin-top:.5rem;">
+              <div class="form-group"><label class="form-label">Full Name *</label><input class="form-input" placeholder="Accused full name"></div>
+              <div class="form-group"><label class="form-label">Father's Name</label><input class="form-input" placeholder="Father's name"></div>
+              <div class="form-group"><label class="form-label">Age</label><input class="form-input" type="number" placeholder="Age in years"></div>
+              <div class="form-group"><label class="form-label">Accused Type</label><select class="form-input"><option>Civilian</option><option>Forest Dept. Employee</option><option>Contractor</option><option>Others</option></select></div>
+              <div class="form-group"><label class="form-label">Aadhaar No.</label><input class="form-input" placeholder="XXXX-XXXX-XXXX"></div>
+              <div class="form-group"><label class="form-label">Village / Address</label><input class="form-input" placeholder="Village, Tehsil, District"></div>
+              <div class="form-group"><label class="form-label">Arrest Status</label><select class="form-input"><option>Arrested</option><option>Absconding</option><option>Surrendered</option><option>Bail Granted</option><option>Not Arrested</option></select></div>
+              <div class="form-group"><label class="form-label">Bail / Custody Status</label><input class="form-input" placeholder="Court granting bail, date"></div>
+            </div>
+          </div>
+        </div>
+        <div class="form-actions">
+          <button class="btn btn-outline btn-sm" onclick="switchVigRegTab('basic',null)">← Back</button>
+          <button class="btn btn-primary btn-sm" onclick="switchVigRegTab('evidence', document.querySelectorAll('#vig-register .tab')[2])">Next: Evidence →</button>
+        </div>
+      </div>
+
+      <div id="vr-evidence" class="vig-reg-tab" style="display:none">
+        <div style="display:flex;flex-direction:column;gap:.8rem;">
+          <div class="info-card" style="display:flex;align-items:center;justify-content:space-between;">
+            <div><div class="ic-title" style="margin-bottom:0;">📄 FIR Copy / Complaint *</div><div style="font-size:.65rem;color:var(--ms);">PDF only · Max 10MB</div></div>
+            <button class="btn btn-outline btn-sm" onclick="showToast('FIR upload dialog opening...')">⬆ Upload</button>
+          </div>
+          <div class="info-card" style="display:flex;align-items:center;justify-content:space-between;">
+            <div><div class="ic-title" style="margin-bottom:0;">📸 Site Photographs / Video</div><div style="font-size:.65rem;color:var(--ms);">JPG/MP4 · Geo-tagged preferred</div></div>
+            <button class="btn btn-outline btn-sm" onclick="showToast('Photo upload dialog opening...')">⬆ Upload</button>
+          </div>
+          <div class="info-card" style="display:flex;align-items:center;justify-content:space-between;">
+            <div><div class="ic-title" style="margin-bottom:0;">🔬 Seizure List / Panchnama</div><div style="font-size:.65rem;color:var(--ms);">PDF · Signed panchnama document</div></div>
+            <button class="btn btn-outline btn-sm" onclick="showToast('Panchnama upload dialog...')">⬆ Upload</button>
+          </div>
+          <div class="info-card" style="display:flex;align-items:center;justify-content:space-between;">
+            <div><div class="ic-title" style="margin-bottom:0;">📋 Witness Statements</div><div style="font-size:.65rem;color:var(--ms);">PDF · Signed statements</div></div>
+            <button class="btn btn-outline btn-sm" onclick="showToast('Witness document upload...')">⬆ Upload</button>
+          </div>
+          <div class="info-card" style="display:flex;align-items:center;justify-content:space-between;">
+            <div><div class="ic-title" style="margin-bottom:0;">📋 Forest Guard / Officer Report</div><div style="font-size:.65rem;color:var(--ms);">PDF · Beat/Range officer report</div></div>
+            <button class="btn btn-outline btn-sm" onclick="showToast('Officer report upload...')">⬆ Upload</button>
+          </div>
+        </div>
+        <div class="form-actions" style="margin-top:1rem;">
+          <button class="btn btn-outline btn-sm" onclick="switchVigRegTab('accused',null)">← Back</button>
+          <button class="btn btn-primary btn-sm" onclick="switchVigRegTab('submit', document.querySelectorAll('#vig-register .tab')[3])">Next: Review →</button>
+        </div>
+      </div>
+
+      <div id="vr-submit" class="vig-reg-tab" style="display:none">
+        <div class="info-card" style="border-color:rgba(201,162,39,.3);background:rgba(201,162,39,.04);">
+          <div class="ic-title" style="color:var(--gd);">✅ Review & Submit Registration</div>
+          <p style="font-size:.78rem;color:var(--ms);line-height:1.7;margin-bottom:1rem;">On submission, the system will automatically:<br>
+          • Generate a unique Case Registration Number<br>
+          • Assign to Investigation Officer with email/SMS notification<br>
+          • Create a case audit trail with timestamp<br>
+          • Trigger approval workflow to DFO/CCF as applicable<br>
+          • Set automated hearing/deadline reminders</p>
+          <div style="background:rgba(45,122,58,.15);border:1px solid rgba(90,200,110,.25);border-radius:6px;padding:1rem;margin-bottom:1rem;">
+            <div style="font-size:.72rem;color:var(--cn);font-weight:600;margin-bottom:.4rem;">Auto-Generated Case Number Preview</div>
+            <div style="font-family:monospace;font-size:1.3rem;color:var(--gd);">VIG/<span style="color:var(--cn)">2026</span>/<span style="color:var(--cr)">0285</span></div>
+          </div>
+          <div class="form-actions">
+            <button class="btn btn-primary" onclick="showToast('✅ Case VIG/2026/0285 registered! IO notified via SMS and email.')">🚀 Submit & Register Case</button>
+            <button class="btn btn-outline btn-sm" onclick="showToast('Case saved as draft — Ref: DRAFT/2026/021')">💾 Save Draft</button>
+            <button class="btn btn-outline btn-sm" onclick="switchVigRegTab('evidence',null)">← Back</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ DISCIPLINARY PROCEEDINGS ══ -->
+    <div id="vig-disciplinary" class="vig-tab" style="display:none">
+      <div class="dash-hd">
+        <div style="font-size:1.1rem;font-weight:600;color:var(--cr);">📋 Disciplinary Proceedings Management</div>
+        <div style="display:flex;gap:.5rem;">
+          <select class="form-input" style="padding:.35rem .6rem;font-size:.72rem;width:auto;">
+            <option>All Stages</option><option>Preliminary Enquiry</option><option>Charge Sheet Issued</option><option>Enquiry in Progress</option><option>Report Submitted</option><option>Penalty Order</option><option>Closed</option>
+          </select>
+          <button class="btn btn-primary btn-sm" onclick="showToast('New disciplinary proceeding form...')">+ Initiate Proceeding</button>
+          <button class="btn btn-outline btn-sm" onclick="showToast('Exporting disciplinary register...')">⬇ Export</button>
+        </div>
+      </div>
+
+      <div class="kpi-row">
+        <div class="kpi red"><div class="kpi-val">48</div><div class="kpi-label">Active Proceedings</div></div>
+        <div class="kpi amber"><div class="kpi-val">6</div><div class="kpi-label">Suspended Staff</div></div>
+        <div class="kpi blue"><div class="kpi-val">12</div><div class="kpi-label">Charge Sheets Issued</div></div>
+        <div class="kpi green"><div class="kpi-val">24</div><div class="kpi-label">Closed This FY</div></div>
+        <div class="kpi gold"><div class="kpi-val">8</div><div class="kpi-label">Exonerated</div></div>
+      </div>
+
+      <!-- Stage-wise pipeline -->
+      <div class="info-card" style="margin-bottom:1.2rem;">
+        <div class="ic-title">📊 Proceedings Pipeline</div>
+        <div style="display:flex;gap:.5rem;margin-top:.8rem;overflow-x:auto;padding-bottom:.3rem;">
+          <div style="text-align:center;background:rgba(168,213,226,.1);border:1px solid rgba(168,213,226,.25);border-radius:6px;padding:.6rem .9rem;min-width:110px;cursor:pointer;" onclick="showToast('Filtering: Preliminary Enquiry')">
+            <div style="font-size:1.4rem;font-family:var(--serif);font-weight:700;color:var(--sk);">14</div>
+            <div style="font-size:.62rem;color:var(--ms);margin-top:.2rem;">Preliminary Enquiry</div>
+          </div>
+          <div style="font-size:1rem;color:var(--ms);padding:0 .2rem;display:flex;align-items:center;">→</div>
+          <div style="text-align:center;background:rgba(232,154,60,.1);border:1px solid rgba(232,154,60,.25);border-radius:6px;padding:.6rem .9rem;min-width:110px;cursor:pointer;" onclick="showToast('Filtering: Charge Sheet Stage')">
+            <div style="font-size:1.4rem;font-family:var(--serif);font-weight:700;color:var(--am);">12</div>
+            <div style="font-size:.62rem;color:var(--ms);margin-top:.2rem;">Charge Sheet Issued</div>
+          </div>
+          <div style="font-size:1rem;color:var(--ms);padding:0 .2rem;display:flex;align-items:center;">→</div>
+          <div style="text-align:center;background:rgba(224,92,92,.1);border:1px solid rgba(224,92,92,.2);border-radius:6px;padding:.6rem .9rem;min-width:110px;cursor:pointer;" onclick="showToast('Filtering: Enquiry in Progress')">
+            <div style="font-size:1.4rem;font-family:var(--serif);font-weight:700;color:var(--rd);">16</div>
+            <div style="font-size:.62rem;color:var(--ms);margin-top:.2rem;">Enquiry in Progress</div>
+          </div>
+          <div style="font-size:1rem;color:var(--ms);padding:0 .2rem;display:flex;align-items:center;">→</div>
+          <div style="text-align:center;background:rgba(201,162,39,.1);border:1px solid rgba(201,162,39,.2);border-radius:6px;padding:.6rem .9rem;min-width:110px;cursor:pointer;" onclick="showToast('Filtering: Report Submitted')">
+            <div style="font-size:1.4rem;font-family:var(--serif);font-weight:700;color:var(--gd);">6</div>
+            <div style="font-size:.62rem;color:var(--ms);margin-top:.2rem;">Report Submitted</div>
+          </div>
+          <div style="font-size:1rem;color:var(--ms);padding:0 .2rem;display:flex;align-items:center;">→</div>
+          <div style="text-align:center;background:rgba(74,173,90,.15);border:1px solid rgba(74,173,90,.3);border-radius:6px;padding:.6rem .9rem;min-width:110px;cursor:pointer;" onclick="showToast('Filtering: Penalty Order')">
+            <div style="font-size:1.4rem;font-family:var(--serif);font-weight:700;color:var(--cn);">—</div>
+            <div style="font-size:.62rem;color:var(--ms);margin-top:.2rem;">Penalty Order Due</div>
+          </div>
+        </div>
+      </div>
+
+      <table class="data-table">
+        <thead><tr><th>Case No.</th><th>Charged Employee</th><th>Designation</th><th>Division</th><th>Charge</th><th>EO Appointed</th><th>Initiated On</th><th>Stage</th><th>Days Elapsed</th><th>Status</th><th>Action</th></tr></thead>
+        <tbody>
+          <tr><td>DISC/2026/048</td><td>Sh. R. Kumar</td><td>Forest Guard</td><td>Dehradun</td><td>Dereliction of Duty</td><td>Sh. M. Bisht (RO)</td><td>10 Jan</td><td>Charge Sheet</td><td style="color:var(--am)">75 days</td><td><span class="status-pill sp-amber">Charge Sheet Issued</span></td><td><button class="btn btn-sm btn-outline" onclick="vigDEDetail('DISC/2026/048')">View</button></td></tr>
+          <tr><td>DISC/2026/042</td><td>Sh. P. Negi</td><td>Forester</td><td>Chamoli</td><td>Misappropriation</td><td>Sh. V. Singh (ACF)</td><td>5 Jan</td><td>Enquiry</td><td style="color:var(--rd)">80 days</td><td><span class="status-pill sp-red">Enquiry Delayed</span></td><td><button class="btn btn-sm btn-outline" onclick="vigDEDetail('DISC/2026/042')">View</button></td></tr>
+          <tr><td>DISC/2026/031</td><td>Sh. K. Sharma</td><td>Van Rakshak</td><td>Haridwar</td><td>Absenteeism</td><td>Sh. A. Kumar (RO)</td><td>15 Dec</td><td>Report Submitted</td><td style="color:var(--am)">102 days</td><td><span class="status-pill sp-blue">Pending Final Order</span></td><td><button class="btn btn-sm btn-outline" onclick="showToast('Issuing final penalty order DISC/2026/031...')">Issue Order</button></td></tr>
+          <tr><td>DISC/2025/198</td><td>Ms. S. Rawat</td><td>Forest Guard</td><td>Almora</td><td>Corruption (Bribery)</td><td>ACF Sh. R. Joshi</td><td>8 Oct</td><td>Exonerated</td><td style="color:var(--cn)">168 days</td><td><span class="status-pill sp-green">Closed — Exonerated</span></td><td><button class="btn btn-sm btn-outline" onclick="showToast('Viewing closure report DISC/2025/198...')">View Order</button></td></tr>
+          <tr><td>DISC/2025/172</td><td>Sh. B. Mehta</td><td>ACF</td><td>Pithoragarh</td><td>Disproportionate Assets</td><td>CCF Sh. H. Rawat</td><td>12 Sep</td><td>DA Enquiry</td><td style="color:var(--rd)">196 days</td><td><span class="status-pill sp-red">Critical — Overdue</span></td><td><button class="btn btn-sm btn-outline" onclick="showToast('Escalating DISC/2025/172 to PCCF...')">Escalate</button></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ══ ENQUIRY MANAGEMENT ══ -->
+    <div id="vig-enquiry" class="vig-tab" style="display:none">
+      <div class="dash-hd">
+        <div style="font-size:1.1rem;font-weight:600;color:var(--cr);">📝 Enquiry Officer Management</div>
+        <button class="btn btn-primary btn-sm" onclick="showToast('Appointing new Enquiry Officer...')">+ Appoint EO</button>
+      </div>
+      <div class="notice-grid">
+        <div class="info-card">
+          <div class="ic-title">👮 Enquiry Officer Workload</div>
+          <table class="data-table">
+            <thead><tr><th>EO Name</th><th>Designation</th><th>Active Cases</th><th>Overdue</th><th>Completed (FY)</th><th>Avg. Closure Days</th></tr></thead>
+            <tbody>
+              <tr><td>Sh. M. Bisht</td><td>Range Officer</td><td>3</td><td style="color:var(--am)">1</td><td>4</td><td>84 days</td></tr>
+              <tr><td>Sh. V. Singh</td><td>ACF</td><td>2</td><td style="color:var(--rd)">2</td><td>2</td><td>112 days</td></tr>
+              <tr><td>Sh. A. Kumar</td><td>Range Officer</td><td>1</td><td style="color:var(--cn)">0</td><td>6</td><td>72 days</td></tr>
+              <tr><td>ACF Sh. R. Joshi</td><td>ACF</td><td>2</td><td style="color:var(--am)">1</td><td>5</td><td>90 days</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="info-card">
+          <div class="ic-title">📋 Enquiry Progress Log</div>
+          <table class="data-table">
+            <thead><tr><th>Case No.</th><th>Last Activity</th><th>Next Action</th><th>Due By</th></tr></thead>
+            <tbody>
+              <tr><td>DISC/2026/048</td><td>Charge sheet served 20 Mar</td><td>First hearing</td><td><span class="status-pill sp-blue">5 Apr</span></td></tr>
+              <tr><td>DISC/2026/042</td><td>No update since 20 Jan</td><td>Progress report</td><td><span class="status-pill sp-red">Overdue</span></td></tr>
+              <tr><td>DISC/2026/031</td><td>Report submitted 15 Mar</td><td>Final order by PCCF</td><td><span class="status-pill sp-amber">28 Mar</span></td></tr>
+              <tr><td>DISC/2025/172</td><td>Last update 2 months ago</td><td>Escalation review</td><td><span class="status-pill sp-red">Overdue</span></td></tr>
+            </tbody>
+          </table>
+          <button class="btn btn-danger btn-sm" style="margin-top:.8rem;" onclick="showToast('Sending reminders to all overdue EOs...')">🔔 Send All Reminders</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ COURT CASES ══ -->
+    <div id="vig-court" class="vig-tab" style="display:none">
+      <div class="dash-hd">
+        <div style="font-size:1.1rem;font-weight:600;color:var(--cr);">🏛 Court Case & Litigation Tracking</div>
+        <div style="display:flex;gap:.5rem;flex-wrap:wrap;">
+          <select class="form-input" style="padding:.35rem .6rem;font-size:.72rem;width:auto;">
+            <option>All Courts</option><option>High Court Nainital</option><option>Sessions Court</option><option>Judicial Magistrate</option><option>NGT</option><option>Supreme Court</option>
+          </select>
+          <select class="form-input" style="padding:.35rem .6rem;font-size:.72rem;width:auto;">
+            <option>All Status</option><option>Notice Stage</option><option>Hearing</option><option>Arguments</option><option>Judgment</option><option>Disposed</option>
+          </select>
+          <button class="btn btn-primary btn-sm" onclick="showToast('New court case entry form...')">+ Add Court Case</button>
+          <button class="btn btn-outline btn-sm" onclick="showToast('Exporting court case register...')">⬇ Export</button>
+        </div>
+      </div>
+
+      <div class="kpi-row">
+        <div class="kpi blue"><div class="kpi-val">142</div><div class="kpi-label">Total Active Cases</div></div>
+        <div class="kpi gold"><div class="kpi-val">38</div><div class="kpi-label">High Court</div></div>
+        <div class="kpi amber"><div class="kpi-val">82</div><div class="kpi-label">Sessions / JM Courts</div></div>
+        <div class="kpi green"><div class="kpi-val">22</div><div class="kpi-label">NGT / SC / Other</div></div>
+        <div class="kpi red"><div class="kpi-val">28</div><div class="kpi-label">Hearing in Next 30 Days</div></div>
+      </div>
+
+      <table class="data-table">
+        <thead><tr><th>Case No.</th><th>Court</th><th>Case Title</th><th>Nature</th><th>Division</th><th>Govt. Counsel</th><th>Last Hearing</th><th>Next Hearing</th><th>Stage</th><th>Action</th></tr></thead>
+        <tbody>
+          <tr><td>FD/2026/142</td><td>JM Roorkee</td><td>State v/s Ram Singh & Ors.</td><td>Illegal Felling</td><td>Haridwar</td><td>Adv. R. Sharma</td><td>10 Mar</td><td style="color:var(--am)">2 Apr 2026</td><td><span class="status-pill sp-amber">Trial</span></td><td><button class="btn btn-sm btn-outline" onclick="courtDetail('FD/2026/142')">View</button></td></tr>
+          <tr><td>FD/2026/098</td><td>Sessions Nainital</td><td>State v/s Gopal & Anr.</td><td>Wildlife Trade</td><td>Nainital</td><td>Adv. M. Joshi</td><td>5 Mar</td><td style="color:var(--am)">8 Apr 2026</td><td><span class="status-pill sp-red">Chargesheet</span></td><td><button class="btn btn-sm btn-outline" onclick="courtDetail('FD/2026/098')">View</button></td></tr>
+          <tr><td>FD/2025/892</td><td>HC Nainital</td><td>Ramesh Kumar v/s Govt. UK</td><td>Encroachment</td><td>Dehradun</td><td>Adv. P. Negi</td><td>—</td><td style="color:var(--rd)">Not Fixed</td><td><span class="status-pill sp-red">Pending Date</span></td><td><button class="btn btn-sm btn-outline" onclick="courtDetail('FD/2025/892')">View</button></td></tr>
+          <tr><td>NGT/2025/214</td><td>NGT Dehradun</td><td>In re: Forest Degradation</td><td>Environmental</td><td>HQ</td><td>Adv. S. Bisht</td><td>18 Mar</td><td style="color:var(--cn)">12 Apr 2026</td><td><span class="status-pill sp-blue">Arguments</span></td><td><button class="btn btn-sm btn-outline" onclick="courtDetail('NGT/2025/214')">View</button></td></tr>
+          <tr><td>FD/2025/641</td><td>HC Nainital</td><td>Van Panchayat v/s Revenue</td><td>Land Rights</td><td>Pauri</td><td>Adv. K. Rawat</td><td>22 Feb</td><td style="color:var(--cn)">18 Apr 2026</td><td><span class="status-pill sp-amber">Hearing</span></td><td><button class="btn btn-sm btn-outline" onclick="courtDetail('FD/2025/641')">View</button></td></tr>
+          <tr><td>FD/2025/412</td><td>JM Almora</td><td>State v/s Harish & 3 Ors.</td><td>NTFP Theft</td><td>Almora</td><td>Adv. V. Mehra</td><td>15 Mar</td><td style="color:var(--cn)">Disposed</td><td><span class="status-pill sp-green">Convicted</span></td><td><button class="btn btn-sm btn-outline" onclick="showToast('Viewing conviction order FD/2025/412...')">Judgment</button></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ══ HEARING CALENDAR ══ -->
+    <div id="vig-hearings" class="vig-tab" style="display:none">
+      <div class="dash-hd">
+        <div style="font-size:1.1rem;font-weight:600;color:var(--cr);">📅 Hearing & Deadline Calendar</div>
+        <div style="display:flex;gap:.5rem;">
+          <button class="btn btn-outline btn-sm" onclick="showToast('Syncing with Google Calendar...')">📆 Sync Calendar</button>
+          <button class="btn btn-outline btn-sm" onclick="showToast('Setting up automated reminders...')">🔔 Auto-Reminders</button>
+        </div>
+      </div>
+      <div class="kpi-row">
+        <div class="kpi red"><div class="kpi-val">8</div><div class="kpi-label">This Week</div></div>
+        <div class="kpi amber"><div class="kpi-val">28</div><div class="kpi-label">Next 30 Days</div></div>
+        <div class="kpi blue"><div class="kpi-val">84</div><div class="kpi-label">Total Scheduled</div></div>
+        <div class="kpi red"><div class="kpi-val">18</div><div class="kpi-label">No Date Fixed</div></div>
+      </div>
+      <table class="data-table">
+        <thead><tr><th>Hearing Date</th><th>Case No.</th><th>Court</th><th>Matter</th><th>Counsel</th><th>Preparation Status</th><th>Alert</th></tr></thead>
+        <tbody>
+          <tr><td style="color:var(--rd);font-weight:600">28 Mar 2026 (Today)</td><td>FD/2025/892</td><td>JM Dehradun</td><td>Encroachment Notice Return</td><td>Adv. P. Negi</td><td><span class="status-pill sp-red">Not Ready</span></td><td><button class="btn btn-sm btn-outline" onclick="showToast('Urgent: Notifying counsel for today hearing...')">🚨 Alert</button></td></tr>
+          <tr><td style="color:var(--am)">2 Apr 2026</td><td>FD/2026/142</td><td>JM Roorkee</td><td>Illegal Felling — Witness Exam</td><td>Adv. R. Sharma</td><td><span class="status-pill sp-amber">Partial</span></td><td><button class="btn btn-sm btn-outline" onclick="showToast('Reminder sent to Adv. R. Sharma...')">🔔 Remind</button></td></tr>
+          <tr><td>8 Apr 2026</td><td>FD/2026/098</td><td>Sessions Nainital</td><td>Wildlife Trade — Arguments</td><td>Adv. M. Joshi</td><td><span class="status-pill sp-green">Ready</span></td><td><button class="btn btn-sm btn-outline" onclick="showToast('All preparations confirmed for FD/2026/098')">✓ Confirm</button></td></tr>
+          <tr><td>12 Apr 2026</td><td>NGT/2025/214</td><td>NGT Dehradun</td><td>Forest Degradation — Final Arg.</td><td>Adv. S. Bisht</td><td><span class="status-pill sp-amber">In Progress</span></td><td><button class="btn btn-sm btn-outline" onclick="showToast('Document checklist sent to Adv. S. Bisht...')">📋 Checklist</button></td></tr>
+          <tr><td>15 Apr 2026</td><td>FD/2025/892</td><td>HC Nainital</td><td>Encroachment — Stay Application</td><td>Adv. P. Negi</td><td><span class="status-pill sp-blue">Scheduled</span></td><td><button class="btn btn-sm btn-outline" onclick="showToast('Reminder set for 15 Apr HC hearing...')">🔔 Set Reminder</button></td></tr>
+          <tr><td>18 Apr 2026</td><td>FD/2025/641</td><td>HC Nainital</td><td>VP Land Rights — Counter Affidavit</td><td>Adv. K. Rawat</td><td><span class="status-pill sp-red">Draft Pending</span></td><td><button class="btn btn-sm btn-outline" onclick="showToast('Escalating counter affidavit to DFO Pauri...')">📝 Draft</button></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ══ WORKFLOW & APPROVALS ══ -->
+    <div id="vig-workflow" class="vig-tab" style="display:none">
+      <div class="dash-hd">
+        <div style="font-size:1.1rem;font-weight:600;color:var(--cr);">✅ Workflow-Based Approvals & Escalation</div>
+        <button class="btn btn-primary btn-sm" onclick="showToast('New approval request form...')">+ New Request</button>
+      </div>
+
+      <!-- Escalation Workflow -->
+      <div class="info-card" style="margin-bottom:1.2rem;">
+        <div class="ic-title">🔄 Approval & Escalation Hierarchy</div>
+        <div style="display:flex;align-items:center;gap:0;margin-top:.8rem;overflow-x:auto;padding-bottom:.5rem;">
+          <div style="text-align:center;padding:.55rem .8rem;background:rgba(74,173,90,.12);border:1px solid rgba(90,200,110,.25);border-radius:6px;min-width:95px;">
+            <div style="font-size:1rem;">📝</div><div style="font-size:.6rem;color:var(--cn);font-weight:600;margin-top:.15rem;">IO Submits</div><div style="font-size:.55rem;color:var(--ms)">Field Level</div>
+          </div>
+          <div style="font-size:.9rem;color:var(--ms);padding:0 .25rem;">→</div>
+          <div style="text-align:center;padding:.55rem .8rem;background:rgba(201,162,39,.1);border:1px solid rgba(201,162,39,.25);border-radius:6px;min-width:95px;">
+            <div style="font-size:1rem;">👮</div><div style="font-size:.6rem;color:var(--gd);font-weight:600;margin-top:.15rem;">DFO Reviews</div><div style="font-size:.55rem;color:var(--ms)">Division</div>
+          </div>
+          <div style="font-size:.9rem;color:var(--ms);padding:0 .25rem;">→</div>
+          <div style="text-align:center;padding:.55rem .8rem;background:rgba(168,213,226,.1);border:1px solid rgba(168,213,226,.25);border-radius:6px;min-width:95px;">
+            <div style="font-size:1rem;">🏛</div><div style="font-size:.6rem;color:var(--sk);font-weight:600;margin-top:.15rem;">CCF Approves</div><div style="font-size:.55rem;color:var(--ms)">Circle</div>
+          </div>
+          <div style="font-size:.9rem;color:var(--ms);padding:0 .25rem;">→</div>
+          <div style="text-align:center;padding:.55rem .8rem;background:rgba(232,154,60,.1);border:1px solid rgba(232,154,60,.25);border-radius:6px;min-width:95px;">
+            <div style="font-size:1rem;">⚖️</div><div style="font-size:.6rem;color:var(--am);font-weight:600;margin-top:.15rem;">Legal Cell</div><div style="font-size:.55rem;color:var(--ms)">Vetting</div>
+          </div>
+          <div style="font-size:.9rem;color:var(--ms);padding:0 .25rem;">→</div>
+          <div style="text-align:center;padding:.55rem .8rem;background:rgba(74,173,90,.2);border:1px solid rgba(74,173,90,.35);border-radius:6px;min-width:95px;">
+            <div style="font-size:1rem;">✅</div><div style="font-size:.6rem;color:var(--cn);font-weight:600;margin-top:.15rem;">PCCF Final</div><div style="font-size:.55rem;color:var(--ms)">State HQ</div>
+          </div>
+          <div style="font-size:.9rem;color:var(--ms);padding:0 .25rem;">→</div>
+          <div style="text-align:center;padding:.55rem .8rem;background:rgba(224,92,92,.1);border:1px solid rgba(224,92,92,.2);border-radius:6px;min-width:95px;">
+            <div style="font-size:1rem;">🚨</div><div style="font-size:.6rem;color:var(--rd);font-weight:600;margin-top:.15rem;">Auto-Escalate</div><div style="font-size:.55rem;color:var(--ms)">If overdue</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="kpi-row">
+        <div class="kpi amber"><div class="kpi-val">24</div><div class="kpi-label">Awaiting DFO Action</div></div>
+        <div class="kpi blue"><div class="kpi-val">14</div><div class="kpi-label">Awaiting CCF</div></div>
+        <div class="kpi gold"><div class="kpi-val">8</div><div class="kpi-label">Awaiting PCCF</div></div>
+        <div class="kpi red"><div class="kpi-val">12</div><div class="kpi-label">Auto-Escalated</div></div>
+        <div class="kpi green"><div class="kpi-val">142</div><div class="kpi-label">Approved (FY)</div></div>
+      </div>
+
+      <table class="data-table">
+        <thead><tr><th>Request ID</th><th>Case No.</th><th>Type</th><th>Requested By</th><th>Current Stage</th><th>Days Pending</th><th>SLA</th><th>Action</th></tr></thead>
+        <tbody>
+          <tr><td>WF/VIG/0284</td><td>DISC/2026/042</td><td>Charge Sheet Approval</td><td>DFO Chamoli</td><td><span class="status-pill sp-amber">CCF Review</span></td><td style="color:var(--am)">12 days</td><td><span class="status-pill sp-amber">Due: 2 Apr</span></td>
+            <td style="display:flex;gap:.3rem;"><button class="btn btn-sm" style="background:rgba(74,173,90,.3);color:var(--cn);border:none;cursor:pointer;font-family:var(--sans);border-radius:3px;padding:2px 7px;" onclick="showToast('✅ Charge sheet WF/VIG/0284 approved by CCF')">Approve</button><button class="btn btn-sm" style="background:rgba(224,92,92,.25);color:var(--rd);border:none;cursor:pointer;font-family:var(--sans);border-radius:3px;padding:2px 7px;" onclick="showToast('Rejection/Remand form opening...')">Remand</button></td>
+          </tr>
+          <tr><td>WF/VIG/0271</td><td>VIG/2025/841</td><td>Suspension Extension</td><td>CCF Garhwal</td><td><span class="status-pill sp-gold" style="background:rgba(201,162,39,.2);color:var(--gd);">PCCF Review</span></td><td style="color:var(--am)">8 days</td><td><span class="status-pill sp-green">Within SLA</span></td>
+            <td style="display:flex;gap:.3rem;"><button class="btn btn-sm" style="background:rgba(74,173,90,.3);color:var(--cn);border:none;cursor:pointer;font-family:var(--sans);border-radius:3px;padding:2px 7px;" onclick="showToast('✅ Suspension extended — WF/VIG/0271')">Approve</button><button class="btn btn-sm" style="background:rgba(224,92,92,.25);color:var(--rd);border:none;cursor:pointer;font-family:var(--sans);border-radius:3px;padding:2px 7px;" onclick="showToast('Rejection form...')">Reject</button></td>
+          </tr>
+          <tr><td>WF/VIG/0248</td><td>DISC/2026/031</td><td>Final Penalty Order</td><td>Legal Cell</td><td><span class="status-pill sp-red">Auto-Escalated</span></td><td style="color:var(--rd)">32 days</td><td><span class="status-pill sp-red">SLA Breached</span></td>
+            <td><button class="btn btn-sm btn-outline" onclick="showToast('Sending escalation notice to PCCF office...')">Escalate to PCCF</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ══ DOCUMENT MANAGEMENT ══ -->
+    <div id="vig-documents" class="vig-tab" style="display:none">
+      <div class="dash-hd">
+        <div style="font-size:1.1rem;font-weight:600;color:var(--cr);">📁 Document Management & Case History</div>
+        <div style="display:flex;gap:.5rem;">
+          <button class="btn btn-outline btn-sm" onclick="showToast('Uploading new case document...')">⬆ Upload Document</button>
+          <button class="btn btn-primary btn-sm" onclick="showToast('Document search loading...')">🔍 Search Documents</button>
+        </div>
+      </div>
+
+      <div class="kpi-row">
+        <div class="kpi blue"><div class="kpi-val">1,284</div><div class="kpi-label">Total Documents</div></div>
+        <div class="kpi green"><div class="kpi-val">842</div><div class="kpi-label">Verified / Signed</div></div>
+        <div class="kpi gold"><div class="kpi-val">284 MB</div><div class="kpi-label">Storage Used</div></div>
+        <div class="kpi amber"><div class="kpi-val">124</div><div class="kpi-label">Pending Upload</div></div>
+      </div>
+
+      <div class="tab-row">
+        <button class="tab act" onclick="switchDocTab('recent',this)">🕐 Recent Uploads</button>
+        <button class="tab" onclick="switchDocTab('bycase',this)">📋 By Case</button>
+        <button class="tab" onclick="switchDocTab('bytype',this)">📂 By Document Type</button>
+        <button class="tab" onclick="switchDocTab('history',this)">📜 Case History / Audit Trail</button>
+      </div>
+
+      <div id="doc-recent" class="doc-sub-tab">
+        <table class="data-table">
+          <thead><tr><th>Document Name</th><th>Case No.</th><th>Type</th><th>Uploaded By</th><th>Date</th><th>Size</th><th>Status</th><th>Action</th></tr></thead>
+          <tbody>
+            <tr><td>FIR_copy_FD2026142.pdf</td><td>FD/2026/142</td><td>FIR</td><td>DFO Haridwar</td><td>12 Mar</td><td>1.2 MB</td><td><span class="status-pill sp-green">Verified</span></td><td><button class="btn btn-sm btn-outline" onclick="showToast('Opening FIR document...')">View</button></td></tr>
+            <tr><td>Panchnama_VIG2026284.pdf</td><td>VIG/2026/0284</td><td>Panchnama</td><td>RO Sh. M. Negi</td><td>12 Mar</td><td>0.8 MB</td><td><span class="status-pill sp-green">Verified</span></td><td><button class="btn btn-sm btn-outline" onclick="showToast('Opening Panchnama...')">View</button></td></tr>
+            <tr><td>ChargeSheet_DISC2026042.pdf</td><td>DISC/2026/042</td><td>Charge Sheet</td><td>DFO Chamoli</td><td>10 Mar</td><td>2.4 MB</td><td><span class="status-pill sp-amber">Pending Approval</span></td><td><button class="btn btn-sm btn-outline" onclick="showToast('Opening charge sheet for review...')">Review</button></td></tr>
+            <tr><td>WitnessStatement_FD2026098.pdf</td><td>FD/2026/098</td><td>Witness Statement</td><td>DFO Nainital</td><td>8 Mar</td><td>0.6 MB</td><td><span class="status-pill sp-green">Verified</span></td><td><button class="btn btn-sm btn-outline" onclick="showToast('Opening witness statement...')">View</button></td></tr>
+            <tr><td>CourtOrder_FD2025412.pdf</td><td>FD/2025/412</td><td>Court Judgment</td><td>Legal Cell</td><td>15 Mar</td><td>3.2 MB</td><td><span class="status-pill sp-green">Final</span></td><td><button class="btn btn-sm btn-outline" onclick="showToast('Opening judgment order...')">View</button></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div id="doc-bycase" class="doc-sub-tab" style="display:none">
+        <div class="search-bar" style="margin-bottom:1rem;max-width:400px;"><span class="search-ico">🔍</span><input class="search-inp" placeholder="Enter case number..."></div>
+        <div class="info-card">
+          <div class="ic-title">📋 Case: FD/2026/142 — All Documents</div>
+          <table class="data-table">
+            <thead><tr><th>#</th><th>Document</th><th>Type</th><th>Date</th><th>Status</th><th>Action</th></tr></thead>
+            <tbody>
+              <tr><td>1</td><td>FIR Copy (FIR/2026/142)</td><td>FIR</td><td>12 Mar</td><td><span class="status-pill sp-green">Verified</span></td><td><button class="btn btn-sm btn-outline" onclick="showToast('Viewing FIR...')">View</button></td></tr>
+              <tr><td>2</td><td>Panchnama — Timber Seizure</td><td>Panchnama</td><td>12 Mar</td><td><span class="status-pill sp-green">Verified</span></td><td><button class="btn btn-sm btn-outline" onclick="showToast('Viewing Panchnama...')">View</button></td></tr>
+              <tr><td>3</td><td>Site Photographs (12 photos)</td><td>Evidence Photo</td><td>12 Mar</td><td><span class="status-pill sp-green">Verified</span></td><td><button class="btn btn-sm btn-outline" onclick="showToast('Opening photo gallery...')">View</button></td></tr>
+              <tr><td>4</td><td>Chargesheet (pending)</td><td>Chargesheet</td><td>—</td><td><span class="status-pill sp-amber">Pending Upload</span></td><td><button class="btn btn-sm btn-outline" onclick="showToast('Upload chargesheet for FD/2026/142...')">⬆ Upload</button></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div id="doc-bytype" class="doc-sub-tab" style="display:none">
+        <div class="grid-3">
+          <div class="info-card" style="cursor:pointer;" onclick="showToast('Viewing all FIRs...')"><div class="ic-title">📄 FIRs & Complaints</div><div class="ic-row"><span class="ic-key">Total</span><span class="ic-val">142 documents</span></div><div class="ic-row"><span class="ic-key">Verified</span><span class="ic-val">128</span></div></div>
+          <div class="info-card" style="cursor:pointer;" onclick="showToast('Viewing all Chargesheets...')"><div class="ic-title">📋 Chargesheets</div><div class="ic-row"><span class="ic-key">Total</span><span class="ic-val">48 documents</span></div><div class="ic-row"><span class="ic-key">Approved</span><span class="ic-val">38</span></div></div>
+          <div class="info-card" style="cursor:pointer;" onclick="showToast('Viewing all Court Orders...')"><div class="ic-title">🏛 Court Orders</div><div class="ic-row"><span class="ic-key">Total</span><span class="ic-val">284 documents</span></div><div class="ic-row"><span class="ic-key">Latest</span><span class="ic-val">25 Mar 2026</span></div></div>
+          <div class="info-card" style="cursor:pointer;" onclick="showToast('Viewing all Panchnamas...')"><div class="ic-title">🔬 Panchnamas</div><div class="ic-row"><span class="ic-key">Total</span><span class="ic-val">142 documents</span></div><div class="ic-row"><span class="ic-key">Verified</span><span class="ic-val">138</span></div></div>
+          <div class="info-card" style="cursor:pointer;" onclick="showToast('Viewing all Evidence Photos...')"><div class="ic-title">📸 Evidence Photos</div><div class="ic-row"><span class="ic-key">Total</span><span class="ic-val">3,284 photos</span></div><div class="ic-row"><span class="ic-key">Geo-tagged</span><span class="ic-val">2,841</span></div></div>
+          <div class="info-card" style="cursor:pointer;" onclick="showToast('Viewing all Penalty Orders...')"><div class="ic-title">⚖️ Penalty Orders</div><div class="ic-row"><span class="ic-key">Total</span><span class="ic-val">84 documents</span></div><div class="ic-row"><span class="ic-key">Issued (FY)</span><span class="ic-val">24</span></div></div>
+        </div>
+      </div>
+
+      <div id="doc-history" class="doc-sub-tab" style="display:none">
+        <div class="info-card">
+          <div class="ic-title">📜 Case Audit Trail — VIG/2026/0284 (Illegal Felling, Haridwar)</div>
+          <table class="data-table">
+            <thead><tr><th>Date & Time</th><th>Action</th><th>By</th><th>Role</th><th>Remarks</th></tr></thead>
+            <tbody>
+              <tr><td>12 Mar 10:42 AM</td><td>Case Registered</td><td>DFO Sh. A. Sharma</td><td>DFO</td><td>FIR received from PS Roorkee</td></tr>
+              <tr><td>12 Mar 11:15 AM</td><td>IO Assigned</td><td>System (Auto)</td><td>System</td><td>RO Sh. M. Negi assigned as IO</td></tr>
+              <tr><td>12 Mar 02:30 PM</td><td>FIR Uploaded</td><td>RO Sh. M. Negi</td><td>IO</td><td>FIR/2026/142 — 3 accused</td></tr>
+              <tr><td>13 Mar 09:00 AM</td><td>Panchnama Uploaded</td><td>RO Sh. M. Negi</td><td>IO</td><td>Timber 2.4 MT seized, lorry impounded</td></tr>
+              <tr><td>18 Mar 03:00 PM</td><td>Forwarded to CCF</td><td>DFO Sh. A. Sharma</td><td>DFO</td><td>Sent for circle-level approval</td></tr>
+              <tr><td>20 Mar 10:00 AM</td><td>CCF Comment Added</td><td>CCF Sh. B.D. Negi</td><td>CCF</td><td>Directed to file chargesheet within 15 days</td></tr>
+              <tr><td>25 Mar 04:00 PM</td><td>Reminder Sent</td><td>System (Auto)</td><td>System</td><td>Chargesheet due in 7 days — automated alert</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ PENDENCY MONITOR ══ -->
+    <div id="vig-pendency" class="vig-tab" style="display:none">
+      <div style="font-size:1.1rem;font-weight:600;color:var(--cr);margin-bottom:1.2rem;">⏱ Pendency, Timeline & Compliance Monitoring</div>
+      <div class="kpi-row">
+        <div class="kpi red"><div class="kpi-val">84</div><div class="kpi-label">Overdue Items</div></div>
+        <div class="kpi amber"><div class="kpi-val">48</div><div class="kpi-label">Due in 7 Days</div></div>
+        <div class="kpi gold"><div class="kpi-val">124 days</div><div class="kpi-label">Avg. Case Duration</div></div>
+        <div class="kpi blue"><div class="kpi-val">76%</div><div class="kpi-label">SLA Compliance</div></div>
+      </div>
+      <div class="charts-grid">
+        <div class="chart-card">
+          <div class="cc-hd"><div class="cc-title">📊 Pendency by Category</div></div>
+          <canvas id="vig-pendChart"></canvas>
+        </div>
+        <div class="chart-card">
+          <div class="cc-hd"><div class="cc-title">📅 Case Age Distribution (Days Open)</div></div>
+          <canvas id="vig-ageChart"></canvas>
+        </div>
+      </div>
+      <div class="info-card" style="margin-top:.5rem;">
+        <div class="ic-title" style="display:flex;justify-content:space-between;">
+          <span>📋 Compliance Checklist — SLA Status</span>
+          <button class="btn btn-outline btn-sm" onclick="showToast('Generating SLA compliance report...')">📄 Export</button>
+        </div>
+        <table class="data-table">
+          <thead><tr><th>Activity Type</th><th>SLA (Days)</th><th>Avg. Actual</th><th>Within SLA</th><th>Breached</th><th>Compliance %</th></tr></thead>
+          <tbody>
+            <tr><td>FIR Registration to IO Assignment</td><td>1 day</td><td>1.2 days</td><td>128</td><td>14</td><td><span style="color:var(--cn)">90%</span></td></tr>
+            <tr><td>Investigation Report to DFO</td><td>90 days</td><td>102 days</td><td>68</td><td>30</td><td><span style="color:var(--am)">69%</span></td></tr>
+            <tr><td>DFO Forwarding to CCF</td><td>7 days</td><td>9.4 days</td><td>98</td><td>44</td><td><span style="color:var(--am)">69%</span></td></tr>
+            <tr><td>Enquiry Report Submission</td><td>180 days</td><td>168 days</td><td>32</td><td>16</td><td><span style="color:var(--cn)">67%</span></td></tr>
+            <tr><td>Penalty Order after Report</td><td>30 days</td><td>48 days</td><td>14</td><td>10</td><td><span style="color:var(--rd)">58%</span></td></tr>
+            <tr><td>Court Hearing Preparation</td><td>7 days</td><td>6.8 days</td><td>112</td><td>30</td><td><span style="color:var(--cn)">79%</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ══ REPORTS ══ -->
+    <div id="vig-reports" class="vig-tab" style="display:none">
+      <div style="font-size:1.1rem;font-weight:600;color:var(--cr);margin-bottom:1rem;">📄 MIS Reports — Vigilance & Legal Cell</div>
+      <div class="info-card" style="margin-bottom:1rem;">
+        <div class="ic-title">🔧 Custom Report Builder</div>
+        <div class="form-grid" style="margin-top:.5rem;">
+          <div class="form-group"><label class="form-label">Report Type</label>
+            <select class="form-input"><option>Vigilance Case Status</option><option>Disciplinary Proceedings Register</option><option>Court Case Summary</option><option>Hearing Calendar</option><option>Pendency Report</option><option>SLA Compliance Report</option><option>Division-wise Case Summary</option><option>Annual Vigilance Report</option><option>Compounding Revenue</option></select>
+          </div>
+          <div class="form-group"><label class="form-label">Division</label>
+            <select class="form-input"><option>All Divisions</option><option>Dehradun</option><option>Haridwar</option><option>Nainital</option><option>Almora</option><option>Chamoli</option></select>
+          </div>
+          <div class="form-group"><label class="form-label">Period</label>
+            <select class="form-input"><option>Current Month</option><option>FY 2025-26</option><option>FY 2024-25</option><option>Custom Range</option></select>
+          </div>
+          <div class="form-group"><label class="form-label">Format</label>
+            <select class="form-input"><option>PDF</option><option>Excel (.xlsx)</option><option>CSV</option></select>
+          </div>
+        </div>
+        <div class="form-actions" style="margin-top:.8rem;">
+          <button class="btn btn-primary btn-sm" onclick="showToast('✅ Generating Vigilance MIS report...')">📊 Generate</button>
+          <button class="btn btn-outline btn-sm" onclick="showToast('Opening report preview...')">👁 Preview</button>
+          <button class="btn btn-outline btn-sm" onclick="showToast('Scheduling auto-report delivery...')">⏰ Schedule</button>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:.6rem;">
+        <div class="info-card" style="display:flex;align-items:center;justify-content:space-between;padding:.8rem 1.2rem;">
+          <div><div style="font-size:.78rem;font-weight:600;color:var(--cr);">🔍 Monthly Vigilance Case Register — March 2026</div><div style="font-size:.65rem;color:var(--ms);">All Divisions · Active + Disposed · PDF</div></div>
+          <div style="display:flex;gap:.5rem;"><button class="btn btn-outline btn-sm" onclick="showToast('Previewing monthly case register...')">👁 Preview</button><button class="btn btn-primary btn-sm" onclick="showToast('Downloading Monthly Vigilance Register...')">⬇ Download</button></div>
+        </div>
+        <div class="info-card" style="display:flex;align-items:center;justify-content:space-between;padding:.8rem 1.2rem;">
+          <div><div style="font-size:.78rem;font-weight:600;color:var(--cr);">📋 Disciplinary Proceedings Status Report</div><div style="font-size:.65rem;color:var(--ms);">Active + closed · EO-wise · FY 2025-26 · Excel</div></div>
+          <div style="display:flex;gap:.5rem;"><button class="btn btn-outline btn-sm" onclick="showToast('Previewing disciplinary report...')">👁 Preview</button><button class="btn btn-primary btn-sm" onclick="showToast('Downloading Disciplinary Report...')">⬇ Download</button></div>
+        </div>
+        <div class="info-card" style="display:flex;align-items:center;justify-content:space-between;padding:.8rem 1.2rem;">
+          <div><div style="font-size:.78rem;font-weight:600;color:var(--cr);">🏛 Court Case Summary & Hearing Calendar</div><div style="font-size:.65rem;color:var(--ms);">142 cases · Court-wise · Next 30 days calendar · PDF</div></div>
+          <div style="display:flex;gap:.5rem;"><button class="btn btn-outline btn-sm" onclick="showToast('Previewing court case summary...')">👁 Preview</button><button class="btn btn-primary btn-sm" onclick="showToast('Downloading Court Case Report...')">⬇ Download</button></div>
+        </div>
+        <div class="info-card" style="display:flex;align-items:center;justify-content:space-between;padding:.8rem 1.2rem;">
+          <div><div style="font-size:.78rem;font-weight:600;color:var(--cr);">⏱ Pendency & SLA Compliance Report — Q4 FY 2025-26</div><div style="font-size:.65rem;color:var(--ms);">Overdue cases · SLA breach analysis · Excel</div></div>
+          <div style="display:flex;gap:.5rem;"><button class="btn btn-outline btn-sm" onclick="showToast('Previewing pendency report...')">👁 Preview</button><button class="btn btn-primary btn-sm" onclick="showToast('Downloading Pendency Report...')">⬇ Download</button></div>
+        </div>
+        <div class="info-card" style="display:flex;align-items:center;justify-content:space-between;padding:.8rem 1.2rem;">
+          <div><div style="font-size:.78rem;font-weight:600;color:var(--cr);">📈 Annual Vigilance Report — FY 2025-26</div><div style="font-size:.65rem;color:var(--ms);">Comprehensive · For Govt./Vigilance Commission · PDF</div></div>
+          <div style="display:flex;gap:.5rem;"><button class="btn btn-outline btn-sm" onclick="showToast('Previewing annual report...')">👁 Preview</button><button class="btn btn-primary btn-sm" onclick="showToast('Downloading Annual Vigilance Report...')">⬇ Download</button></div>
+        </div>
+        <div class="info-card" style="display:flex;align-items:center;justify-content:space-between;padding:.8rem 1.2rem;">
+          <div><div style="font-size:.78rem;font-weight:600;color:var(--cr);">💰 Compounding & Fine Realization Report</div><div style="font-size:.65rem;color:var(--ms);">₹48L collected · Division-wise breakup · Excel</div></div>
+          <div style="display:flex;gap:.5rem;"><button class="btn btn-outline btn-sm" onclick="showToast('Previewing fine report...')">👁 Preview</button><button class="btn btn-primary btn-sm" onclick="showToast('Downloading Compounding Revenue Report...')">⬇ Download</button></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end mod-main -->
+</div><!-- end mod-page-layout -->
+</div><!-- end page-vigilance -->
+
 
 <div class="page" id="page-sfm"><div class="topbar"><div class="topbar-brand" onclick="showPage('home')">🌲 UFD Portal</div><div class="topbar-nav"><button class="tnav" onclick="showPage('home')">← Home</button><button class="tnav act">🔥 Scientific Mgmt</button></div><div class="topbar-right"><button class="lang-btn" onclick="toggleLang()">🌐 हिंदी / EN</button></div></div><div style="padding:2rem;"><div class="mod-page-title">🔥 Scientific Forest Management</div><div class="mod-page-sub" style="margin-bottom:1.5rem;">Fire management, nurseries, assets and infrastructure</div><div class="kpi-row"><div class="kpi red"><div class="kpi-val">23</div><div class="kpi-label">Active Fires</div></div><div class="kpi green"><div class="kpi-val">847</div><div class="kpi-label">Nurseries</div></div><div class="kpi gold"><div class="kpi-val">4,210</div><div class="kpi-label">Asset Records</div></div><div class="kpi blue"><div class="kpi-val">2,840 km</div><div class="kpi-label">Forest Roads</div></div></div><div class="notice-grid" style="margin-top:1rem;"><div class="info-card"><div class="ic-title">🔥 Fire Management Status</div><div class="ic-row"><span class="ic-key">Fire Weather Index</span><span class="ic-val" style="color:var(--rd);">HIGH (8.4)</span></div><div class="ic-row"><span class="ic-key">MODIS Active Alerts</span><span class="ic-val">23</span></div><div class="ic-row"><span class="ic-key">Firelines Cleared</span><span class="ic-val">1,240 km</span></div><button class="btn btn-danger btn-sm" style="margin-top:.8rem;" onclick="openModal('fireModal')">🚨 Report Fire</button></div><div class="info-card"><div class="ic-title">🌱 Nursery Summary</div><div class="ic-row"><span class="ic-key">Active Nurseries</span><span class="ic-val">847</span></div><div class="ic-row"><span class="ic-key">Stock Available</span><span class="ic-val">24.8L saplings</span></div><div class="ic-row"><span class="ic-key">Production Target</span><span class="ic-val">1.2M</span></div><button class="btn btn-outline btn-sm" style="margin-top:.8rem;" onclick="showToast('Nursery management portal loading...')">Manage Nurseries</button></div></div></div></div>
 
@@ -2893,6 +4172,8 @@ function showPage(name) {
   if (name === 'dashboard') { setTimeout(initCharts, 200); }
   if (name === 'campa') setTimeout(initCampaCharts, 200);
   if (name === 'hrd') setTimeout(function(){ hrdTab('attendance', null); }, 150);
+  if (name === 'vigilance') setTimeout(function(){ vigTab('dashboard', null); }, 150);
+  if (name === 'schemes') setTimeout(function(){ schTab('dashboard', null); }, 150);
   if (name === 'ntfp') setTimeout(function(){ ntfpTab('mapping', null); }, 150);
   if (name === 'vanpanchayat') setTimeout(function(){ vpTab('directory', null); }, 150);
   if (name === 'ecotourism') setTimeout(initEcoCharts, 200);
@@ -3225,6 +4506,529 @@ function initHrdRetirementChart() {
 }
 
 
+
+
+// ══ VIGILANCE TAB SWITCH ══
+function vigTab(name, btn) {
+  document.querySelectorAll('#page-vigilance .vig-tab').forEach(t => t.style.display='none');
+  const tab = document.getElementById('vig-'+name);
+  if(tab) tab.style.display='block';
+  document.querySelectorAll('#page-vigilance .ds-lnk').forEach(b => b.classList.remove('act'));
+  const sb = document.getElementById('vig-sb-'+name);
+  if(sb) sb.classList.add('act');
+  if(btn && btn.classList && btn.classList.contains('tnav')) {
+    document.querySelectorAll('#page-vigilance .tnav').forEach(b => b.classList.remove('act'));
+    btn.classList.add('act');
+  }
+  const chartMap = { 'dashboard': initVigDashCharts, 'pendency': initVigPendCharts };
+  if(chartMap[name]) setTimeout(chartMap[name], 120);
+}
+
+function setVigRole(role, btn) {
+  document.querySelectorAll('#page-vigilance .filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const labels = { pccf:'PCCF Level — All Cases State-wide', ccf:'CCF Level — Circle Cases', dfo:'DFO Level — Division Cases', legal:'Legal Cell — Court Cases & Litigation' };
+  const el = document.getElementById('vig-role-label');
+  if(el) el.textContent = labels[role]||'';
+  showToast('Dashboard: '+btn.textContent.trim());
+  setTimeout(initVigDashCharts,100);
+}
+
+function switchVigRegTab(name, btn) {
+  document.querySelectorAll('.vig-reg-tab').forEach(t => t.style.display='none');
+  const t = document.getElementById('vr-'+name);
+  if(t) t.style.display='block';
+  if(btn && btn.classList && btn.classList.contains('tab')) {
+    btn.closest('.tab-row').querySelectorAll('.tab').forEach(b => b.classList.remove('act'));
+    btn.classList.add('act');
+  }
+}
+
+function switchDocTab(name, btn) {
+  document.querySelectorAll('.doc-sub-tab').forEach(t => t.style.display='none');
+  const t = document.getElementById('doc-'+name);
+  if(t) t.style.display='block';
+  if(btn) { btn.closest('.tab-row').querySelectorAll('.tab').forEach(b=>b.classList.remove('act')); btn.classList.add('act'); }
+}
+
+function vigCaseDetail(caseNo) { showToast('Opening full case file: '+caseNo); vigTab('documents',null); }
+function vigDEDetail(caseNo)   { showToast('Opening DE details: '+caseNo); }
+function courtDetail(caseNo)   { showToast('Opening court case: '+caseNo); }
+
+// ══ VIGILANCE CHARTS ══
+function initVigDashCharts() {
+  mkChart('vig-catChart','doughnut',{
+    labels:['Illegal Felling','Encroachment','Poaching','NTFP Theft','Corruption','DA Cases','Others'],
+    datasets:[{data:[84,62,38,42,24,18,16],backgroundColor:['#e05c5c','#e89a3c','#c9a227','#4aad5a','#a8d5e2','#8bc88f','#6b4c2a'],borderWidth:0}]
+  });
+  const m=['Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec','Jan','Feb','Mar'];
+  mkChart('vig-trendChart','line',{
+    labels:m,
+    datasets:[
+      {label:'New Cases',data:[18,22,28,32,24,18,14,12,16,24,28,32],borderColor:'#e05c5c',backgroundColor:'rgba(224,92,92,.1)',fill:true,tension:.4},
+      {label:'Disposed',data:[12,14,18,22,18,14,10,8,12,18,22,24],borderColor:'#4aad5a',backgroundColor:'rgba(74,173,90,.08)',fill:true,tension:.4}
+    ]
+  });
+  mkChart('vig-courtChart','doughnut',{
+    labels:['Notice Stage','Hearing','Arguments','Judgment Reserved','Disposed — Convicted','Disposed — Acquitted','Compounded'],
+    datasets:[{data:[18,42,28,14,24,8,8],backgroundColor:['#a8d5e2','#e89a3c','#c9a227','#e05c5c','#4aad5a','#8bc88f','#6b4c2a'],borderWidth:0}]
+  });
+  mkChart('vig-hearingChart','bar',{
+    labels:['Week 1','Week 2','Week 3','Week 4'],
+    datasets:[
+      {label:'HC Nainital',data:[4,6,3,5],backgroundColor:'rgba(168,213,226,.7)'},
+      {label:'Sessions/JM',data:[8,12,6,10],backgroundColor:'rgba(232,154,60,.65)'},
+      {label:'NGT/Others',data:[2,3,1,2],backgroundColor:'rgba(74,173,90,.7)'}
+    ]
+  });
+}
+
+function initVigPendCharts() {
+  mkChart('vig-pendChart','bar',{
+    labels:['Illegal Felling','Encroachment','Poaching','NTFP','Corruption','DA Cases'],
+    datasets:[
+      {label:'Within SLA',data:[62,44,28,32,16,10],backgroundColor:'rgba(74,173,90,.72)'},
+      {label:'Overdue',data:[22,18,10,10,8,8],backgroundColor:'rgba(224,92,92,.7)'}
+    ]
+  });
+  mkChart('vig-ageChart','bar',{
+    labels:['0-30 days','31-60','61-90','91-180','181-365','>365 days'],
+    datasets:[{label:'Cases',data:[48,62,38,74,42,20],backgroundColor:function(ctx){
+      const colors=['rgba(74,173,90,.72)','rgba(74,173,90,.65)','rgba(232,154,60,.7)','rgba(232,154,60,.65)','rgba(224,92,92,.7)','rgba(224,92,92,.8)'];
+      return colors[ctx.dataIndex]||'rgba(74,173,90,.7)';
+    },borderWidth:0}]
+  });
+}
+
+
+// ══════════════════════════════════════════════════
+//  SCHEME REGISTRATION & EXPORT FUNCTIONS
+// ══════════════════════════════════════════════════
+
+// ── Registration wizard ──
+function schRegNext(step) {
+  // Validate current step
+  if (step === 1) {
+    const name = document.getElementById('sr-name').value.trim();
+    const type = document.getElementById('sr-type').value;
+    const start = document.getElementById('sr-start').value;
+    const end = document.getElementById('sr-end').value;
+    if (!name) { showToast('⚠️ Scheme Name is required', true); return; }
+    if (!type) { showToast('⚠️ Scheme Type is required', true); return; }
+    if (!start) { showToast('⚠️ Start Date is required', true); return; }
+    if (!end)   { showToast('⚠️ End Date is required', true); return; }
+    if (end <= start) { showToast('⚠️ End date must be after start date', true); return; }
+  }
+  if (step === 2) {
+    const outlay = document.getElementById('sr-outlay').value;
+    if (!outlay || parseFloat(outlay) <= 0) { showToast('⚠️ Total Outlay is required', true); return; }
+  }
+  if (step === 3) {
+    const target = document.getElementById('sr-target').value;
+    if (!target || parseInt(target) <= 0) { showToast('⚠️ Physical Target is required', true); return; }
+    buildReview();
+  }
+  // Move to next step
+  document.getElementById('sch-step'+step).style.display = 'none';
+  document.getElementById('sch-step'+(step+1)).style.display = 'block';
+  updateStepIndicators(step+1);
+}
+
+function schRegPrev(step) {
+  document.getElementById('sch-step'+step).style.display = 'none';
+  document.getElementById('sch-step'+(step-1)).style.display = 'block';
+  updateStepIndicators(step-1);
+}
+
+function updateStepIndicators(active) {
+  for (let i = 1; i <= 4; i++) {
+    const el = document.getElementById('step-ind-'+i);
+    if (!el) continue;
+    if (i === active) {
+      el.style.color = 'var(--cn)';
+      el.style.background = 'rgba(74,173,90,.15)';
+      el.style.borderColor = 'rgba(74,173,90,.35)';
+    } else if (i < active) {
+      el.style.color = 'var(--ms)';
+      el.style.background = 'rgba(74,173,90,.07)';
+      el.style.borderColor = 'rgba(74,173,90,.2)';
+    } else {
+      el.style.color = 'var(--ms)';
+      el.style.background = 'transparent';
+      el.style.borderColor = 'rgba(90,200,110,.15)';
+    }
+  }
+}
+
+function calcSchFinance() {
+  const outlay = parseFloat(document.getElementById('sr-outlay').value) || 0;
+  const goi    = parseFloat(document.getElementById('sr-goi').value)    || 0;
+  const state  = parseFloat(document.getElementById('sr-state').value)  || 0;
+  const sumEl  = document.getElementById('sr-finance-summary');
+  if (outlay > 0) {
+    sumEl.style.display = 'block';
+    document.getElementById('sr-sum-outlay').textContent = '₹' + outlay.toFixed(2) + ' Cr';
+    document.getElementById('sr-sum-goi').textContent    = goi   > 0 ? '₹' + goi.toFixed(2) + ' Cr'   : '—';
+    document.getElementById('sr-sum-state').textContent  = state > 0 ? '₹' + state.toFixed(2) + ' Cr' : '—';
+    if (goi > 0 && state > 0) {
+      const r = Math.round(goi/outlay*100) + ':' + Math.round(state/outlay*100);
+      document.getElementById('sr-sum-ratio').textContent = r;
+    } else {
+      document.getElementById('sr-sum-ratio').textContent = '—';
+    }
+  } else {
+    sumEl.style.display = 'none';
+  }
+}
+
+function addDivisionRow() {
+  const tbody = document.getElementById('sr-div-tbody');
+  const divOptions = ['Dehradun','Haridwar','Nainital','Almora','Chamoli','Uttarkashi','Pithoragarh','Tehri','Pauri Garhwal','Bageshwar','Rudraprayag','US Nagar','Champawat'];
+  const opts = divOptions.map(d => '<option>'+d+'</option>').join('');
+  const tr = document.createElement('tr');
+  tr.innerHTML = '<td><select class="form-input" style="padding:.3rem .5rem;font-size:.7rem;">'+opts+'</select></td>'
+    + '<td><input class="form-input" type="number" step="0.01" placeholder="0.00" style="padding:.3rem .5rem;font-size:.7rem;"></td>'
+    + '<td><input class="form-input" type="number" placeholder="0" style="padding:.3rem .5rem;font-size:.7rem;"></td>'
+    + '<td><input class="form-input" placeholder="DFO name" style="padding:.3rem .5rem;font-size:.7rem;"></td>'
+    + '<td><button onclick="this.closest('tr').remove();return false;" style="background:none;border:none;color:var(--rd);cursor:pointer;font-size:1rem;">✕</button></td>';
+  tbody.appendChild(tr);
+}
+
+function updateCoverageHint(val) {
+  showToast('Coverage set to: ' + val);
+}
+
+function buildReview() {
+  const name     = document.getElementById('sr-name').value      || '—';
+  const type     = document.getElementById('sr-type').value      || '—';
+  const ministry = document.getElementById('sr-ministry').value  || '—';
+  const start    = document.getElementById('sr-start').value     || '—';
+  const end      = document.getElementById('sr-end').value       || '—';
+  const outlay   = document.getElementById('sr-outlay').value    || '—';
+  const target   = document.getElementById('sr-target').value    || '—';
+  const unit     = document.getElementById('sr-unit').value      || '—';
+  const benes    = document.getElementById('sr-benes').value     || '—';
+  const status   = document.getElementById('sr-status').value    || '—';
+  const category = document.getElementById('sr-category').value  || '—';
+
+  // Count division rows
+  const divRows = document.querySelectorAll('#sr-div-tbody tr').length;
+
+  document.getElementById('sr-review-content').innerHTML =
+    '<div class="ic-row"><span class="ic-key">Scheme Name</span><span class="ic-val" style="color:var(--cr);font-weight:600">'+name+'</span></div>' +
+    '<div class="ic-row"><span class="ic-key">Type</span><span class="ic-val">'+type+'</span></div>' +
+    '<div class="ic-row"><span class="ic-key">Nodal Ministry</span><span class="ic-val">'+ministry+'</span></div>' +
+    '<div class="ic-row"><span class="ic-key">Category</span><span class="ic-val">'+category+'</span></div>' +
+    '<div class="ic-row"><span class="ic-key">Duration</span><span class="ic-val">'+start+' to '+end+'</span></div>' +
+    '<div class="ic-row"><span class="ic-key">Total Outlay</span><span class="ic-val" style="color:var(--gd)">₹'+outlay+' Crore</span></div>' +
+    '<div class="ic-row"><span class="ic-key">Physical Target</span><span class="ic-val">'+target+' '+unit+'</span></div>' +
+    '<div class="ic-row"><span class="ic-key">Expected Beneficiaries</span><span class="ic-val">'+benes+'</span></div>' +
+    '<div class="ic-row"><span class="ic-key">Status</span><span class="ic-val">'+status+'</span></div>' +
+    '<div class="ic-row"><span class="ic-key">Divisions Allocated</span><span class="ic-val">'+divRows+' division(s)</span></div>';
+
+  // Generate scheme ID
+  const abbr = name.split(' ').slice(0,3).map(w=>w[0]).join('').toUpperCase() || 'SCH';
+  document.getElementById('sr-preview-id').textContent = 'SCH/' + abbr + '/' + new Date().getFullYear();
+}
+
+function saveSchemeDraft() {
+  const name = document.getElementById('sr-name').value.trim() || 'Unnamed';
+  showToast('💾 Draft saved: DRAFT-SCH-' + name.substring(0,12).replace(/\s+/g,'-').toUpperCase());
+}
+
+function submitSchemeReg() {
+  const name   = document.getElementById('sr-name').value.trim();
+  const type   = document.getElementById('sr-type').value;
+  const outlay = document.getElementById('sr-outlay').value;
+  if (!name || !type || !outlay) {
+    showToast('⚠️ Please complete all required fields before submitting', true);
+    return;
+  }
+  const abbr = name.split(' ').slice(0,3).map(w=>w[0]).join('').toUpperCase();
+  const schId = 'SCH/' + abbr + '/' + new Date().getFullYear();
+  closeModal('schemeRegModal');
+  // Reset form
+  ['sr-name','sr-type','sr-ministry','sr-agency','sr-start','sr-end','sr-category','sr-status','sr-objectives','sr-authority','sr-order',
+   'sr-outlay','sr-goi','sr-state','sr-bene','sr-inst1','sr-target','sr-benes'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) { el.tagName==='SELECT' ? el.selectedIndex=0 : el.value=''; }
+  });
+  // Reset steps
+  for (let i=1;i<=4;i++) {
+    const s = document.getElementById('sch-step'+i);
+    if (s) s.style.display = i===1 ? 'block' : 'none';
+  }
+  updateStepIndicators(1);
+  // Show success and add row to table
+  showToast('✅ Scheme ' + schId + ' registered! Workflow triggered. PCCF notified.');
+  // Dynamically add to schemes table
+  addSchemeToTable(schId, name, type, outlay);
+}
+
+function addSchemeToTable(schId, name, type, outlay) {
+  const tbody = document.querySelector('#sch-schemes table tbody');
+  if (!tbody) return;
+  const now = new Date();
+  const month = now.toLocaleString('default',{month:'short'});
+  const year  = now.getFullYear();
+  const tr = document.createElement('tr');
+  tr.innerHTML =
+    '<td>'+schId+'</td>' +
+    '<td><strong>'+name+'</strong></td>' +
+    '<td>'+type+'</td>' +
+    '<td>DoF UK</td>' +
+    '<td>'+parseFloat(outlay).toFixed(1)+'</td>' +
+    '<td>—</td>' +
+    '<td>₹0 (0%)</td>' +
+    '<td>0</td>' +
+    '<td>'+month+' '+year+'</td>' +
+    '<td>—</td>' +
+    '<td><span class="status-pill sp-blue">Proposed</span></td>' +
+    '<td><button class="btn btn-sm btn-outline" onclick="showToast('Viewing scheme: '+schId+'')">Details</button></td>';
+  tbody.insertBefore(tr, tbody.firstChild);
+  // Switch to schemes tab to show result
+  schTab('schemes', null);
+}
+
+// ── EXPORT FUNCTIONS ──
+function exportSchemeList() {
+  const rows = [
+    ['Scheme ID','Scheme Name','Type','Nodal Agency','Outlay (₹Cr)','Released','Utilized','Beneficiaries','Start','End','Status'],
+    ['SCH/GIM/2021','Green India Mission','GoI-CSS','MoEFCC','84.2','₹62Cr','₹52Cr (62%)','24800','Apr 2021','Mar 2026','Active'],
+    ['SCH/NAP/2020','National Afforestation Programme','GoI-CSS','NAEB','42.8','₹38Cr','₹33Cr (78%)','12400','Apr 2020','Mar 2025','Active'],
+    ['SCH/CAMPA/2025','CAMPA Plantation Works','CAMPA','PCCF HQ','124.0','₹48Cr','₹17Cr (14%)','48000','Apr 2025','Mar 2026','Active'],
+    ['SCH/HMP/2025','Harela Mahotsav Plantation','State','DoF UK','18.4','₹18Cr','₹17.5Cr (95%)','80000','Jul 2025','Sep 2025','Completed'],
+    ['SCH/MJMD/2024','Mera Jungle Mera Dhan','State','DoF UK','12.0','₹8Cr','₹5.4Cr (45%)','8200','Apr 2024','Mar 2027','In Progress'],
+    ['SCH/IFD/2022','Integrated Forest Development','GoI-CSS','MoEFCC','28.6','₹24Cr','₹20Cr (71%)','9400','Apr 2022','Mar 2027','Active'],
+    ['SCH/MGNR/2025','MGNREGS Forest Works','GoI-CSS','DoRD+DoF','84.0','₹72Cr','₹68Cr (81%)','42000','Apr 2025','Mar 2026','Active'],
+    ['SCH/PMGSY/2024','Forest Village Development','State','DoF UK','22.4','₹14Cr','₹9Cr (40%)','6800','Oct 2024','Sep 2026','In Progress']
+  ];
+  downloadCSV(rows, 'UFD_Scheme_Registry_' + formatDate() + '.csv');
+  showToast('✅ Scheme list exported as CSV — check your Downloads folder');
+}
+
+function exportProgressData() {
+  const rows = [
+    ['Scheme','Division','Sanctioned (₹Cr)','Released','Expended','Financial%','Target','Achieved','Physical%','Status'],
+    ['GIM','Dehradun','12.4','10.8','8.4','68%','1240 Ha','862 Ha','70%','On Track'],
+    ['GIM','Almora','10.2','9.4','8.2','80%','980 Ha','890 Ha','91%','On Track'],
+    ['CAMPA','Chamoli','18.4','8.2','2.8','15%','2400 Ha','480 Ha','20%','Critical'],
+    ['NAP','Haridwar','8.4','8.0','7.2','86%','820 Ha','724 Ha','88%','On Track'],
+    ['MJMD','Pithoragarh','4.2','3.0','1.8','43%','840 units','380 units','45%','Lagging'],
+    ['MGNREGS','Nainital','14.2','14.0','12.8','90%','4200 person-days','3948','94%','On Track']
+  ];
+  downloadCSV(rows, 'UFD_Progress_Report_' + formatDate() + '.csv');
+  showToast('✅ Progress data exported — check your Downloads folder');
+}
+
+function exportAssetRegister() {
+  const rows = [
+    ['Asset Type','Count / Length','Total Value (₹Cr)','Geo-tagged','Condition','Maintenance Due'],
+    ['Forest Roads','284 km','142','284 km (100%)','Good Condition','48 km'],
+    ['Check Dams / Bunds','842 units','42','798 units (95%)','Operational','124 units'],
+    ['Nurseries','847 units','28','847 units (100%)','Active','82 units'],
+    ['Watchtowers','248 units','18','248 units (100%)','Operational','42 units'],
+    ['FRC / FRH Buildings','384 units','48','312 units (81%)','Active','28 units'],
+    ['Water Harvesting Structures','236 units','6','198 units (84%)','Functional','18 units']
+  ];
+  downloadCSV(rows, 'UFD_Asset_Register_' + formatDate() + '.csv');
+  showToast('✅ Asset register exported — check your Downloads folder');
+}
+
+function exportReport(reportKey, format) {
+  const reportNames = {
+    'monthly_mis_march2026': 'Monthly_MIS_Report_March2026',
+    'q4_fund_utilization':   'Q4_Fund_Utilization_FY2526',
+    'activity_progress_fy2526': 'Activity_Progress_FY2526',
+    'asset_register_2526':   'Asset_Register_FY2526',
+    'workflow_compliance':   'Workflow_Compliance_Report',
+    'annual_mis_2526':       'Annual_MIS_FY2526'
+  };
+  const name = reportNames[reportKey] || reportKey;
+  // For PDF reports we export as CSV (browser limitation); for Excel as CSV
+  const sampleData = [
+    ['Report', name],
+    ['Generated On', new Date().toLocaleString('en-IN')],
+    ['Department', 'Uttarakhand Forest Department'],
+    ['Generated By', 'UFD MIS Portal v2.0'],
+    [''],
+    ['Scheme','Division','Physical Progress %','Financial %','Status'],
+    ['Green India Mission','Dehradun','70%','68%','On Track'],
+    ['CAMPA','Chamoli','20%','15%','Critical'],
+    ['NAP','Haridwar','88%','86%','On Track'],
+    ['MGNREGS','Nainital','94%','90%','On Track'],
+    ['Harela Mahotsav','All Divisions','95%','95%','Completed']
+  ];
+  const ext = format === 'Excel' ? 'csv' : 'csv';
+  downloadCSV(sampleData, name + '_' + formatDate() + '.' + ext);
+  showToast('✅ ' + name + ' exported (' + format + ') — check your Downloads folder');
+}
+
+function generateCustomReport() {
+  // Read selected options
+  const selects = document.querySelectorAll('#sch-reports select');
+  const rType  = selects[0] ? selects[0].value : 'Custom Report';
+  const scheme = selects[1] ? selects[1].value : 'All Schemes';
+  const level  = selects[2] ? selects[2].value : 'State Level';
+  const period = selects[3] ? selects[3].value : 'FY 2025-26';
+  const fmt    = selects[4] ? selects[4].value : 'PDF';
+
+  const rows = [
+    ['Custom MIS Report', rType],
+    ['Scheme Filter', scheme],
+    ['Level', level],
+    ['Period', period],
+    ['Format Requested', fmt],
+    ['Generated On', new Date().toLocaleString('en-IN')],
+    ['Department', 'Uttarakhand Forest Department'],
+    [''],
+    ['Scheme','Division','Physical %','Financial %','Status'],
+    ['GIM','Dehradun','70','68','On Track'],
+    ['GIM','Almora','91','80','On Track'],
+    ['CAMPA','Chamoli','20','15','Critical'],
+    ['NAP','Haridwar','88','86','On Track']
+  ];
+  const filename = ('UFD_' + rType.replace(/\s+/g,'_').replace(/[^a-zA-Z0-9_]/g,'') + '_' + formatDate() + '.csv');
+  downloadCSV(rows, filename);
+  showToast('✅ Custom report generated and downloaded — ' + filename);
+}
+
+// ── CSV / Download helpers ──
+function downloadCSV(rows, filename) {
+  const csv = rows.map(r =>
+    r.map(v => {
+      const s = String(v == null ? '' : v);
+      return (s.includes(',') || s.includes('"') || s.includes('\n'))
+        ? '"' + s.replace(/"/g, '""') + '"'
+        : s;
+    }).join(',')
+  ).join('\r\n');
+
+  const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href     = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(() => URL.revokeObjectURL(url), 2000);
+}
+
+function formatDate() {
+  const d = new Date();
+  return d.getFullYear() + ('0'+(d.getMonth()+1)).slice(-2) + ('0'+d.getDate()).slice(-2);
+}
+// ══════════════════════════════════════════════════
+
+// ══ SCHEMES TAB SWITCH ══
+function schTab(name, btn) {
+  document.querySelectorAll('#page-schemes .sch-tab').forEach(t => t.style.display='none');
+  const tab = document.getElementById('sch-'+name);
+  if(tab) tab.style.display = 'block';
+  document.querySelectorAll('#page-schemes .ds-lnk').forEach(b => b.classList.remove('act'));
+  const sb = document.getElementById('sch-sb-'+name);
+  if(sb) sb.classList.add('act');
+  if(btn && btn.classList && btn.classList.contains('tnav')) {
+    document.querySelectorAll('#page-schemes .tnav').forEach(b => b.classList.remove('act'));
+    btn.classList.add('act');
+  }
+  const chartMap = {
+    'dashboard': initSchDashCharts,
+    'progress': initSchProgressCharts,
+  };
+  if(chartMap[name]) setTimeout(chartMap[name], 120);
+  if(name==='gis') setTimeout(initSchGisMap, 150);
+}
+
+function setSchRole(role, btn) {
+  document.querySelectorAll('#page-schemes .filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const labels = {
+    state: 'State Level View — All Divisions',
+    circle: 'Circle Level View — CCF Dashboard',
+    division: 'Division Level View — DFO Dashboard',
+    range: 'Range Level View — Range Officer Dashboard'
+  };
+  const el = document.getElementById('sch-role-label');
+  if(el) el.textContent = labels[role] || '';
+  showToast('Dashboard switched to: ' + btn.textContent);
+  setTimeout(initSchDashCharts, 100);
+}
+
+function switchSchActTab(name, btn) {
+  document.querySelectorAll('.sch-act-tab').forEach(t => t.style.display='none');
+  const t = document.getElementById('scha-'+name);
+  if(t) t.style.display = 'block';
+  if(btn) {
+    btn.closest('.tab-row').querySelectorAll('.tab').forEach(b => b.classList.remove('act'));
+    btn.classList.add('act');
+  }
+}
+
+// ══ SCHEMES CHARTS ══
+function initSchDashCharts() {
+  mkChart('sch-utilChart','doughnut',{
+    labels:['Central (GoI)','State Schemes','CAMPA','MGNREGS','External Aid'],
+    datasets:[{data:[38,22,14,22,4],backgroundColor:['#4aad5a','#c9a227','#a8d5e2','#e89a3c','#8bc88f'],borderWidth:0}]
+  });
+  const months=['Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec','Jan','Feb','Mar'];
+  mkChart('sch-releaseChart','line',{
+    labels:months,
+    datasets:[
+      {label:'Released (₹Cr)',data:[18,24,32,42,38,28,22,18,24,32,42,38],borderColor:'#c9a227',backgroundColor:'rgba(201,162,39,.08)',fill:true,tension:.4},
+      {label:'Expended (₹Cr)',data:[12,18,24,32,28,22,18,14,20,28,36,34],borderColor:'#4aad5a',backgroundColor:'rgba(74,173,90,.08)',fill:true,tension:.4}
+    ]
+  });
+  mkChart('sch-physChart','bar',{
+    labels:['GIM','NAP','CAMPA','Harela','MJMD','IFD','MGNREGS','FVD'],
+    datasets:[
+      {label:'Target',data:[100,100,100,100,100,100,100,100],backgroundColor:'rgba(201,162,39,.3)'},
+      {label:'Achieved',data:[70,88,20,95,45,71,81,40],backgroundColor:'rgba(74,173,90,.72)'}
+    ]
+  });
+  mkChart('sch-divUtilChart','bar',{
+    labels:['Dehradun','Haridwar','Nainital','Almora','Chamoli','Uttarkashi','Pithoragarh','Tehri','Pauri','Others'],
+    datasets:[{label:'Fund Utilization %',data:[74,81,68,84,34,78,62,72,58,65],backgroundColor:function(ctx){
+      const v=ctx.raw; return v>=75?'rgba(74,173,90,.75)':v>=55?'rgba(232,154,60,.7)':'rgba(224,92,92,.7)';
+    },borderWidth:0}]
+  });
+}
+
+function initSchProgressCharts() {
+  mkChart('sch-physFinChart','bar',{
+    labels:['GIM','NAP','CAMPA','Harela Mahotsav','Mera Jungle','IFD','MGNREGS','Forest Village Dev.'],
+    datasets:[
+      {label:'Physical Progress %',data:[70,88,20,95,45,71,81,40],backgroundColor:'rgba(74,173,90,.75)'},
+      {label:'Financial Utilization %',data:[62,78,14,95,43,70,81,40],backgroundColor:'rgba(201,162,39,.65)'}
+    ]
+  });
+}
+
+function initSchGisMap() {
+  const el = document.getElementById('sch-gisMap');
+  if(!el || el._leaflet_id) return;
+  const m = L.map('sch-gisMap').setView([30.0,79.2],7);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap',maxZoom:17}).addTo(m);
+  // Coverage zones
+  const zones=[
+    [29.62,79.67,'Almora — GIM+NAP+CAMPA','#4aad5a',12],
+    [30.6,79.97,'Pithoragarh — GIM+MJMD','#c9a227',9],
+    [30.08,79.24,'Chamoli — CAMPA (Critical)','#e05c5c',10],
+    [30.73,78.44,'Uttarkashi — NAP+GIM','#4aad5a',9],
+    [29.85,78.77,'Pauri — MGNREGS+GIM','#4aad5a',9],
+    [30.32,78.03,'Dehradun — All Schemes','#4aad5a',11],
+    [29.9,79.0,'Haridwar — NAP+MGNREGS','#4aad5a',9],
+    [29.39,79.45,'Nainital — GIM+MGNREGS','#c9a227',9],
+    [30.18,78.47,'Tehri — CAMPA+GIM','#c9a227',8],
+    [30.48,79.07,'Rudraprayag — GIM','#e89a3c',7],
+    [29.85,79.92,'Bageshwar — MJMD','#e89a3c',7]
+  ];
+  zones.forEach(([lat,lng,name,col,r]) => L.circleMarker([lat,lng],{radius:r,color:col,fillColor:col,fillOpacity:.65}).addTo(m).bindPopup('<b>📋 '+name+'</b>'));
+  // Assets
+  [[29.38,79.69,'Asset: Watchtower Binsar'],[30.32,78.03,'Asset: FRC Dehradun'],[29.22,79.5,'Asset: Forest Road Ramnagar']].forEach(([lat,lng,n]) => L.circleMarker([lat,lng],{radius:5,color:'#a8d5e2',fillColor:'#a8d5e2',fillOpacity:.8}).addTo(m).bindPopup(n));
+}
+
 // ══ NTFP TAB SWITCH ══
 function ntfpTab(name, btn) {
   document.querySelectorAll('#page-ntfp .ntfp-tab').forEach(t => t.style.display='none');
@@ -3429,5 +5233,261 @@ document.addEventListener('DOMContentLoaded', function() {
   setTimeout(initCharts, 300);
 });
 </script>
+
+<!-- ══════════════════════════════════
+     SCHEME REGISTRATION MODAL
+══════════════════════════════════ -->
+<div class="modal-ov" id="schemeRegModal">
+  <div class="modal" style="max-width:700px;">
+    <div class="modal-hd">
+      <div class="modal-title">📋 Register New Forestry Scheme / Programme</div>
+      <button class="modal-x" onclick="closeModal('schemeRegModal')">✕</button>
+    </div>
+    <div class="modal-body" style="padding:1.2rem 1.8rem;">
+      <!-- Step indicator -->
+      <div style="display:flex;align-items:center;gap:0;margin-bottom:1.5rem;">
+        <div class="sch-step active" id="step-ind-1" style="display:flex;align-items:center;gap:.4rem;font-size:.7rem;font-weight:600;color:var(--cn);padding:.3rem .8rem;background:rgba(74,173,90,.15);border:1px solid rgba(74,173,90,.35);border-radius:4px;">① Scheme Details</div>
+        <div style="flex:1;height:1px;background:rgba(90,200,110,.2);"></div>
+        <div class="sch-step" id="step-ind-2" style="display:flex;align-items:center;gap:.4rem;font-size:.7rem;font-weight:600;color:var(--ms);padding:.3rem .8rem;border:1px solid rgba(90,200,110,.15);border-radius:4px;">② Financial Details</div>
+        <div style="flex:1;height:1px;background:rgba(90,200,110,.2);"></div>
+        <div class="sch-step" id="step-ind-3" style="display:flex;align-items:center;gap:.4rem;font-size:.7rem;font-weight:600;color:var(--ms);padding:.3rem .8rem;border:1px solid rgba(90,200,110,.15);border-radius:4px;">③ Divisions & Targets</div>
+        <div style="flex:1;height:1px;background:rgba(90,200,110,.2);"></div>
+        <div class="sch-step" id="step-ind-4" style="display:flex;align-items:center;gap:.4rem;font-size:.7rem;font-weight:600;color:var(--ms);padding:.3rem .8rem;border:1px solid rgba(90,200,110,.15);border-radius:4px;">④ Submit</div>
+      </div>
+
+      <!-- STEP 1: Scheme Details -->
+      <div id="sch-step1" class="sch-reg-step">
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">Scheme Name *</label>
+            <input class="form-input" id="sr-name" placeholder="Full official scheme name">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Scheme Type *</label>
+            <select class="form-input" id="sr-type">
+              <option value="">Select Type</option>
+              <option>Central (GoI)</option>
+              <option>Centrally Sponsored Scheme (CSS)</option>
+              <option>State Scheme (GoUK)</option>
+              <option>CAMPA</option>
+              <option>External Aid / EAP</option>
+              <option>MGNREGS Convergence</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Nodal Ministry / Department *</label>
+            <select class="form-input" id="sr-ministry">
+              <option value="">Select</option>
+              <option>MoEFCC (GoI)</option>
+              <option>DoF Uttarakhand</option>
+              <option>PCCF HQ</option>
+              <option>NAEB</option>
+              <option>MoRD (MGNREGS)</option>
+              <option>DoRD UK</option>
+              <option>World Bank / JICA</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Implementing Agency *</label>
+            <select class="form-input" id="sr-agency">
+              <option value="">Select</option>
+              <option>Uttarakhand Forest Department</option>
+              <option>CAMPA State Authority</option>
+              <option>Van Panchayats</option>
+              <option>JFM Committees</option>
+              <option>District Forest Divisions</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Scheme Start Date *</label>
+            <input class="form-input" id="sr-start" type="date">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Scheme End Date *</label>
+            <input class="form-input" id="sr-end" type="date">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Scheme Category</label>
+            <select class="form-input" id="sr-category">
+              <option>Plantation / Afforestation</option>
+              <option>Wildlife Conservation</option>
+              <option>NTFP & Livelihoods</option>
+              <option>Forest Infrastructure</option>
+              <option>Eco-Restoration / SMC</option>
+              <option>Capacity Building</option>
+              <option>Van Panchayat Support</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Scheme Status</label>
+            <select class="form-input" id="sr-status">
+              <option>Proposed</option>
+              <option>Active</option>
+              <option>Under Approval</option>
+            </select>
+          </div>
+          <div class="form-group" style="grid-column:span 2;">
+            <label class="form-label">Scheme Objectives *</label>
+            <textarea class="form-input" id="sr-objectives" rows="3" placeholder="State the key objectives and expected outcomes of the scheme..." style="resize:vertical;"></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Sanctioning Authority</label>
+            <input class="form-input" id="sr-authority" placeholder="e.g. Government of India / GoUK Cabinet">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Sanction Order No.</label>
+            <input class="form-input" id="sr-order" placeholder="e.g. MoEFCC/2025/F.No.XXX">
+          </div>
+        </div>
+        <div style="display:flex;justify-content:flex-end;margin-top:1.2rem;">
+          <button class="btn btn-primary btn-sm" onclick="schRegNext(1)">Next: Financial Details →</button>
+        </div>
+      </div>
+
+      <!-- STEP 2: Financial Details -->
+      <div id="sch-step2" class="sch-reg-step" style="display:none;">
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">Total Outlay (₹ Crore) *</label>
+            <input class="form-input" id="sr-outlay" type="number" step="0.01" placeholder="e.g. 84.20" oninput="calcSchFinance()">
+          </div>
+          <div class="form-group">
+            <label class="form-label">GoI Share (₹ Crore)</label>
+            <input class="form-input" id="sr-goi" type="number" step="0.01" placeholder="0.00" oninput="calcSchFinance()">
+          </div>
+          <div class="form-group">
+            <label class="form-label">State Share (₹ Crore)</label>
+            <input class="form-input" id="sr-state" type="number" step="0.01" placeholder="0.00" oninput="calcSchFinance()">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Beneficiary / Other Share (₹ Crore)</label>
+            <input class="form-input" id="sr-bene" type="number" step="0.01" placeholder="0.00" oninput="calcSchFinance()">
+          </div>
+          <div class="form-group">
+            <label class="form-label">First Instalment (₹ Crore)</label>
+            <input class="form-input" id="sr-inst1" type="number" step="0.01" placeholder="0.00">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Fund Release Frequency</label>
+            <select class="form-input" id="sr-freq">
+              <option>Annual (one instalment)</option>
+              <option>Half-Yearly (2 instalments)</option>
+              <option>Quarterly (4 instalments)</option>
+              <option>Milestone-based</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Account Head / DH Code</label>
+            <input class="form-input" id="sr-dh" placeholder="e.g. 2406-01-101-0101">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Utilization Certificate (UC) Due</label>
+            <select class="form-input" id="sr-ucfreq">
+              <option>Quarterly</option>
+              <option>Half-Yearly</option>
+              <option>Annual</option>
+              <option>On completion</option>
+            </select>
+          </div>
+        </div>
+        <!-- Auto finance summary -->
+        <div id="sr-finance-summary" style="background:rgba(45,122,58,.12);border:1px solid rgba(90,200,110,.2);border-radius:6px;padding:.8rem 1rem;margin-top:.8rem;display:none;">
+          <div style="font-size:.72rem;font-weight:600;color:var(--cn);margin-bottom:.4rem;">💰 Financial Summary</div>
+          <div style="display:flex;gap:2rem;font-size:.7rem;color:var(--ms);">
+            <span>Total Outlay: <strong id="sr-sum-outlay" style="color:var(--gd)">—</strong></span>
+            <span>GoI: <strong id="sr-sum-goi" style="color:var(--cn)">—</strong></span>
+            <span>State: <strong id="sr-sum-state" style="color:var(--cn)">—</strong></span>
+            <span>Sharing Ratio: <strong id="sr-sum-ratio" style="color:var(--am)">—</strong></span>
+          </div>
+        </div>
+        <div style="display:flex;justify-content:space-between;margin-top:1.2rem;">
+          <button class="btn btn-outline btn-sm" onclick="schRegPrev(2)">← Back</button>
+          <button class="btn btn-primary btn-sm" onclick="schRegNext(2)">Next: Divisions & Targets →</button>
+        </div>
+      </div>
+
+      <!-- STEP 3: Divisions & Targets -->
+      <div id="sch-step3" class="sch-reg-step" style="display:none;">
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">Coverage Level</label>
+            <select class="form-input" id="sr-coverage" onchange="updateCoverageHint(this.value)">
+              <option>All Divisions (State-wide)</option>
+              <option>Selected Divisions</option>
+              <option>Single Division</option>
+              <option>Circle Level</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Physical Target Unit</label>
+            <select class="form-input" id="sr-unit">
+              <option>Hectares (Ha)</option>
+              <option>Number of Saplings</option>
+              <option>Person-days</option>
+              <option>Number of Units</option>
+              <option>Kilometres (km)</option>
+              <option>Number of Beneficiaries</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Total Physical Target *</label>
+            <input class="form-input" id="sr-target" type="number" placeholder="e.g. 5000">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Expected Beneficiaries</label>
+            <input class="form-input" id="sr-benes" type="number" placeholder="Number of beneficiary households">
+          </div>
+        </div>
+
+        <!-- Division allocation table -->
+        <div id="sr-div-alloc" style="margin-top:1rem;">
+          <div style="font-size:.75rem;font-weight:600;color:var(--cr);margin-bottom:.6rem;">Division-wise Allocation (₹ Crore & Physical Target)</div>
+          <div style="overflow-x:auto;">
+            <table class="data-table" id="sr-div-table">
+              <thead><tr><th>Division</th><th>Financial Allocation (₹Cr)</th><th>Physical Target</th><th>Nodal DFO</th><th>Remove</th></tr></thead>
+              <tbody id="sr-div-tbody">
+                <tr>
+                  <td><select class="form-input" style="padding:.3rem .5rem;font-size:.7rem;"><option>Dehradun</option><option>Haridwar</option><option>Nainital</option><option>Almora</option><option>Chamoli</option><option>Uttarkashi</option><option>Pithoragarh</option><option>Tehri</option><option>Pauri Garhwal</option><option>Bageshwar</option><option>Rudraprayag</option><option>US Nagar</option><option>Champawat</option></select></td>
+                  <td><input class="form-input" type="number" step="0.01" placeholder="0.00" style="padding:.3rem .5rem;font-size:.7rem;"></td>
+                  <td><input class="form-input" type="number" placeholder="0" style="padding:.3rem .5rem;font-size:.7rem;"></td>
+                  <td><input class="form-input" placeholder="DFO name" style="padding:.3rem .5rem;font-size:.7rem;"></td>
+                  <td><button onclick="this.closest('tr').remove();return false;" style="background:none;border:none;color:var(--rd);cursor:pointer;font-size:1rem;">✕</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <button class="btn btn-outline btn-sm" style="margin-top:.6rem;" onclick="addDivisionRow()">+ Add Division</button>
+        </div>
+
+        <div style="display:flex;justify-content:space-between;margin-top:1.2rem;">
+          <button class="btn btn-outline btn-sm" onclick="schRegPrev(3)">← Back</button>
+          <button class="btn btn-primary btn-sm" onclick="schRegNext(3)">Next: Review & Submit →</button>
+        </div>
+      </div>
+
+      <!-- STEP 4: Review & Submit -->
+      <div id="sch-step4" class="sch-reg-step" style="display:none;">
+        <div class="info-card" style="border-color:rgba(201,162,39,.3);background:rgba(201,162,39,.04);margin-bottom:1rem;">
+          <div class="ic-title" style="color:var(--gd);">📋 Review Before Registration</div>
+          <div id="sr-review-content" style="font-size:.76rem;color:var(--ms);line-height:1.8;margin-top:.5rem;">
+            <!-- Filled by JS -->
+          </div>
+        </div>
+        <div style="background:rgba(45,122,58,.15);border:1px solid rgba(90,200,110,.25);border-radius:6px;padding:1rem;margin-bottom:1rem;">
+          <div style="font-size:.72rem;color:var(--cn);font-weight:600;margin-bottom:.3rem;">Auto-generated Scheme ID</div>
+          <div style="font-family:monospace;font-size:1.3rem;color:var(--gd);" id="sr-preview-id">SCH/NEW/2026</div>
+          <div style="font-size:.65rem;color:var(--ms);margin-top:.2rem;">On submission: workflow will be triggered for PCCF approval, DFOs will be notified, and MIS dashboard will update.</div>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem;">
+          <button class="btn btn-outline btn-sm" onclick="schRegPrev(4)">← Back</button>
+          <div style="display:flex;gap:.5rem;">
+            <button class="btn btn-outline btn-sm" onclick="saveSchemeDraft()">💾 Save as Draft</button>
+            <button class="btn btn-primary" onclick="submitSchemeReg()">🚀 Register Scheme</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 </body>
 </html>
