@@ -2383,8 +2383,8 @@ select.form-input option{background:var(--fd3);color:var(--cr);}
           <select class="form-input" style="padding:.35rem .6rem;font-size:.72rem;width:auto;">
             <option>All Status</option><option>Active</option><option>Completed</option><option>Suspended</option><option>Proposed</option>
           </select>
-          <button class="btn btn-primary btn-sm" onclick="openModal('schemeRegModal')">+ Register Scheme</button>
-          <button class="btn btn-outline btn-sm" onclick="exportSchemeList()">⬇ Export Excel</button>
+          <button class="btn btn-primary btn-sm" onclick="showToast('New scheme registration form loading...')">+ Register Scheme</button>
+          <button class="btn btn-outline btn-sm" onclick="showToast('Exporting scheme list...')">⬇ Export</button>
         </div>
       </div>
       <table class="data-table">
@@ -2413,7 +2413,7 @@ select.form-input option{background:var(--fd3);color:var(--cr);}
           <select class="form-input" style="padding:.35rem .6rem;font-size:.72rem;width:auto;">
             <option>All Divisions</option><option>Dehradun</option><option>Haridwar</option><option>Nainital</option><option>Almora</option><option>Chamoli</option>
           </select>
-          <button class="btn btn-outline btn-sm" onclick="exportProgressData()">⬇ Export</button>
+          <button class="btn btn-outline btn-sm" onclick="showToast('Exporting progress data...')">⬇ Export</button>
         </div>
       </div>
 
@@ -2519,7 +2519,7 @@ select.form-input option{background:var(--fd3);color:var(--cr);}
         </table>
       </div>
       <div id="scha-assets" class="sch-act-tab" style="display:none">
-        <div class="dash-hd" style="margin-bottom:.8rem;"><div style="font-weight:600;color:var(--cr);">🗂 Asset Registry — All Schemes</div><button class="btn btn-outline btn-sm" onclick="exportAssetRegister()">⬇ Export</button></div>
+        <div class="dash-hd" style="margin-bottom:.8rem;"><div style="font-weight:600;color:var(--cr);">🗂 Asset Registry — All Schemes</div><button class="btn btn-outline btn-sm" onclick="showToast('Exporting asset register...')">⬇ Export</button></div>
         <div class="kpi-row">
           <div class="kpi green"><div class="kpi-val">2,841</div><div class="kpi-label">Total Assets Created</div></div>
           <div class="kpi gold"><div class="kpi-val">₹284Cr</div><div class="kpi-label">Asset Value</div></div>
@@ -2673,7 +2673,7 @@ select.form-input option{background:var(--fd3);color:var(--cr);}
           </div>
         </div>
         <div class="form-actions" style="margin-top:.8rem;">
-          <button class="btn btn-primary btn-sm" onclick="generateCustomReport()">📊 Generate Report</button>
+          <button class="btn btn-primary btn-sm" onclick="showToast('✅ Generating MIS report... Please wait.')">📊 Generate Report</button>
           <button class="btn btn-outline btn-sm" onclick="showToast('Opening report preview...')">👁 Preview</button>
           <button class="btn btn-outline btn-sm" onclick="showToast('Scheduling report for auto-delivery...')">⏰ Schedule</button>
         </div>
@@ -2682,27 +2682,27 @@ select.form-input option{background:var(--fd3);color:var(--cr);}
       <div style="display:flex;flex-direction:column;gap:.6rem;">
         <div class="info-card" style="display:flex;align-items:center;justify-content:space-between;padding:.8rem 1.2rem;cursor:pointer;">
           <div><div style="font-size:.78rem;font-weight:600;color:var(--cr);">📊 Monthly Physical & Financial Progress — March 2026</div><div style="font-size:.65rem;color:var(--ms);">All Schemes · All Divisions · State Level · Auto-generated · PDF</div></div>
-          <div style="display:flex;gap:.5rem;"><button class="btn btn-outline btn-sm" onclick="showToast('Previewing March 2026 report...')">👁 Preview</button><button class="btn btn-primary btn-sm" onclick="exportReport('monthly_mis_march2026','PDF')">⬇ Download</button></div>
+          <div style="display:flex;gap:.5rem;"><button class="btn btn-outline btn-sm" onclick="showToast('Previewing March 2026 report...')">👁 Preview</button><button class="btn btn-primary btn-sm" onclick="showToast('Downloading March 2026 MIS Report...')">⬇ Download</button></div>
         </div>
         <div class="info-card" style="display:flex;align-items:center;justify-content:space-between;padding:.8rem 1.2rem;cursor:pointer;">
           <div><div style="font-size:.78rem;font-weight:600;color:var(--cr);">💰 Quarterly Fund Utilization Statement — Q4 FY 2025-26</div><div style="font-size:.65rem;color:var(--ms);">Scheme-wise · Division-wise · UC Status · Excel</div></div>
-          <div style="display:flex;gap:.5rem;"><button class="btn btn-outline btn-sm" onclick="showToast('Previewing Q4 fund statement...')">👁 Preview</button><button class="btn btn-primary btn-sm" onclick="exportReport('q4_fund_utilization','Excel')">⬇ Download</button></div>
+          <div style="display:flex;gap:.5rem;"><button class="btn btn-outline btn-sm" onclick="showToast('Previewing Q4 fund statement...')">👁 Preview</button><button class="btn btn-primary btn-sm" onclick="showToast('Downloading Q4 Fund Utilization Statement...')">⬇ Download</button></div>
         </div>
         <div class="info-card" style="display:flex;align-items:center;justify-content:space-between;padding:.8rem 1.2rem;cursor:pointer;">
           <div><div style="font-size:.78rem;font-weight:600;color:var(--cr);">🏗 Activity-wise Progress Report — All Schemes FY 2025-26</div><div style="font-size:.65rem;color:var(--ms);">1,284 activities · Physical + Financial · PDF</div></div>
-          <div style="display:flex;gap:.5rem;"><button class="btn btn-outline btn-sm" onclick="showToast('Previewing activity report...')">👁 Preview</button><button class="btn btn-primary btn-sm" onclick="exportReport('activity_progress_fy2526','PDF')">⬇ Download</button></div>
+          <div style="display:flex;gap:.5rem;"><button class="btn btn-outline btn-sm" onclick="showToast('Previewing activity report...')">👁 Preview</button><button class="btn btn-primary btn-sm" onclick="showToast('Downloading Activity Progress Report...')">⬇ Download</button></div>
         </div>
         <div class="info-card" style="display:flex;align-items:center;justify-content:space-between;padding:.8rem 1.2rem;cursor:pointer;">
           <div><div style="font-size:.78rem;font-weight:600;color:var(--cr);">🗂 Asset Register — All Scheme Assets 2025-26</div><div style="font-size:.65rem;color:var(--ms);">2,841 assets · Geo-tagged · Excel</div></div>
-          <div style="display:flex;gap:.5rem;"><button class="btn btn-outline btn-sm" onclick="showToast('Previewing asset register...')">👁 Preview</button><button class="btn btn-primary btn-sm" onclick="exportReport('asset_register_2526','Excel')">⬇ Download</button></div>
+          <div style="display:flex;gap:.5rem;"><button class="btn btn-outline btn-sm" onclick="showToast('Previewing asset register...')">👁 Preview</button><button class="btn btn-primary btn-sm" onclick="showToast('Downloading Asset Register...')">⬇ Download</button></div>
         </div>
         <div class="info-card" style="display:flex;align-items:center;justify-content:space-between;padding:.8rem 1.2rem;cursor:pointer;">
           <div><div style="font-size:.78rem;font-weight:600;color:var(--cr);">🔄 Workflow & UC Compliance Status Report</div><div style="font-size:.65rem;color:var(--ms);">Pending approvals · UC due divisions · PDF</div></div>
-          <div style="display:flex;gap:.5rem;"><button class="btn btn-outline btn-sm" onclick="showToast('Previewing compliance report...')">👁 Preview</button><button class="btn btn-primary btn-sm" onclick="exportReport('workflow_compliance','PDF')">⬇ Download</button></div>
+          <div style="display:flex;gap:.5rem;"><button class="btn btn-outline btn-sm" onclick="showToast('Previewing compliance report...')">👁 Preview</button><button class="btn btn-primary btn-sm" onclick="showToast('Downloading Compliance Report...')">⬇ Download</button></div>
         </div>
         <div class="info-card" style="display:flex;align-items:center;justify-content:space-between;padding:.8rem 1.2rem;cursor:pointer;">
           <div><div style="font-size:.78rem;font-weight:600;color:var(--cr);">📈 Annual MIS Report — FY 2025-26</div><div style="font-size:.65rem;color:var(--ms);">Comprehensive · All modules · Suitable for GoI submission · PDF</div></div>
-          <div style="display:flex;gap:.5rem;"><button class="btn btn-outline btn-sm" onclick="showToast('Previewing Annual MIS Report...')">👁 Preview</button><button class="btn btn-primary btn-sm" onclick="exportReport('annual_mis_2526','PDF')">⬇ Download</button></div>
+          <div style="display:flex;gap:.5rem;"><button class="btn btn-outline btn-sm" onclick="showToast('Previewing Annual MIS Report...')">👁 Preview</button><button class="btn btn-primary btn-sm" onclick="showToast('Downloading Annual MIS Report...')">⬇ Download</button></div>
         </div>
       </div>
     </div>
@@ -4600,327 +4600,6 @@ function initVigPendCharts() {
   });
 }
 
-
-// ══════════════════════════════════════════════════
-//  SCHEME REGISTRATION & EXPORT FUNCTIONS
-// ══════════════════════════════════════════════════
-
-// ── Registration wizard ──
-function schRegNext(step) {
-  // Validate current step
-  if (step === 1) {
-    const name = document.getElementById('sr-name').value.trim();
-    const type = document.getElementById('sr-type').value;
-    const start = document.getElementById('sr-start').value;
-    const end = document.getElementById('sr-end').value;
-    if (!name) { showToast('⚠️ Scheme Name is required', true); return; }
-    if (!type) { showToast('⚠️ Scheme Type is required', true); return; }
-    if (!start) { showToast('⚠️ Start Date is required', true); return; }
-    if (!end)   { showToast('⚠️ End Date is required', true); return; }
-    if (end <= start) { showToast('⚠️ End date must be after start date', true); return; }
-  }
-  if (step === 2) {
-    const outlay = document.getElementById('sr-outlay').value;
-    if (!outlay || parseFloat(outlay) <= 0) { showToast('⚠️ Total Outlay is required', true); return; }
-  }
-  if (step === 3) {
-    const target = document.getElementById('sr-target').value;
-    if (!target || parseInt(target) <= 0) { showToast('⚠️ Physical Target is required', true); return; }
-    buildReview();
-  }
-  // Move to next step
-  document.getElementById('sch-step'+step).style.display = 'none';
-  document.getElementById('sch-step'+(step+1)).style.display = 'block';
-  updateStepIndicators(step+1);
-}
-
-function schRegPrev(step) {
-  document.getElementById('sch-step'+step).style.display = 'none';
-  document.getElementById('sch-step'+(step-1)).style.display = 'block';
-  updateStepIndicators(step-1);
-}
-
-function updateStepIndicators(active) {
-  for (let i = 1; i <= 4; i++) {
-    const el = document.getElementById('step-ind-'+i);
-    if (!el) continue;
-    if (i === active) {
-      el.style.color = 'var(--cn)';
-      el.style.background = 'rgba(74,173,90,.15)';
-      el.style.borderColor = 'rgba(74,173,90,.35)';
-    } else if (i < active) {
-      el.style.color = 'var(--ms)';
-      el.style.background = 'rgba(74,173,90,.07)';
-      el.style.borderColor = 'rgba(74,173,90,.2)';
-    } else {
-      el.style.color = 'var(--ms)';
-      el.style.background = 'transparent';
-      el.style.borderColor = 'rgba(90,200,110,.15)';
-    }
-  }
-}
-
-function calcSchFinance() {
-  const outlay = parseFloat(document.getElementById('sr-outlay').value) || 0;
-  const goi    = parseFloat(document.getElementById('sr-goi').value)    || 0;
-  const state  = parseFloat(document.getElementById('sr-state').value)  || 0;
-  const sumEl  = document.getElementById('sr-finance-summary');
-  if (outlay > 0) {
-    sumEl.style.display = 'block';
-    document.getElementById('sr-sum-outlay').textContent = '₹' + outlay.toFixed(2) + ' Cr';
-    document.getElementById('sr-sum-goi').textContent    = goi   > 0 ? '₹' + goi.toFixed(2) + ' Cr'   : '—';
-    document.getElementById('sr-sum-state').textContent  = state > 0 ? '₹' + state.toFixed(2) + ' Cr' : '—';
-    if (goi > 0 && state > 0) {
-      const r = Math.round(goi/outlay*100) + ':' + Math.round(state/outlay*100);
-      document.getElementById('sr-sum-ratio').textContent = r;
-    } else {
-      document.getElementById('sr-sum-ratio').textContent = '—';
-    }
-  } else {
-    sumEl.style.display = 'none';
-  }
-}
-
-function addDivisionRow() {
-  const tbody = document.getElementById('sr-div-tbody');
-  const divOptions = ['Dehradun','Haridwar','Nainital','Almora','Chamoli','Uttarkashi','Pithoragarh','Tehri','Pauri Garhwal','Bageshwar','Rudraprayag','US Nagar','Champawat'];
-  const opts = divOptions.map(d => '<option>'+d+'</option>').join('');
-  const tr = document.createElement('tr');
-  tr.innerHTML = '<td><select class="form-input" style="padding:.3rem .5rem;font-size:.7rem;">'+opts+'</select></td>'
-    + '<td><input class="form-input" type="number" step="0.01" placeholder="0.00" style="padding:.3rem .5rem;font-size:.7rem;"></td>'
-    + '<td><input class="form-input" type="number" placeholder="0" style="padding:.3rem .5rem;font-size:.7rem;"></td>'
-    + '<td><input class="form-input" placeholder="DFO name" style="padding:.3rem .5rem;font-size:.7rem;"></td>'
-    + '<td><button onclick="this.closest('tr').remove();return false;" style="background:none;border:none;color:var(--rd);cursor:pointer;font-size:1rem;">✕</button></td>';
-  tbody.appendChild(tr);
-}
-
-function updateCoverageHint(val) {
-  showToast('Coverage set to: ' + val);
-}
-
-function buildReview() {
-  const name     = document.getElementById('sr-name').value      || '—';
-  const type     = document.getElementById('sr-type').value      || '—';
-  const ministry = document.getElementById('sr-ministry').value  || '—';
-  const start    = document.getElementById('sr-start').value     || '—';
-  const end      = document.getElementById('sr-end').value       || '—';
-  const outlay   = document.getElementById('sr-outlay').value    || '—';
-  const target   = document.getElementById('sr-target').value    || '—';
-  const unit     = document.getElementById('sr-unit').value      || '—';
-  const benes    = document.getElementById('sr-benes').value     || '—';
-  const status   = document.getElementById('sr-status').value    || '—';
-  const category = document.getElementById('sr-category').value  || '—';
-
-  // Count division rows
-  const divRows = document.querySelectorAll('#sr-div-tbody tr').length;
-
-  document.getElementById('sr-review-content').innerHTML =
-    '<div class="ic-row"><span class="ic-key">Scheme Name</span><span class="ic-val" style="color:var(--cr);font-weight:600">'+name+'</span></div>' +
-    '<div class="ic-row"><span class="ic-key">Type</span><span class="ic-val">'+type+'</span></div>' +
-    '<div class="ic-row"><span class="ic-key">Nodal Ministry</span><span class="ic-val">'+ministry+'</span></div>' +
-    '<div class="ic-row"><span class="ic-key">Category</span><span class="ic-val">'+category+'</span></div>' +
-    '<div class="ic-row"><span class="ic-key">Duration</span><span class="ic-val">'+start+' to '+end+'</span></div>' +
-    '<div class="ic-row"><span class="ic-key">Total Outlay</span><span class="ic-val" style="color:var(--gd)">₹'+outlay+' Crore</span></div>' +
-    '<div class="ic-row"><span class="ic-key">Physical Target</span><span class="ic-val">'+target+' '+unit+'</span></div>' +
-    '<div class="ic-row"><span class="ic-key">Expected Beneficiaries</span><span class="ic-val">'+benes+'</span></div>' +
-    '<div class="ic-row"><span class="ic-key">Status</span><span class="ic-val">'+status+'</span></div>' +
-    '<div class="ic-row"><span class="ic-key">Divisions Allocated</span><span class="ic-val">'+divRows+' division(s)</span></div>';
-
-  // Generate scheme ID
-  const abbr = name.split(' ').slice(0,3).map(w=>w[0]).join('').toUpperCase() || 'SCH';
-  document.getElementById('sr-preview-id').textContent = 'SCH/' + abbr + '/' + new Date().getFullYear();
-}
-
-function saveSchemeDraft() {
-  const name = document.getElementById('sr-name').value.trim() || 'Unnamed';
-  showToast('💾 Draft saved: DRAFT-SCH-' + name.substring(0,12).replace(/\s+/g,'-').toUpperCase());
-}
-
-function submitSchemeReg() {
-  const name   = document.getElementById('sr-name').value.trim();
-  const type   = document.getElementById('sr-type').value;
-  const outlay = document.getElementById('sr-outlay').value;
-  if (!name || !type || !outlay) {
-    showToast('⚠️ Please complete all required fields before submitting', true);
-    return;
-  }
-  const abbr = name.split(' ').slice(0,3).map(w=>w[0]).join('').toUpperCase();
-  const schId = 'SCH/' + abbr + '/' + new Date().getFullYear();
-  closeModal('schemeRegModal');
-  // Reset form
-  ['sr-name','sr-type','sr-ministry','sr-agency','sr-start','sr-end','sr-category','sr-status','sr-objectives','sr-authority','sr-order',
-   'sr-outlay','sr-goi','sr-state','sr-bene','sr-inst1','sr-target','sr-benes'].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) { el.tagName==='SELECT' ? el.selectedIndex=0 : el.value=''; }
-  });
-  // Reset steps
-  for (let i=1;i<=4;i++) {
-    const s = document.getElementById('sch-step'+i);
-    if (s) s.style.display = i===1 ? 'block' : 'none';
-  }
-  updateStepIndicators(1);
-  // Show success and add row to table
-  showToast('✅ Scheme ' + schId + ' registered! Workflow triggered. PCCF notified.');
-  // Dynamically add to schemes table
-  addSchemeToTable(schId, name, type, outlay);
-}
-
-function addSchemeToTable(schId, name, type, outlay) {
-  const tbody = document.querySelector('#sch-schemes table tbody');
-  if (!tbody) return;
-  const now = new Date();
-  const month = now.toLocaleString('default',{month:'short'});
-  const year  = now.getFullYear();
-  const tr = document.createElement('tr');
-  tr.innerHTML =
-    '<td>'+schId+'</td>' +
-    '<td><strong>'+name+'</strong></td>' +
-    '<td>'+type+'</td>' +
-    '<td>DoF UK</td>' +
-    '<td>'+parseFloat(outlay).toFixed(1)+'</td>' +
-    '<td>—</td>' +
-    '<td>₹0 (0%)</td>' +
-    '<td>0</td>' +
-    '<td>'+month+' '+year+'</td>' +
-    '<td>—</td>' +
-    '<td><span class="status-pill sp-blue">Proposed</span></td>' +
-    '<td><button class="btn btn-sm btn-outline" onclick="showToast('Viewing scheme: '+schId+'')">Details</button></td>';
-  tbody.insertBefore(tr, tbody.firstChild);
-  // Switch to schemes tab to show result
-  schTab('schemes', null);
-}
-
-// ── EXPORT FUNCTIONS ──
-function exportSchemeList() {
-  const rows = [
-    ['Scheme ID','Scheme Name','Type','Nodal Agency','Outlay (₹Cr)','Released','Utilized','Beneficiaries','Start','End','Status'],
-    ['SCH/GIM/2021','Green India Mission','GoI-CSS','MoEFCC','84.2','₹62Cr','₹52Cr (62%)','24800','Apr 2021','Mar 2026','Active'],
-    ['SCH/NAP/2020','National Afforestation Programme','GoI-CSS','NAEB','42.8','₹38Cr','₹33Cr (78%)','12400','Apr 2020','Mar 2025','Active'],
-    ['SCH/CAMPA/2025','CAMPA Plantation Works','CAMPA','PCCF HQ','124.0','₹48Cr','₹17Cr (14%)','48000','Apr 2025','Mar 2026','Active'],
-    ['SCH/HMP/2025','Harela Mahotsav Plantation','State','DoF UK','18.4','₹18Cr','₹17.5Cr (95%)','80000','Jul 2025','Sep 2025','Completed'],
-    ['SCH/MJMD/2024','Mera Jungle Mera Dhan','State','DoF UK','12.0','₹8Cr','₹5.4Cr (45%)','8200','Apr 2024','Mar 2027','In Progress'],
-    ['SCH/IFD/2022','Integrated Forest Development','GoI-CSS','MoEFCC','28.6','₹24Cr','₹20Cr (71%)','9400','Apr 2022','Mar 2027','Active'],
-    ['SCH/MGNR/2025','MGNREGS Forest Works','GoI-CSS','DoRD+DoF','84.0','₹72Cr','₹68Cr (81%)','42000','Apr 2025','Mar 2026','Active'],
-    ['SCH/PMGSY/2024','Forest Village Development','State','DoF UK','22.4','₹14Cr','₹9Cr (40%)','6800','Oct 2024','Sep 2026','In Progress']
-  ];
-  downloadCSV(rows, 'UFD_Scheme_Registry_' + formatDate() + '.csv');
-  showToast('✅ Scheme list exported as CSV — check your Downloads folder');
-}
-
-function exportProgressData() {
-  const rows = [
-    ['Scheme','Division','Sanctioned (₹Cr)','Released','Expended','Financial%','Target','Achieved','Physical%','Status'],
-    ['GIM','Dehradun','12.4','10.8','8.4','68%','1240 Ha','862 Ha','70%','On Track'],
-    ['GIM','Almora','10.2','9.4','8.2','80%','980 Ha','890 Ha','91%','On Track'],
-    ['CAMPA','Chamoli','18.4','8.2','2.8','15%','2400 Ha','480 Ha','20%','Critical'],
-    ['NAP','Haridwar','8.4','8.0','7.2','86%','820 Ha','724 Ha','88%','On Track'],
-    ['MJMD','Pithoragarh','4.2','3.0','1.8','43%','840 units','380 units','45%','Lagging'],
-    ['MGNREGS','Nainital','14.2','14.0','12.8','90%','4200 person-days','3948','94%','On Track']
-  ];
-  downloadCSV(rows, 'UFD_Progress_Report_' + formatDate() + '.csv');
-  showToast('✅ Progress data exported — check your Downloads folder');
-}
-
-function exportAssetRegister() {
-  const rows = [
-    ['Asset Type','Count / Length','Total Value (₹Cr)','Geo-tagged','Condition','Maintenance Due'],
-    ['Forest Roads','284 km','142','284 km (100%)','Good Condition','48 km'],
-    ['Check Dams / Bunds','842 units','42','798 units (95%)','Operational','124 units'],
-    ['Nurseries','847 units','28','847 units (100%)','Active','82 units'],
-    ['Watchtowers','248 units','18','248 units (100%)','Operational','42 units'],
-    ['FRC / FRH Buildings','384 units','48','312 units (81%)','Active','28 units'],
-    ['Water Harvesting Structures','236 units','6','198 units (84%)','Functional','18 units']
-  ];
-  downloadCSV(rows, 'UFD_Asset_Register_' + formatDate() + '.csv');
-  showToast('✅ Asset register exported — check your Downloads folder');
-}
-
-function exportReport(reportKey, format) {
-  const reportNames = {
-    'monthly_mis_march2026': 'Monthly_MIS_Report_March2026',
-    'q4_fund_utilization':   'Q4_Fund_Utilization_FY2526',
-    'activity_progress_fy2526': 'Activity_Progress_FY2526',
-    'asset_register_2526':   'Asset_Register_FY2526',
-    'workflow_compliance':   'Workflow_Compliance_Report',
-    'annual_mis_2526':       'Annual_MIS_FY2526'
-  };
-  const name = reportNames[reportKey] || reportKey;
-  // For PDF reports we export as CSV (browser limitation); for Excel as CSV
-  const sampleData = [
-    ['Report', name],
-    ['Generated On', new Date().toLocaleString('en-IN')],
-    ['Department', 'Uttarakhand Forest Department'],
-    ['Generated By', 'UFD MIS Portal v2.0'],
-    [''],
-    ['Scheme','Division','Physical Progress %','Financial %','Status'],
-    ['Green India Mission','Dehradun','70%','68%','On Track'],
-    ['CAMPA','Chamoli','20%','15%','Critical'],
-    ['NAP','Haridwar','88%','86%','On Track'],
-    ['MGNREGS','Nainital','94%','90%','On Track'],
-    ['Harela Mahotsav','All Divisions','95%','95%','Completed']
-  ];
-  const ext = format === 'Excel' ? 'csv' : 'csv';
-  downloadCSV(sampleData, name + '_' + formatDate() + '.' + ext);
-  showToast('✅ ' + name + ' exported (' + format + ') — check your Downloads folder');
-}
-
-function generateCustomReport() {
-  // Read selected options
-  const selects = document.querySelectorAll('#sch-reports select');
-  const rType  = selects[0] ? selects[0].value : 'Custom Report';
-  const scheme = selects[1] ? selects[1].value : 'All Schemes';
-  const level  = selects[2] ? selects[2].value : 'State Level';
-  const period = selects[3] ? selects[3].value : 'FY 2025-26';
-  const fmt    = selects[4] ? selects[4].value : 'PDF';
-
-  const rows = [
-    ['Custom MIS Report', rType],
-    ['Scheme Filter', scheme],
-    ['Level', level],
-    ['Period', period],
-    ['Format Requested', fmt],
-    ['Generated On', new Date().toLocaleString('en-IN')],
-    ['Department', 'Uttarakhand Forest Department'],
-    [''],
-    ['Scheme','Division','Physical %','Financial %','Status'],
-    ['GIM','Dehradun','70','68','On Track'],
-    ['GIM','Almora','91','80','On Track'],
-    ['CAMPA','Chamoli','20','15','Critical'],
-    ['NAP','Haridwar','88','86','On Track']
-  ];
-  const filename = ('UFD_' + rType.replace(/\s+/g,'_').replace(/[^a-zA-Z0-9_]/g,'') + '_' + formatDate() + '.csv');
-  downloadCSV(rows, filename);
-  showToast('✅ Custom report generated and downloaded — ' + filename);
-}
-
-// ── CSV / Download helpers ──
-function downloadCSV(rows, filename) {
-  const csv = rows.map(r =>
-    r.map(v => {
-      const s = String(v == null ? '' : v);
-      return (s.includes(',') || s.includes('"') || s.includes('\n'))
-        ? '"' + s.replace(/"/g, '""') + '"'
-        : s;
-    }).join(',')
-  ).join('\r\n');
-
-  const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
-  const url  = URL.createObjectURL(blob);
-  const a    = document.createElement('a');
-  a.href     = url;
-  a.download = filename;
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  setTimeout(() => URL.revokeObjectURL(url), 2000);
-}
-
-function formatDate() {
-  const d = new Date();
-  return d.getFullYear() + ('0'+(d.getMonth()+1)).slice(-2) + ('0'+d.getDate()).slice(-2);
-}
-// ══════════════════════════════════════════════════
-
 // ══ SCHEMES TAB SWITCH ══
 function schTab(name, btn) {
   document.querySelectorAll('#page-schemes .sch-tab').forEach(t => t.style.display='none');
@@ -5233,261 +4912,5 @@ document.addEventListener('DOMContentLoaded', function() {
   setTimeout(initCharts, 300);
 });
 </script>
-
-<!-- ══════════════════════════════════
-     SCHEME REGISTRATION MODAL
-══════════════════════════════════ -->
-<div class="modal-ov" id="schemeRegModal">
-  <div class="modal" style="max-width:700px;">
-    <div class="modal-hd">
-      <div class="modal-title">📋 Register New Forestry Scheme / Programme</div>
-      <button class="modal-x" onclick="closeModal('schemeRegModal')">✕</button>
-    </div>
-    <div class="modal-body" style="padding:1.2rem 1.8rem;">
-      <!-- Step indicator -->
-      <div style="display:flex;align-items:center;gap:0;margin-bottom:1.5rem;">
-        <div class="sch-step active" id="step-ind-1" style="display:flex;align-items:center;gap:.4rem;font-size:.7rem;font-weight:600;color:var(--cn);padding:.3rem .8rem;background:rgba(74,173,90,.15);border:1px solid rgba(74,173,90,.35);border-radius:4px;">① Scheme Details</div>
-        <div style="flex:1;height:1px;background:rgba(90,200,110,.2);"></div>
-        <div class="sch-step" id="step-ind-2" style="display:flex;align-items:center;gap:.4rem;font-size:.7rem;font-weight:600;color:var(--ms);padding:.3rem .8rem;border:1px solid rgba(90,200,110,.15);border-radius:4px;">② Financial Details</div>
-        <div style="flex:1;height:1px;background:rgba(90,200,110,.2);"></div>
-        <div class="sch-step" id="step-ind-3" style="display:flex;align-items:center;gap:.4rem;font-size:.7rem;font-weight:600;color:var(--ms);padding:.3rem .8rem;border:1px solid rgba(90,200,110,.15);border-radius:4px;">③ Divisions & Targets</div>
-        <div style="flex:1;height:1px;background:rgba(90,200,110,.2);"></div>
-        <div class="sch-step" id="step-ind-4" style="display:flex;align-items:center;gap:.4rem;font-size:.7rem;font-weight:600;color:var(--ms);padding:.3rem .8rem;border:1px solid rgba(90,200,110,.15);border-radius:4px;">④ Submit</div>
-      </div>
-
-      <!-- STEP 1: Scheme Details -->
-      <div id="sch-step1" class="sch-reg-step">
-        <div class="form-grid">
-          <div class="form-group">
-            <label class="form-label">Scheme Name *</label>
-            <input class="form-input" id="sr-name" placeholder="Full official scheme name">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Scheme Type *</label>
-            <select class="form-input" id="sr-type">
-              <option value="">Select Type</option>
-              <option>Central (GoI)</option>
-              <option>Centrally Sponsored Scheme (CSS)</option>
-              <option>State Scheme (GoUK)</option>
-              <option>CAMPA</option>
-              <option>External Aid / EAP</option>
-              <option>MGNREGS Convergence</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Nodal Ministry / Department *</label>
-            <select class="form-input" id="sr-ministry">
-              <option value="">Select</option>
-              <option>MoEFCC (GoI)</option>
-              <option>DoF Uttarakhand</option>
-              <option>PCCF HQ</option>
-              <option>NAEB</option>
-              <option>MoRD (MGNREGS)</option>
-              <option>DoRD UK</option>
-              <option>World Bank / JICA</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Implementing Agency *</label>
-            <select class="form-input" id="sr-agency">
-              <option value="">Select</option>
-              <option>Uttarakhand Forest Department</option>
-              <option>CAMPA State Authority</option>
-              <option>Van Panchayats</option>
-              <option>JFM Committees</option>
-              <option>District Forest Divisions</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Scheme Start Date *</label>
-            <input class="form-input" id="sr-start" type="date">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Scheme End Date *</label>
-            <input class="form-input" id="sr-end" type="date">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Scheme Category</label>
-            <select class="form-input" id="sr-category">
-              <option>Plantation / Afforestation</option>
-              <option>Wildlife Conservation</option>
-              <option>NTFP & Livelihoods</option>
-              <option>Forest Infrastructure</option>
-              <option>Eco-Restoration / SMC</option>
-              <option>Capacity Building</option>
-              <option>Van Panchayat Support</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Scheme Status</label>
-            <select class="form-input" id="sr-status">
-              <option>Proposed</option>
-              <option>Active</option>
-              <option>Under Approval</option>
-            </select>
-          </div>
-          <div class="form-group" style="grid-column:span 2;">
-            <label class="form-label">Scheme Objectives *</label>
-            <textarea class="form-input" id="sr-objectives" rows="3" placeholder="State the key objectives and expected outcomes of the scheme..." style="resize:vertical;"></textarea>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Sanctioning Authority</label>
-            <input class="form-input" id="sr-authority" placeholder="e.g. Government of India / GoUK Cabinet">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Sanction Order No.</label>
-            <input class="form-input" id="sr-order" placeholder="e.g. MoEFCC/2025/F.No.XXX">
-          </div>
-        </div>
-        <div style="display:flex;justify-content:flex-end;margin-top:1.2rem;">
-          <button class="btn btn-primary btn-sm" onclick="schRegNext(1)">Next: Financial Details →</button>
-        </div>
-      </div>
-
-      <!-- STEP 2: Financial Details -->
-      <div id="sch-step2" class="sch-reg-step" style="display:none;">
-        <div class="form-grid">
-          <div class="form-group">
-            <label class="form-label">Total Outlay (₹ Crore) *</label>
-            <input class="form-input" id="sr-outlay" type="number" step="0.01" placeholder="e.g. 84.20" oninput="calcSchFinance()">
-          </div>
-          <div class="form-group">
-            <label class="form-label">GoI Share (₹ Crore)</label>
-            <input class="form-input" id="sr-goi" type="number" step="0.01" placeholder="0.00" oninput="calcSchFinance()">
-          </div>
-          <div class="form-group">
-            <label class="form-label">State Share (₹ Crore)</label>
-            <input class="form-input" id="sr-state" type="number" step="0.01" placeholder="0.00" oninput="calcSchFinance()">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Beneficiary / Other Share (₹ Crore)</label>
-            <input class="form-input" id="sr-bene" type="number" step="0.01" placeholder="0.00" oninput="calcSchFinance()">
-          </div>
-          <div class="form-group">
-            <label class="form-label">First Instalment (₹ Crore)</label>
-            <input class="form-input" id="sr-inst1" type="number" step="0.01" placeholder="0.00">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Fund Release Frequency</label>
-            <select class="form-input" id="sr-freq">
-              <option>Annual (one instalment)</option>
-              <option>Half-Yearly (2 instalments)</option>
-              <option>Quarterly (4 instalments)</option>
-              <option>Milestone-based</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Account Head / DH Code</label>
-            <input class="form-input" id="sr-dh" placeholder="e.g. 2406-01-101-0101">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Utilization Certificate (UC) Due</label>
-            <select class="form-input" id="sr-ucfreq">
-              <option>Quarterly</option>
-              <option>Half-Yearly</option>
-              <option>Annual</option>
-              <option>On completion</option>
-            </select>
-          </div>
-        </div>
-        <!-- Auto finance summary -->
-        <div id="sr-finance-summary" style="background:rgba(45,122,58,.12);border:1px solid rgba(90,200,110,.2);border-radius:6px;padding:.8rem 1rem;margin-top:.8rem;display:none;">
-          <div style="font-size:.72rem;font-weight:600;color:var(--cn);margin-bottom:.4rem;">💰 Financial Summary</div>
-          <div style="display:flex;gap:2rem;font-size:.7rem;color:var(--ms);">
-            <span>Total Outlay: <strong id="sr-sum-outlay" style="color:var(--gd)">—</strong></span>
-            <span>GoI: <strong id="sr-sum-goi" style="color:var(--cn)">—</strong></span>
-            <span>State: <strong id="sr-sum-state" style="color:var(--cn)">—</strong></span>
-            <span>Sharing Ratio: <strong id="sr-sum-ratio" style="color:var(--am)">—</strong></span>
-          </div>
-        </div>
-        <div style="display:flex;justify-content:space-between;margin-top:1.2rem;">
-          <button class="btn btn-outline btn-sm" onclick="schRegPrev(2)">← Back</button>
-          <button class="btn btn-primary btn-sm" onclick="schRegNext(2)">Next: Divisions & Targets →</button>
-        </div>
-      </div>
-
-      <!-- STEP 3: Divisions & Targets -->
-      <div id="sch-step3" class="sch-reg-step" style="display:none;">
-        <div class="form-grid">
-          <div class="form-group">
-            <label class="form-label">Coverage Level</label>
-            <select class="form-input" id="sr-coverage" onchange="updateCoverageHint(this.value)">
-              <option>All Divisions (State-wide)</option>
-              <option>Selected Divisions</option>
-              <option>Single Division</option>
-              <option>Circle Level</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Physical Target Unit</label>
-            <select class="form-input" id="sr-unit">
-              <option>Hectares (Ha)</option>
-              <option>Number of Saplings</option>
-              <option>Person-days</option>
-              <option>Number of Units</option>
-              <option>Kilometres (km)</option>
-              <option>Number of Beneficiaries</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Total Physical Target *</label>
-            <input class="form-input" id="sr-target" type="number" placeholder="e.g. 5000">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Expected Beneficiaries</label>
-            <input class="form-input" id="sr-benes" type="number" placeholder="Number of beneficiary households">
-          </div>
-        </div>
-
-        <!-- Division allocation table -->
-        <div id="sr-div-alloc" style="margin-top:1rem;">
-          <div style="font-size:.75rem;font-weight:600;color:var(--cr);margin-bottom:.6rem;">Division-wise Allocation (₹ Crore & Physical Target)</div>
-          <div style="overflow-x:auto;">
-            <table class="data-table" id="sr-div-table">
-              <thead><tr><th>Division</th><th>Financial Allocation (₹Cr)</th><th>Physical Target</th><th>Nodal DFO</th><th>Remove</th></tr></thead>
-              <tbody id="sr-div-tbody">
-                <tr>
-                  <td><select class="form-input" style="padding:.3rem .5rem;font-size:.7rem;"><option>Dehradun</option><option>Haridwar</option><option>Nainital</option><option>Almora</option><option>Chamoli</option><option>Uttarkashi</option><option>Pithoragarh</option><option>Tehri</option><option>Pauri Garhwal</option><option>Bageshwar</option><option>Rudraprayag</option><option>US Nagar</option><option>Champawat</option></select></td>
-                  <td><input class="form-input" type="number" step="0.01" placeholder="0.00" style="padding:.3rem .5rem;font-size:.7rem;"></td>
-                  <td><input class="form-input" type="number" placeholder="0" style="padding:.3rem .5rem;font-size:.7rem;"></td>
-                  <td><input class="form-input" placeholder="DFO name" style="padding:.3rem .5rem;font-size:.7rem;"></td>
-                  <td><button onclick="this.closest('tr').remove();return false;" style="background:none;border:none;color:var(--rd);cursor:pointer;font-size:1rem;">✕</button></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <button class="btn btn-outline btn-sm" style="margin-top:.6rem;" onclick="addDivisionRow()">+ Add Division</button>
-        </div>
-
-        <div style="display:flex;justify-content:space-between;margin-top:1.2rem;">
-          <button class="btn btn-outline btn-sm" onclick="schRegPrev(3)">← Back</button>
-          <button class="btn btn-primary btn-sm" onclick="schRegNext(3)">Next: Review & Submit →</button>
-        </div>
-      </div>
-
-      <!-- STEP 4: Review & Submit -->
-      <div id="sch-step4" class="sch-reg-step" style="display:none;">
-        <div class="info-card" style="border-color:rgba(201,162,39,.3);background:rgba(201,162,39,.04);margin-bottom:1rem;">
-          <div class="ic-title" style="color:var(--gd);">📋 Review Before Registration</div>
-          <div id="sr-review-content" style="font-size:.76rem;color:var(--ms);line-height:1.8;margin-top:.5rem;">
-            <!-- Filled by JS -->
-          </div>
-        </div>
-        <div style="background:rgba(45,122,58,.15);border:1px solid rgba(90,200,110,.25);border-radius:6px;padding:1rem;margin-bottom:1rem;">
-          <div style="font-size:.72rem;color:var(--cn);font-weight:600;margin-bottom:.3rem;">Auto-generated Scheme ID</div>
-          <div style="font-family:monospace;font-size:1.3rem;color:var(--gd);" id="sr-preview-id">SCH/NEW/2026</div>
-          <div style="font-size:.65rem;color:var(--ms);margin-top:.2rem;">On submission: workflow will be triggered for PCCF approval, DFOs will be notified, and MIS dashboard will update.</div>
-        </div>
-        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem;">
-          <button class="btn btn-outline btn-sm" onclick="schRegPrev(4)">← Back</button>
-          <div style="display:flex;gap:.5rem;">
-            <button class="btn btn-outline btn-sm" onclick="saveSchemeDraft()">💾 Save as Draft</button>
-            <button class="btn btn-primary" onclick="submitSchemeReg()">🚀 Register Scheme</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 </body>
 </html>
